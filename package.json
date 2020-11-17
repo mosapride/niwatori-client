@@ -1,6 +1,13 @@
 {
-  "name": "kuro-yubune",
+  "name": "yubune",
   "version": "0.0.0",
+  "engines": {
+    "node": "12.19.0"
+  },
+  "author": {
+    "name": "mosapride",
+    "url": "https://v-kurore.com"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

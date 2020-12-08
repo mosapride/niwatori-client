@@ -1,0 +1,9 @@
+div.google-img {
+  background: url("/assets/btn_google_signin_dark_normal_web.png");
+  width: 191px;
+  height: 46px;
+  &:hover {
+    background: url("/assets/btn_google_signin_dark_focus_web.png");
+    cursor: pointer;
+  }
+}

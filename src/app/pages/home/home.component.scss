@@ -1,0 +1,39 @@
+section:nth-child(n + 2) {
+  margin-top: 50px;
+}
+
+section:nth-child(even) {
+  text-align: right;
+}
+
+.has-bg-img-monkey {
+  background: url('/assets/home-monkey.jpg') center center;
+  background-size: cover;
+}
+
+.has-bg-img-free {
+  background: url('/assets/home-free.jpg') center center;
+  background-size: cover;
+}
+
+.has-bg-img-money {
+  background: url('/assets/home-no-money.jpg') center center;
+  background-size: cover;
+}
+
+.has-bg-img-coin {
+  background: url('/assets/home-coin.jpg') center center;
+  background-size: cover;
+}
+
+.outline {
+  text-shadow    :
+       3px  3px 8px #000000,
+      -3px  3px 8px #000000,
+       3px -3px 8px #000000,
+      -3px -3px 8px #000000,
+       3px  0px 8px #000000,
+       0px  3px 8px #000000,
+      -3px  0px 8px #000000,
+       0px -3px 8px #000000;
+}

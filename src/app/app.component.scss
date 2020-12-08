@@ -1,0 +1,18 @@
+.navbar-menu {
+  font-weight: 600;
+}
+
+.active {
+  background-color: #242424;
+}
+
+@media screen and (max-width: 1024px), print {
+  .tablet {
+    padding-left :10px;
+    padding-right: 10px;
+  }
+}
+
+.login-profile {
+  font-size: 0.75rem;
+}

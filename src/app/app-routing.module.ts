@@ -43,10 +43,14 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
+  {
+    path: '**',
+    redirectTo : ''
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

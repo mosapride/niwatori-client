@@ -42,16 +42,16 @@
     <div class="navbar-end">
       <div class="navbar-item">
       </div>
-      <div class="navbar-item">
+      <div class="navbar-item" *ngIf="userName !== ''">
         <div class="buttons">
-        <a class="button is-inverted is-outlined"  mat-button color="primary" [matMenuTriggerFor]="menu"><span class="login-profile">ほげほげああああああ<br>アカウント</span></a>
+        <a class="button is-inverted is-outlined profile-button"  mat-button color="primary" [matMenuTriggerFor]="menu"><span class="login-profile">{{userName}}<br>アカウント</span></a>
         <mat-menu #menu="matMenu" xPosition="before">
           <button mat-menu-item>Item 1ちょっとながいあいてむ</button>
-          <button mat-menu-item>ログアウト</button>
+          <button mat-menu-item (click)="logout()">ログアウト</button>
         </mat-menu>
         </div>
       </div>
-      <div class="navbar-item">
+      <div class="navbar-item" *ngIf="userName === ''">
         <div class="buttons">
           <a class="button is-inverted is-outlined" routerLink="login">ログイン</a>
         </div>

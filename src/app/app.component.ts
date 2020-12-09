@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { AppService } from './service/app.service';
 import { RequestClientService } from './service/request-client.service';
+import { UserInfoService } from './service/user-info.service';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +10,24 @@ import { RequestClientService } from './service/request-client.service';
 })
 export class AppComponent implements OnInit {
   navbarActive = false;
-  googleLoginUrl = '';
-  constructor(private readonly appService: AppService, private readonly req: RequestClientService) {
-    this.googleLoginUrl = `${environment.apiUrl}google/login`;
-  }
+  userName = '';
+  constructor(
+    private readonly appService: AppService,
+    private readonly userInfoService: UserInfoService,
+    private readonly requestClientService: RequestClientService,
+  ) {}
   ngOnInit(): void {
-    this.req.login().subscribe(data => {
-      console.log(data);
+    this.requestClientService.profile().subscribe(() => {
+      this.userName = this.userInfoService.getUserInfo().name;
+      console.log(this.userName);
     });
   }
 
   cookieCheck(): void {
     this.appService.cookieCheck();
+  }
+
+  logout(): void {
+    this.requestClientService.logout();
   }
 }

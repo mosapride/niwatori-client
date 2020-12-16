@@ -1,7 +1,21 @@
 <h1 class="mt-5">ログイン</h1>
+<p>配信者向けの登録を行います。ログインにはGoogleアカウントを利用します。</p>
 <p>
-  配信者向けの登録を行います。ログインにはGoogleアカウントを利用します。
+  ログインには<a href="https://developers.google.com/youtube/v3/getting-started?hl=ja" target="_blank" rel="noopener">Youtube Data API</a>
+  使用しております。
 </p>
 
-<div class="google-img" (click)="googleLogin()">
+<div class="google-img m-3" (click)="googleLogin()"></div>
+
+<h2 class="mt-5">Youtube Data APIを使用する理由</h2>
+
+<div class="content">
+  <ul>
+    <li>配信者のなりすまし行為を排除するため</li>
+    <li>チャンネルID、チャンネル名、概要の取得</li>
+    <li>
+      本システムで使用するYoutube Data
+      APIのscope(管理できる範囲)はYoutubeチャンネルに公開されている情報を取得することのみであり、個人情報漏洩のリスクを避けるため
+    </li>
+  </ul>
 </div>

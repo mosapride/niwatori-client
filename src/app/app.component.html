@@ -36,22 +36,21 @@
           <a (click)="navbarActive = false" routerLink="more/privacy" class="navbar-item">プライバシーポリシー</a>
         </div>
       </div>
-      <a class="navbar-item" (click)="navbarActive = false" routerLink="profile" > Profile </a>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
       </div>
-      <div class="navbar-item" *ngIf="userName !== ''">
+      <div class="navbar-item" *ngIf="userInfoService.getUserInfo().youtubeChannelName !== ''">
         <div class="buttons">
-        <a class="button is-inverted is-outlined profile-button"  mat-button color="primary" [matMenuTriggerFor]="menu"><span class="login-profile">{{userName}}<br>アカウント</span></a>
+        <a class="button is-inverted is-outlined profile-button"  mat-button color="primary" [matMenuTriggerFor]="menu"><span class="login-profile">{{userInfoService.getUserInfo().youtubeChannelName}}<br>アカウント＆設定</span></a>
         <mat-menu #menu="matMenu" xPosition="before">
-          <button mat-menu-item>Item 1ちょっとながいあいてむ</button>
-          <button mat-menu-item (click)="logout()">ログアウト</button>
+          <a class="navbar-item" (click)="navbarActive = false" routerLink="profile" > Profile </a>
+          <a class="navbar-item" (click)="logout()">ログアウト </a>
         </mat-menu>
         </div>
       </div>
-      <div class="navbar-item" *ngIf="userName === ''">
+      <div class="navbar-item" *ngIf="userInfoService.getUserInfo().youtubeChannelName === ''">
         <div class="buttons">
           <a class="button is-inverted is-outlined" routerLink="login">ログイン</a>
         </div>
@@ -63,7 +62,7 @@
   <router-outlet></router-outlet>
 </div>
 
-<footer class="footer">
+<footer class="footer mt-6">
   <div class="content has-text-centered">
     <p>
       <strong>YUBUNE</strong> by <a href="https://twitter.com/v_kurore" target="_blank" rel="noopener">Kurore(mosapride)</a>. The source code is licensed
@@ -71,6 +70,3 @@
     </p>
   </div>
 </footer>
-
-
-<button (click)="cookieCheck()">cookie</button>

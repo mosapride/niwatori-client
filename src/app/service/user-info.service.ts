@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 
 export type UserInfo = {
-  name: string;
-  email: string;
+  isLogin: boolean;
+  youtubeChannelName: string;
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserInfoService {
-  userInfo: UserInfo = { name: '', email: '' };
+  userInfo: UserInfo = { isLogin: false, youtubeChannelName: '' };
   constructor() {}
 
-  setUserInfo(name: string, email: string): void {
-    this.userInfo = { name, email };
+  setUserInfo(youtubeChannelName: string): void {
+    console.log('setUserInfo');
+    this.userInfo = { isLogin: true, youtubeChannelName };
   }
 
   getUserInfo(): UserInfo {
     return this.userInfo;
+  }
+
+  isAuth(): boolean {
+    return this.userInfo.isLogin;
   }
 }

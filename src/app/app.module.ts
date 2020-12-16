@@ -13,6 +13,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { TermsComponent } from './pages/more/terms/terms.component';
 import { PrivacyComponent } from './pages/more/privacy/privacy.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ViewComponent } from './pages/profile/view/view.component';
+import { AuthGuardService } from './service/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { MatMenuModule } from '@angular/material/menu';
     LoginComponent,
     TermsComponent,
     PrivacyComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,
@@ -33,8 +37,9 @@ import { MatMenuModule } from '@angular/material/menu';
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatSnackBarModule,
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

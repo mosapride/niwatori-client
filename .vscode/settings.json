@@ -3,10 +3,13 @@
     "Gitter",
     "HIKAKIN",
     "Hiragino",
+    "KPINN",
     "Kaku",
     "Kurore",
     "Meiryo",
     "Parens",
+    "QJJPT",
+    "Tetvlxd",
     "bulma",
     "codelyzer",
     "devkit",
@@ -16,6 +19,7 @@
     "prebuild",
     "yubune"
   ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

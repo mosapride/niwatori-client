@@ -8,12 +8,21 @@ export type User = {
   id: number;
   // 名前
   name: string;
-  // 説明
+  // カタカナでの名前
+  nameKatakana: string;
+  // コラボ相手用の自己紹介
   selfIntroduction: string;
   // youtubeチャンネルID
   // https://www.youtube.com/channel/{{channnelId}} でトップに飛べる。
   // see : https://www.youtube.com/account_advanced
-  channelId: string;
+  // youtube channel id
+  youtubeChannelId: string;
+  // youtube channel name
+  youtubeChannelName: string;
+  // youtube description
+  youtubeDescription: string;
+  // youtube サムネイル
+  youtubeThumbnailsUrl: string;
   // twitter
   twitter: string;
   // discord
@@ -42,6 +51,8 @@ export enum UserRole {
 }
 
 export type ResponseUserInfo = Pick<User, 'name' | 'email'>;
+
+export type RequestUserProfile = Pick<User, 'name' | 'youtubeChannelName' | 'youtubeChannelId' | 'selfIntroduction' | 'twitter'>;
 
 /**
  * ユーザー情報作成DTO
@@ -76,3 +87,13 @@ export type EncryptionAuthJwtHash = {
   updatedAt: string;
   iv?: string;
 };
+
+/**
+ * クライアントの入力可能Profile情報
+ */
+export type RequestProfile = Pick<
+  User,
+  'youtubeChannelId' | 'youtubeThumbnailsUrl' | 'youtubeChannelName' | 'youtubeDescription' | 'name' | 'nameKatakana' | 'twitter' | 'selfIntroduction'
+>;
+
+export type ResponseYoutubeInfo = Pick<User, 'youtubeThumbnailsUrl' | 'youtubeChannelName' | 'youtubeDescription'>;

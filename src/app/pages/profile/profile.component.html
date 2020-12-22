@@ -23,7 +23,15 @@
   </div>
   <div class="field-body has-addons">
     <div class="control has-icons-left has-icons-right">
-      <input class="input" size="30" type="text" disabled #channelId placeholder="UC21WXVxgH1EZ1FrQJJPT4qA" [value]="profile.youtubeChannelId" />
+      <input
+        class="input"
+        size="30"
+        type="text"
+        disabled
+        #channelId
+        placeholder="UC21WXVxgH1EZ1FrQJJPT4qA"
+        [value]="profile.youtubeChannelId"
+      />
       <span class="icon is-small is-left">
         <i class="fab fa-youtube"></i>
       </span>
@@ -31,13 +39,12 @@
     <div class="field has-addons">
       <div class="control">
         <p class="control">
-          <a class="button is-info" (click)="requestYoutubeDataChannelInfo(channelId.value)">Youtube情報を更新する</a>
+          <a class="button is-info is-outlined" (click)="requestYoutubeDataChannelInfo(channelId.value)">Youtube情報を更新する</a>
         </p>
       </div>
     </div>
   </div>
 </div>
-
 
 <!-- チャンネル名 -->
 <div class="field is-horizontal">
@@ -46,7 +53,12 @@
   </div>
   <div class="field-body">
     <div class="field">
-      <div><img class="profile-thumbnails" [src]="profile.youtubeThumbnailsUrl ? profile.youtubeThumbnailsUrl : '/assets/profile/user-solid.svg'"></div>
+      <div>
+        <img
+          class="profile-thumbnails"
+          [src]="profile.youtubeThumbnailsUrl ? profile.youtubeThumbnailsUrl : '/assets/profile/user-solid.svg'"
+        />
+      </div>
       <div class="control has-icons-left">
         <input class="input" type="text" disabled [value]="profile.youtubeChannelName" placeholder="HIKAKIN TV" />
         <span class="icon is-small is-left">
@@ -70,6 +82,8 @@
     </div>
   </div>
 </div>
+
+<hr>
 
 <!-- プロフィール -->
 
@@ -104,7 +118,7 @@
   <div class="field-body">
     <div class="field">
       <div class="control has-icons-left">
-        <input class="input" type="text" [(ngModel)]="profile.nameKatakana"  placeholder="ヒカキン" />
+        <input class="input" type="text" [(ngModel)]="profile.nameKatakana" placeholder="ヒカキン" />
         <span class="icon is-small is-left">
           <i class="fas fa-user"></i>
         </span>
@@ -121,7 +135,7 @@
   <div class="field-body">
     <div class="field">
       <div class="control has-icons-left">
-        <input class="input" type="text" [(ngModel)]="profile.twitter"  placeholder="@hikakin" />
+        <input class="input" type="text" [(ngModel)]="profile.twitter" placeholder="@hikakin" />
         <span class="icon is-small is-left">
           <i class="fab fa-twitter"></i>
         </span>
@@ -130,19 +144,67 @@
   </div>
 </div>
 
-<!-- コラボ相手へのプロフィール -->
+
+<!-- プロフィール -->
 <div class="field is-horizontal">
   <div class="field-label is-normal">
-    <label class="label">アピール情報</label>
+    <label class="label">Profile</label>
   </div>
   <div class="field-body">
     <div class="field">
       <div class="control has-icons-left">
-        ※配信者のみ閲覧可能<br>
-        配信しているジャンル(ゲーム名)や、コラボしたい内容など
-        <textarea class="textarea" placeholder="" [(ngModel)]="profile.selfIntroduction"></textarea>
+        <a class="button is-info is-outlined mb-2" (click)="profile.selfIntroduction = profile.youtubeDescription">Youtubeの概要をコピー</a>
+        <textarea class="textarea" maxlength="1024" placeholder="" [(ngModel)]="profile.selfIntroduction"></textarea>
       </div>
     </div>
   </div>
 </div>
 
+<hr>
+
+<!-- 配信者のみ閲覧可能 -->
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">配信者(登録ユーザー)のみ閲覧可能情報</h1>
+    <p>コラボを円滑に行うための情報になります。</p>
+  </div>
+</section>
+
+<!-- ジャンル -->
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label">コラボジャンル</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="has-icons-left">
+        <ng-container *ngFor="let genre of responseFindGenres">
+          <div class="mt-1">{{ genre.environment }}</div>
+          <div class="buttons">
+            <a class="button is-small is-info is-outlined" *ngFor="let t of genre.items" (click)="t.has = !t.has">
+              <span class="icon is-small">
+                <i class="fas fa-check" *ngIf="t.has"></i>
+              </span>
+              <span>{{ t.name }}</span>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 保存ボタン -->
+
+<hr>
+<div class="field is-horizontal">
+  <div class="field-label is-normal"></div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control">
+        <button class="button is-info" (click)="setProfile()">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

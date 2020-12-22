@@ -25,14 +25,6 @@ export type User = {
   youtubeThumbnailsUrl: string;
   // twitter
   twitter: string;
-  // discord
-  discord: string;
-  // ハッシュ化されたパスワード
-  password: string;
-  // 平文パスワード(デバック用で運用では実装してはいけない)
-  plainPassword: string;
-  // emailアドレス
-  email: string;
   // アクティブフラグ
   role: UserRole;
 } & createDate &
@@ -50,22 +42,6 @@ export enum UserRole {
   IN_ACTIVE = 'inactive',
 }
 
-export type ResponseUserInfo = Pick<User, 'name' | 'email'>;
-
-export type RequestUserProfile = Pick<User, 'name' | 'youtubeChannelName' | 'youtubeChannelId' | 'selfIntroduction' | 'twitter'>;
-
-/**
- * ユーザー情報作成DTO
- */
-export type RequestCreateUser = Pick<User, 'name' | 'password' | 'email'>;
-
-export type RequestCreateUserByGoogle = Pick<User, 'name' | 'email' | 'accessToken'>;
-
-/**
- * レスポンス用ユーザー情報
- */
-export type ResponseUser = Pick<User, 'name' | 'email'>;
-
 /**
  * 情報更新ユーザー情報
  */
@@ -74,26 +50,50 @@ export type RequestUpdateUser = Omit<User, 'id' | 'isActive' | 'createAt' | 'upd
 /**
  * JWT形式。
  */
-export type AuthJwtHash = {
-  email: string;
-  updatedAt: Date;
-};
+export type AuthJwtHash = Pick<User, 'youtubeChannelId'> & { updatedAt: Date };
 
 /**
  * ハッシュ化したデータのJWT形式。
  */
-export type EncryptionAuthJwtHash = {
-  email: string;
-  updatedAt: string;
-  iv?: string;
-};
+export type EncryptionAuthJwtHash = Pick<User, 'youtubeChannelId'> & { updatedAt: string; iv?: string };
 
 /**
  * クライアントの入力可能Profile情報
  */
-export type RequestProfile = Pick<
+export type RequestProfile = Partial<
+  Pick<
+    User,
+    | 'youtubeChannelId'
+    | 'youtubeThumbnailsUrl'
+    | 'youtubeChannelName'
+    | 'youtubeDescription'
+    | 'name'
+    | 'nameKatakana'
+    | 'twitter'
+    | 'selfIntroduction'
+  >
+>;
+
+export type ResponseProfilePick = Pick<
   User,
-  'youtubeChannelId' | 'youtubeThumbnailsUrl' | 'youtubeChannelName' | 'youtubeDescription' | 'name' | 'nameKatakana' | 'twitter' | 'selfIntroduction'
+  | 'youtubeChannelId'
+  | 'youtubeThumbnailsUrl'
+  | 'youtubeChannelName'
+  | 'youtubeDescription'
+  | 'name'
+  | 'nameKatakana'
+  | 'twitter'
+  | 'selfIntroduction'
 >;
 
 export type ResponseYoutubeInfo = Pick<User, 'youtubeThumbnailsUrl' | 'youtubeChannelName' | 'youtubeDescription'>;
+
+export type RequestCreateUserByGoogle = Pick<User, 'youtubeChannelId' | 'youtubeChannelName' | 'accessToken'>;
+
+/**
+ * Youtube Data API OAuth認証からのユーザー作成データ
+ */
+export type RequestCreateUserByYoutubeDataApi = Pick<
+  User,
+  'youtubeChannelId' | 'youtubeChannelName' | 'youtubeDescription' | 'youtubeThumbnailsUrl' | 'accessToken'
+>;

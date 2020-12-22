@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ResponseFindGenre } from 'src/app/dto/genre.dto';
 import { RequestProfile } from 'src/app/dto/user.dto';
+import { HasGenreIds } from 'src/app/dto/user.genre.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
+import { UserInfoService } from 'src/app/service/user-info.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,16 +12,31 @@ import { RequestClientService } from 'src/app/service/request-client.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  profile: RequestProfile = {} as RequestProfile;
+  profile: RequestProfile = {};
+  responseFindGenres: ResponseFindGenre[] = [];
   constructor(
-    private router: ActivatedRoute,
     private readonly requestClientService: RequestClientService,
+    public readonly userInfoService: UserInfoService,
     private matSnackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
-    this.requestClientService.profile().subscribe((user) => {
-      this.profile = user;
+  async ngOnInit(): Promise<void> {
+    await this.requestClientService.profile().subscribe((data) => {
+      this.profile = data;
+    });
+    await this.requestClientService.genre().subscribe((data) => {
+      this.responseFindGenres = data;
+    });
+    this.requestClientService.getHasGenre().subscribe((data) => {
+      this.responseFindGenres.forEach((v) => {
+        v.items.forEach((j) => {
+          if (data.includes(j.id)) {
+            j.has = true;
+          } else {
+            j.has = false;
+          }
+        });
+      });
     });
   }
 
@@ -37,9 +54,33 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  async setProfile(): Promise<void> {
+    await this.requestClientService.patchProfile(this.profile).toPromise().then();
+    const hasGenres: HasGenreIds = [];
+    this.responseFindGenres.forEach((v) =>
+      v.items.forEach((d) => {
+        if (d.has) {
+          hasGenres.push(d.id);
+        }
+      })
+    );
+    await this.requestClientService.patchHasGenre(hasGenres).toPromise().then();
+
+    this.requestClientService.profile().subscribe(
+      (user) => {
+        this.userInfoService.setUserInfo(user.youtubeChannelName);
+      },
+      (error: any) => {
+        console.log('welcome guest user!!');
+      }
+    );
+  }
+
   private openSnackBar(message: string): void {
     this.matSnackBar.open(message, '', {
       duration: 3000,
     });
   }
+
+  toggleHasGenre(id: number): void {}
 }

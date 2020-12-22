@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit {
     this.requestClientService.profile().subscribe(
       (user) => {
         this.userInfoService.setUserInfo(user.youtubeChannelName);
+        this.openSnackBar('保存しました⚡⚡');
       },
       (error: any) => {
         console.log('welcome guest user!!');

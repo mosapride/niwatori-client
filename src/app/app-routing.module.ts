@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './pages/more/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './pages/login/profile/profile.component';
 import { TermsComponent } from './pages/more/terms/terms.component';
 import { PrivacyComponent } from './pages/more/privacy/privacy.component';
 import { AuthGuardService } from './service/auth-guard.service';

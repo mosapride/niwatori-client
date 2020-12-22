@@ -7,14 +7,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/more/about/about.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { SelectGenreComponent } from './pages/profile/select-genre/select-genre.component';
+import { ProfileComponent } from './pages/login/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
 import { TermsComponent } from './pages/more/terms/terms.component';
 import { PrivacyComponent } from './pages/more/privacy/privacy.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ViewComponent } from './pages/profile/view/view.component';
 import { AuthGuardService } from './service/auth-guard.service';
 
 @NgModule({
@@ -23,11 +21,9 @@ import { AuthGuardService } from './service/auth-guard.service';
     HomeComponent,
     AboutComponent,
     ProfileComponent,
-    SelectGenreComponent,
     LoginComponent,
     TermsComponent,
     PrivacyComponent,
-    ViewComponent
   ],
   imports: [
     BrowserModule,

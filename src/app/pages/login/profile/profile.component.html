@@ -83,7 +83,7 @@
   </div>
 </div>
 
-<hr>
+<hr />
 
 <!-- プロフィール -->
 
@@ -144,7 +144,6 @@
   </div>
 </div>
 
-
 <!-- プロフィール -->
 <div class="field is-horizontal">
   <div class="field-label is-normal">
@@ -160,14 +159,14 @@
   </div>
 </div>
 
-<hr>
+<hr />
 
 <!-- 配信者のみ閲覧可能 -->
 
 <section class="section">
   <div class="container">
     <h1 class="title">配信者(登録ユーザー)のみ閲覧可能情報</h1>
-    <p>コラボを円滑に行うための情報になります。</p>
+    <p>コラボを行いたいジャンルを選択してください。</p>
   </div>
 </section>
 
@@ -182,7 +181,7 @@
         <ng-container *ngFor="let genre of responseFindGenres">
           <div class="mt-1">{{ genre.environment }}</div>
           <div class="buttons">
-            <a class="button is-small is-info is-outlined" *ngFor="let t of genre.items" (click)="t.has = !t.has">
+            <a class="button is-small is-outlined" [ngClass]="{ 'is-info': t.has }" *ngFor="let t of genre.items" (click)="t.has = !t.has">
               <span class="icon is-small">
                 <i class="fas fa-check" *ngIf="t.has"></i>
               </span>
@@ -197,7 +196,7 @@
 
 <!-- 保存ボタン -->
 
-<hr>
+<hr />
 <div class="field is-horizontal">
   <div class="field-label is-normal"></div>
   <div class="field-body">

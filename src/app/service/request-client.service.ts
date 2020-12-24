@@ -8,6 +8,11 @@ import { RequestProfile, ResponseYoutubeInfo, User } from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
 import { UserInfoService } from './user-info.service';
 
+/**
+ * `Patch`メソッド用header option.
+ *
+ * bodyに情報を設定して更新を行うためのOption。成功時はtextデータ(ok)を取得する。
+ */
 const headerPatchJsonOption = (): { responseType: 'text'; withCredentials: true; observe: 'body' } => {
   return {
     responseType: 'text',
@@ -16,6 +21,11 @@ const headerPatchJsonOption = (): { responseType: 'text'; withCredentials: true;
   };
 };
 
+/**
+ * `GET`メソッド用header option.
+ *
+ * URL情報よりJSONデータを取得する。
+ */
 const headerGetJsonOption = (): { headers: HttpHeaders; responseType: 'json'; withCredentials: true; observe: 'body' } => {
   const headers = new HttpHeaders();
   headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -27,7 +37,10 @@ const headerGetJsonOption = (): { headers: HttpHeaders; responseType: 'json'; wi
   };
 };
 
-const headerOptionLogout = (): {
+/**
+ * Googleログアウト用header option.
+ */
+const headerOptionGoogleLogout = (): {
   headers: HttpHeaders;
   responseType: 'text';
   withCredentials: true;
@@ -50,6 +63,9 @@ const headerOptionLogout = (): {
 export class RequestClientService {
   constructor(private readonly httpClient: HttpClient, private readonly userInfoService: UserInfoService) {}
 
+  /**
+   * プロフィース情報を取得する
+   */
   public profile(): Observable<User> {
     return this.httpClient.get<User>(`${environment.apiUrl}user/profile`, headerGetJsonOption()).pipe(
       tap((user) => {
@@ -58,10 +74,19 @@ export class RequestClientService {
     );
   }
 
+  /**
+   * Youtube DATA APIを利用し、youtubeのチャンネル情報を取得する。
+   * @param channel youtubeChannelId
+   */
   public getYoutubeDataChannelInfo(channel: string): Observable<ResponseYoutubeInfo> {
     return this.httpClient.get<ResponseYoutubeInfo>(`${environment.apiUrl}google/channel/${channel}`, headerGetJsonOption());
   }
 
+  /**
+   * プロフィールをすべて更新(上書)きする。
+   *
+   * @param requestProfile プロフィール情報
+   */
   public patchProfile(requestProfile: RequestProfile): Observable<string> {
     return this.httpClient.patch(`${environment.apiUrl}user/profile`, requestProfile, headerPatchJsonOption());
   }
@@ -70,7 +95,7 @@ export class RequestClientService {
    * Youtube DATA API からログアウト、Auth Cookie情報を削除しトップページに遷移する。
    */
   public logout(): void {
-    this.httpClient.post(`${environment.apiUrl}google/logout`, '', headerOptionLogout()).subscribe(() => {
+    this.httpClient.post(`${environment.apiUrl}google/logout`, '', headerOptionGoogleLogout()).subscribe(() => {
       window.location.assign(environment.host);
     });
   }
@@ -95,5 +120,12 @@ export class RequestClientService {
    */
   public patchHasGenre(hasGenreIds: HasGenreIds): Observable<string> {
     return this.httpClient.patch(`${environment.apiUrl}user/genre`, hasGenreIds, headerPatchJsonOption());
+  }
+
+  /**
+   * 配信者一覧を取得する
+   */
+  public getUsers(): Observable<ResponseYoutubeInfo[]> {
+    return this.httpClient.get<ResponseYoutubeInfo[]>(`${environment.apiUrl}user/u`, headerGetJsonOption());
   }
 }

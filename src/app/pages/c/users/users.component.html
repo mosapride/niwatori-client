@@ -1,0 +1,41 @@
+
+
+<nav class="pt-5 pagination is-centered" role="navigation" aria-label="pagination">
+  <ul class="pagination-list">
+    <li>
+      <a
+        class="pagination-link"
+        *ngFor="let p of getPager(); let index = index"
+        [ngClass]="{ 'is-current': activePage === p }"
+        [attr.aria-label]="'Goto page ' + (p + 1)"
+        (click)="replaceUrlState(p);activePage = p"
+        >{{ p + 1 }}</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<div class="container py-3 px-5 container-grid">
+  <ng-container *ngFor="let user of users; let i = index">
+    <div class="card" *ngIf="activePage * viewerCount <= i && i < (activePage + 1) * viewerCount">
+      <div class="card-image" [routerLink]="user.youtubeChannelId">
+        <img [src]="user.youtubeThumbnailsUrl" />
+      </div>
+      <header>
+        <div class="pt-3 pb-1 px-5 parts-name">
+          {{ user.youtubeChannelName }}
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p>aaa</p>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a [href]="'https://www.youtube.com/channel/' + user.youtubeChannelId" target="_blank" rel="noopener" class="card-footer-item"
+          ><span class="icon"><i class="fab fa-2x fa-youtube"></i></span
+        ></a>
+      </footer>
+    </div>
+  </ng-container>
+</div>

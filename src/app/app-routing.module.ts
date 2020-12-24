@@ -8,6 +8,8 @@ import { TermsComponent } from './pages/more/terms/terms.component';
 import { PrivacyComponent } from './pages/more/privacy/privacy.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { UserInfoService } from './service/user-info.service';
+import { UsersComponent } from './pages/c/users/users.component';
+import { UserComponent } from './pages/c/users/user/user.component';
 
 const routes: Routes = [
   {
@@ -32,9 +34,22 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'u',
+    children: [
+      {
+        path: '',
+        component: UsersComponent,
+      },
+      {
+        path: ':youtubeChannelId',
+        component: UserComponent,
+      },
+    ],
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
     // https://stackblitz.com/angular/vromeokjvrx?file=src%2Fapp%2Fapp-routing.module.ts
   },
 
@@ -44,13 +59,13 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo : ''
+    redirectTo: '',
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule],
-  providers: [AuthGuardService , UserInfoService]
+  providers: [AuthGuardService, UserInfoService],
 })
 export class AppRoutingModule {}

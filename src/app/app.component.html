@@ -21,17 +21,15 @@
 
   <div id="navbarBasicExample" class="navbar-menu" [ngClass]="{ 'is-active': navbarActive }">
     <div class="navbar-start">
-      <a class="navbar-item" (click)="navbarActive = false" > スケジュール </a>
+      <a class="navbar-item" (click)="navbarActive = false"> スケジュール </a>
 
-      <a class="navbar-item" (click)="navbarActive = false" > 配信者 </a>
+      <a class="navbar-item" (click)="navbarActive = false" routerLink="profile" routerLink="u"> 配信者 </a>
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
+        <a class="navbar-link"> More </a>
 
         <div class="navbar-dropdown">
           <a (click)="navbarActive = false" routerLink="more/about" class="navbar-item">About</a>
-          <hr class="navbar-divider">
+          <hr class="navbar-divider" />
           <a (click)="navbarActive = false" routerLink="more/terms" class="navbar-item">利用規約</a>
           <a (click)="navbarActive = false" routerLink="more/privacy" class="navbar-item">プライバシーポリシー</a>
         </div>
@@ -39,15 +37,16 @@
     </div>
 
     <div class="navbar-end">
-      <div class="navbar-item">
-      </div>
+      <div class="navbar-item"></div>
       <div class="navbar-item" *ngIf="userInfoService.getUserInfo().youtubeChannelName !== ''">
         <div class="buttons">
-        <a class="button is-inverted is-outlined profile-button"  mat-button color="primary" [matMenuTriggerFor]="menu"><span class="login-profile">{{userInfoService.getUserInfo().youtubeChannelName}}<br>アカウント＆設定</span></a>
-        <mat-menu #menu="matMenu" xPosition="before">
-          <a class="navbar-item" (click)="navbarActive = false" routerLink="profile" > Profile </a>
-          <a class="navbar-item" (click)="logout()">ログアウト </a>
-        </mat-menu>
+          <a class="button is-inverted is-outlined profile-button" mat-button color="primary" [matMenuTriggerFor]="menu"
+            ><span class="login-profile">{{ userInfoService.getUserInfo().youtubeChannelName }}<br />アカウント＆設定</span></a
+          >
+          <mat-menu #menu="matMenu" xPosition="before">
+            <a class="navbar-item" (click)="navbarActive = false" routerLink="profile"> Profile </a>
+            <a class="navbar-item" (click)="logout()">ログアウト </a>
+          </mat-menu>
         </div>
       </div>
       <div class="navbar-item" *ngIf="userInfoService.getUserInfo().youtubeChannelName === ''">
@@ -65,9 +64,9 @@
 <footer class="footer mt-6">
   <div class="content has-text-centered">
     <p>
-      <strong>YUBUNE</strong> by <a href="https://twitter.com/v_kurore" target="_blank" rel="noopener">Kurore(mosapride)</a>. The source code is licensed
-      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY Yubune</a>.
+      <strong>YUBUNE</strong> by <a href="https://twitter.com/v_kurore" target="_blank" rel="noopener">Kurore(mosapride)</a>. The source
+      code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content is licensed
+      <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY Yubune</a>.
     </p>
   </div>
 </footer>
-

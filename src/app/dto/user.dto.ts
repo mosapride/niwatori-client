@@ -42,6 +42,8 @@ export enum UserRole {
   IN_ACTIVE = 'inactive',
 }
 
+export type RequestUser = Pick<User, 'youtubeChannelName' | 'youtubeThumbnailsUrl' | 'youtubeChannelId'>;
+
 /**
  * 情報更新ユーザー情報
  */
@@ -86,7 +88,7 @@ export type ResponseProfilePick = Pick<
   | 'selfIntroduction'
 >;
 
-export type ResponseYoutubeInfo = Pick<User, 'youtubeThumbnailsUrl' | 'youtubeChannelName' | 'youtubeDescription'>;
+export type ResponseYoutubeInfo = Pick<User, 'youtubeChannelId' | 'youtubeThumbnailsUrl' | 'youtubeChannelName' | 'youtubeDescription'>;
 
 export type RequestCreateUserByGoogle = Pick<User, 'youtubeChannelId' | 'youtubeChannelName' | 'accessToken'>;
 

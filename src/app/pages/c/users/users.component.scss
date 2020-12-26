@@ -24,6 +24,11 @@
 
 .card-image {
   text-align: center;
+  transition: all .3s ease-out;
+  &.has-hover:hover {
+    cursor: pointer;
+    transform: scale(1.08);
+  }
 }
 
 

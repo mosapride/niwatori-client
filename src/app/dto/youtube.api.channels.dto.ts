@@ -10,15 +10,21 @@ interface Item {
   etag: string;
   id: string;
   snippet: Snippet;
+  statistics: Statistics;
+}
+
+interface Statistics {
+  viewCount: string;
+  subscriberCount: string;
+  hiddenSubscriberCount: boolean;
+  videoCount: string;
 }
 
 interface Snippet {
-  /** チャンネル名 */
   title: string;
-  /** 概要 */
   description: string;
+  customUrl: string;
   publishedAt: string;
-  /** サムネイル */
   thumbnails: Thumbnails;
   localized: Localized;
   country: string;
@@ -30,11 +36,8 @@ interface Localized {
 }
 
 interface Thumbnails {
-  /** サムネイル - 標準 */
   default: Default;
-  /** サムネイル - 中 */
   medium: Default;
-  /** サムネイル - 大 */
   high: Default;
 }
 

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ResponseFindGenre } from '../dto/genre.dto';
-import { RequestProfile, ResponseYoutubeInfo, User } from '../dto/user.dto';
+import { RequestProfile, RequestUser, ResponseYoutubeInfo, User } from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
 import { UserInfoService } from './user-info.service';
 
@@ -127,5 +127,9 @@ export class RequestClientService {
    */
   public getUsers(): Observable<ResponseYoutubeInfo[]> {
     return this.httpClient.get<ResponseYoutubeInfo[]>(`${environment.apiUrl}user/u`, headerGetJsonOption());
+  }
+
+  public getUser(youtubeChannelId: string): Observable<RequestUser> {
+    return this.httpClient.get<RequestUser>(`${environment.apiUrl}user/u/${youtubeChannelId}`, headerGetJsonOption());
   }
 }

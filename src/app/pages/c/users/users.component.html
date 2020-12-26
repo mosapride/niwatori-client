@@ -18,7 +18,7 @@
 <div class="container py-3 px-5 container-grid">
   <ng-container *ngFor="let user of users; let i = index">
     <div class="card" *ngIf="activePage * viewerCount <= i && i < (activePage + 1) * viewerCount">
-      <div class="card-image" [routerLink]="user.youtubeChannelId">
+      <div class="card-image has-hover" [routerLink]="user.youtubeChannelId">
         <img [src]="user.youtubeThumbnailsUrl" />
       </div>
       <header>

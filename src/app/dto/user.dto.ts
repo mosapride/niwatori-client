@@ -27,12 +27,22 @@ export type User = {
   twitter: string;
   // アクティブフラグ
   role: UserRole;
+
+  // hiddenSubscriberCount,viewCount,subscriberCount,videoCountの公開情報
+  // false = 公開,true = 非公開
+  hiddenSubscriberCount: boolean;
+  // 総再生数
+  viewCount?: number;
+  // チャンネル投稿者数
+  subscriberCount?: number;
+  // 動画数
+  videoCount?: number;
 } & createDate &
   GoogleOAuth;
 
 export type GoogleOAuth = {
   accessToken: string;
-  exp: Date;
+  refreshToken: string;
 };
 
 export enum UserRole {
@@ -42,7 +52,24 @@ export enum UserRole {
   IN_ACTIVE = 'inactive',
 }
 
-export type RequestUser = Pick<User, 'youtubeChannelName' | 'youtubeThumbnailsUrl' | 'youtubeChannelId'>;
+/**
+ * `/u`にて利用するユーザー一覧情報
+ */
+export type RequestUserList = Pick<
+  User,
+  | 'youtubeChannelName'
+  | 'youtubeThumbnailsUrl'
+  | 'youtubeChannelId'
+  | 'hiddenSubscriberCount'
+  | 'viewCount'
+  | 'subscriberCount'
+  | 'videoCount'
+>;
+
+/**
+ * `/u/:channelId`から取得するデータ
+ */
+export type RequestUser = Omit<User, 'id' | 'role' | 'createdAt' | 'updatedAt' | 'accessToken' | 'exp' | 'refreshToken'>;
 
 /**
  * 情報更新ユーザー情報
@@ -88,7 +115,20 @@ export type ResponseProfilePick = Pick<
   | 'selfIntroduction'
 >;
 
-export type ResponseYoutubeInfo = Pick<User, 'youtubeChannelId' | 'youtubeThumbnailsUrl' | 'youtubeChannelName' | 'youtubeDescription'>;
+/**
+ * YOUTUBE DATA APIから取得するデータ
+ */
+export type ResponseYoutubeInfo = Pick<
+  User,
+  | 'youtubeChannelId'
+  | 'youtubeThumbnailsUrl'
+  | 'youtubeChannelName'
+  | 'youtubeDescription'
+  | 'hiddenSubscriberCount'
+  | 'viewCount'
+  | 'subscriberCount'
+  | 'videoCount'
+>;
 
 export type RequestCreateUserByGoogle = Pick<User, 'youtubeChannelId' | 'youtubeChannelName' | 'accessToken'>;
 
@@ -97,5 +137,5 @@ export type RequestCreateUserByGoogle = Pick<User, 'youtubeChannelId' | 'youtube
  */
 export type RequestCreateUserByYoutubeDataApi = Pick<
   User,
-  'youtubeChannelId' | 'youtubeChannelName' | 'youtubeDescription' | 'youtubeThumbnailsUrl' | 'accessToken'
+  'youtubeChannelId' | 'youtubeChannelName' | 'youtubeDescription' | 'youtubeThumbnailsUrl' | 'accessToken' | 'refreshToken'
 >;

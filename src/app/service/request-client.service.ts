@@ -129,6 +129,9 @@ export class RequestClientService {
     return this.httpClient.get<ResponseYoutubeInfo[]>(`${environment.apiUrl}user/u`, headerGetJsonOption());
   }
 
+  /**
+   * 配信者詳細ページ情報を取得する。
+   */
   public getUser(youtubeChannelId: string): Observable<RequestUser> {
     return this.httpClient.get<RequestUser>(`${environment.apiUrl}user/u/${youtubeChannelId}`, headerGetJsonOption());
   }

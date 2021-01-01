@@ -37,6 +37,8 @@ export type User = {
   subscriberCount?: number;
   // 動画数
   videoCount?: number;
+
+  authUpdatedAt: Date;
 } & createDate &
   GoogleOAuth;
 
@@ -64,12 +66,13 @@ export type RequestUserList = Pick<
   | 'viewCount'
   | 'subscriberCount'
   | 'videoCount'
+  | 'twitter'
 >;
 
 /**
  * `/u/:channelId`から取得するデータ
  */
-export type RequestUser = Omit<User, 'id' | 'role' | 'createdAt' | 'updatedAt' | 'accessToken' | 'exp' | 'refreshToken'>;
+export type RequestUser = Omit<User, 'id' | 'role' | 'createdAt' | 'updatedAt' | 'accessToken' | 'authUpdatedAt' | 'exp' | 'refreshToken'>;
 
 /**
  * 情報更新ユーザー情報
@@ -79,12 +82,12 @@ export type RequestUpdateUser = Omit<User, 'id' | 'isActive' | 'createAt' | 'upd
 /**
  * JWT形式。
  */
-export type AuthJwtHash = Pick<User, 'youtubeChannelId'> & { updatedAt: Date };
+export type AuthJwtHash = Pick<User, 'youtubeChannelId'> & { authUpdatedAt: Date };
 
 /**
  * ハッシュ化したデータのJWT形式。
  */
-export type EncryptionAuthJwtHash = Pick<User, 'youtubeChannelId'> & { updatedAt: string; iv?: string };
+export type EncryptionAuthJwtHash = Pick<User, 'youtubeChannelId'> & { authUpdatedAt: string; iv?: string };
 
 /**
  * クライアントの入力可能Profile情報

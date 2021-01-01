@@ -28,13 +28,15 @@
       </header>
       <div class="card-content">
         <div class="content">
-          <p>aaa</p>
         </div>
       </div>
       <footer class="card-footer">
         <a [href]="'https://www.youtube.com/channel/' + user.youtubeChannelId" target="_blank" rel="noopener" class="card-footer-item"
           ><span class="icon"><i class="fab fa-2x fa-youtube"></i></span
         ></a>
+        <a *ngIf="user.twitter" [href]="'https://twitter.com/' + user.twitter.replace('@','')" target="_blank" rel="noopener" class="card-footer-item"
+        ><span class="icon"><i class="fab fa-2x fa-twitter"></i></span
+      ></a>
       </footer>
     </div>
   </ng-container>

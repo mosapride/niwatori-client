@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ResponseFindGenre } from '../dto/genre.dto';
-import { RequestProfile, RequestUser, ResponseYoutubeInfo, User } from '../dto/user.dto';
+import { RequestProfile, RequestUser, RequestUserList, ResponseYoutubeInfo, User } from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
 import { UserInfoService } from './user-info.service';
 
@@ -125,8 +125,8 @@ export class RequestClientService {
   /**
    * 配信者一覧を取得する
    */
-  public getUsers(): Observable<ResponseYoutubeInfo[]> {
-    return this.httpClient.get<ResponseYoutubeInfo[]>(`${environment.apiUrl}user/u`, headerGetJsonOption());
+  public getUsers(): Observable<RequestUserList[]> {
+    return this.httpClient.get<RequestUserList[]>(`${environment.apiUrl}user/u`, headerGetJsonOption());
   }
 
   /**

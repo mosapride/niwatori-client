@@ -17,7 +17,6 @@ export class UserComponent implements OnInit {
     this.youtubeChannelId = this.route.snapshot.paramMap.get('youtubeChannelId') + '';
     this.requestClientService.getUser(this.youtubeChannelId).subscribe((data) => {
       this.user = data;
-      // console.log(this.user);
     });
   }
 }

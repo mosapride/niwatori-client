@@ -24,7 +24,6 @@ export class UsersComponent implements OnInit {
     });
     this.requestClientService.getUsers().subscribe((data) => {
       this.users = data;
-      console.log(this.users);
     });
   }
 
@@ -44,7 +43,6 @@ export class UsersComponent implements OnInit {
     for (let i = 0; i < maxPage; i++) {
       pager.push(i);
     }
-    console.log(pager);
     return pager;
   }
 }

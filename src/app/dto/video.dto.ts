@@ -30,7 +30,19 @@ export type Video = {
   streamAt: Date;
   // ビデオID id.videoId
   videoId: string;
-  // 配信日
+
+  /** 概要 */
+  description: string;
+
+  /**
+   * 配信時間(PTxxHxxMxxS)
+   * ex : PT39M3S = 39分3秒
+   *      PT3M12S = 3分12秒
+   *      PT10H14M32S = 10時間14分32秒
+   */
+  duration?: string;
+  viewCount?: number;
+  likeCount?: number;
 } & createDate;
 
 export enum ELiveBroadcastContent {

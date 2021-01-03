@@ -19,7 +19,29 @@
           </a>
         </div>
       </nav>
-      <pre>{{ user.youtubeDescription }}</pre>
+      <pre class="profile">{{ user.youtubeDescription }}</pre>
     </div>
   </div>
 </article>
+
+<div class="container py-3 px-5 container-grid">
+  <ng-container *ngFor="let user of videos; let i = index">
+    <div class="card">
+      <a class="card-image " target="_blank" rel="noopener" [href]="'https://www.youtube.com/watch?v=' + user.videoId">
+        <img class="has-animation has-hover" [src]="user.thumbnailUrl" />
+        <p class="duration">{{htmlFormatDuration(user.liveBroadcastContent, user.duration)}}</p>
+      </a>
+      <header>
+        <div class="pt-3 pb-1 px-5 title">
+          {{ user.title }}
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <pre class="description">{{ user.description }}</pre>
+        </div>
+      </div>
+      <footer class="card-footer"></footer>
+    </div>
+  </ng-container>
+</div>

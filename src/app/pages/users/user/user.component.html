@@ -1,0 +1,71 @@
+<section class="hero is-light is-info is-bold my-5">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Profile
+      </h1>
+    </div>
+  </div>
+</section>
+
+<div class="columns is-gapless" *ngIf="user">
+  <div class="column is-4">
+    <p class="profile-image">
+      <img [src]="user.youtubeThumbnailsUrl" style="max-width: 240px;" />
+    </p>
+  </div>
+  <div class="column is-8">
+    <div class="mb-2">
+      <strong class="channel">{{ user.youtubeChannelName }}</strong>
+    </div>
+    <nav class="level mb-0">
+      <div class="level-left">
+        <a class="level-item" target="_blank" rel="noopener" [href]="'https://youtube.com/channel/' + user.youtubeChannelId">
+          <span class="icon is-large"><i class="fab fa-2x fa-youtube"></i></span>Youtube
+        </a>
+        <a class="level-item" target="_blank" rel="noopener" [href]="'https://twitter.com/' + user.twitter" *ngIf="user.twitter">
+          <span class="icon is-large"><i class="fab fa-2x fa-twitter"></i></span>Twitter
+        </a>
+      </div>
+    </nav>
+    <pre>{{ user.youtubeDescription }}</pre>
+  </div>
+</div>
+
+
+
+<section class="hero is-light is-info is-bold mt-5">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Videos
+      </h1>
+    </div>
+  </div>
+</section>
+
+<div class="container py-3 px-5 container-grid">
+  <ng-container *ngFor="let user of videos; let i = index">
+    <div class="card">
+      <a class="card-image " target="_blank" rel="noopener" [href]="'https://www.youtube.com/watch?v=' + user.videoId">
+        <img class="has-animation has-hover" [src]="user.thumbnailUrl" />
+        <p class="duration">{{htmlFormatDuration(user.liveBroadcastContent, user.duration)}}</p>
+      </a>
+      <header>
+        <div class="pt-3 pb-1 px-5 title">
+          <a [href]="'https://www.youtube.com/watch?v=' + user.videoId" target="_blank" rel="noopener noreferrer">{{ user.title }}</a>
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <div *ngIf="user.liveBroadcastContent === 'upcoming'" class="my-1 upcoming">{{user.streamAt | date:'yyyy/MM/dd HH:mm'}} に公開予定</div>
+          <hr>
+          <div class="info"><i class="far fa-clock"></i>{{user.streamAt | date:'yyyy/MM/dd HH:mm'}}<br><i class="fab fa-youtube-square"></i>{{user.viewCount}} View<i class="fas fa-thumbs-up"></i> {{user.likeCount}}</div>
+          <hr>
+          <pre class="description">{{ user.description }}</pre>
+        </div>
+      </div>
+      <footer class="card-footer"></footer>
+    </div>
+  </ng-container>
+</div>

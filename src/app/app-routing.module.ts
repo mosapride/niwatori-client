@@ -8,8 +8,8 @@ import { TermsComponent } from './pages/more/terms/terms.component';
 import { PrivacyComponent } from './pages/more/privacy/privacy.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { UserInfoService } from './service/user-info.service';
-import { UsersComponent } from './pages/c/users/users.component';
-import { UserComponent } from './pages/c/users/user/user.component';
+import { UsersComponent } from './pages/users/users.component';
+import { UserComponent } from './pages/users/user/user.component';
 
 const routes: Routes = [
   {

@@ -14,8 +14,8 @@ import { PrivacyComponent } from './pages/more/privacy/privacy.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuardService } from './service/auth-guard.service';
-import { UsersComponent } from './pages/c/users/users.component';
-import { UserComponent } from './pages/c/users/user/user.component';
+import { UsersComponent } from './pages/users/users.component';
+import { UserComponent } from './pages/users/user/user.component';
 
 @NgModule({
   declarations: [

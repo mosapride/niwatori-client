@@ -183,7 +183,8 @@
           <div class="buttons">
             <a class="button is-small is-outlined" [ngClass]="{ 'is-info': t.has }" *ngFor="let t of genre.items" (click)="t.has = !t.has">
               <span class="icon is-small">
-                <i class="fas fa-check" *ngIf="t.has"></i>
+                <i class="far fa-check-circle" *ngIf="t.has"></i>
+                <i class="far fa-circle" *ngIf="!t.has"></i>
               </span>
               <span>{{ t.name }}</span>
             </a>

@@ -41,7 +41,6 @@ export class UserComponent implements OnInit {
     if (!duration) {
       return '';
     }
-    console.log(duration);
     let rtnStr = '';
     const hour = duration
       .match(/\d{1,2}H/)
@@ -73,26 +72,21 @@ export class UserComponent implements OnInit {
     } else {
       if (minutes) {
         rtnStr = `${minutes}:`;
+      } else {
+        rtnStr = '00:';
       }
     }
 
-    if (rtnStr !== '') {
-      if (!second) {
-        rtnStr += '00';
-      } else {
-        if (second.toString().length === 1) {
-          rtnStr += `0${second}`;
-        } else {
-          rtnStr += `${second}`;
-        }
-      }
+    if (!second) {
+      rtnStr += '00';
     } else {
-      if (second) {
-        rtnStr = second.toString();
+      if (second.toString().length === 1) {
+        rtnStr += `0${second}`;
       } else {
-        rtnStr = '0';
+        rtnStr += `${second}`;
       }
     }
+
     return rtnStr;
   }
 }

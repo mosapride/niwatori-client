@@ -17,17 +17,24 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.youtubeChannelId = this.route.snapshot.paramMap.get('youtubeChannelId') + '';
-    this.requestClientService.getUser(this.youtubeChannelId).subscribe((data) => {
+    this.getYoutubeData(this.youtubeChannelId);
+  }
+
+  changeUser(youtubeChannelId: string): void {
+    this.getYoutubeData(youtubeChannelId);
+  }
+
+  getYoutubeData(youtubeChannelId: string): void {
+    this.requestClientService.getUser(youtubeChannelId).subscribe((data) => {
       this.user = data;
     });
-    this.requestClientService.getVideosByUser(this.youtubeChannelId).subscribe((data) => {
+    this.requestClientService.getVideosByUser(youtubeChannelId).subscribe((data) => {
       this.videos = data.map((v) => {
         if (v.description.length >= 49) {
           v.description = v.description.substring(0, 100) + '...';
         }
         return v;
       });
-      //  = data;
     });
   }
 

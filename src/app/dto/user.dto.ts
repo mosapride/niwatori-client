@@ -142,3 +142,7 @@ export type RequestCreateUserByYoutubeDataApi = Pick<
   User,
   'youtubeChannelId' | 'youtubeChannelName' | 'youtubeDescription' | 'youtubeThumbnailsUrl' | 'accessToken' | 'refreshToken'
 >;
+
+export type RequestProfileUser = Pick<User, 'youtubeChannelId' | 'youtubeChannelName' | 'youtubeThumbnailsUrl'>;
+
+export type RequestProfileUsers = { users: RequestProfileUser[]; page: number; next: boolean };

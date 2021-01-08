@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RequestUserList, ResponseYoutubeInfo } from 'src/app/dto/user.dto';
+import { RequestUserList } from 'src/app/dto/user.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { RequestClientService } from 'src/app/service/request-client.service';
 })
 export class UsersComponent implements OnInit {
   users: RequestUserList[] = [];
-  readonly viewerCount = 24;
+  readonly viewerCount = 12;
   activePage = 0;
   constructor(private readonly router: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
 

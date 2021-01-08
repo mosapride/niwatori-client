@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuardService } from './service/auth-guard.service';
 import { UsersComponent } from './pages/users/users.component';
 import { UserComponent } from './pages/users/user/user.component';
+import { UserLinkComponent } from './pages/users/user/user-link/user-link.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { UserComponent } from './pages/users/user/user.component';
     PrivacyComponent,
     UsersComponent,
     UserComponent,
+    UserLinkComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,131 @@
+div.cap {
+  display: block;
+  height: 100px;
+  width: 40px;
+}
+
+div.cap.left {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+div.cap.right {
+  background-position: right bottom;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+// .arrow-left-img {
+//   position: absolute;
+//   width: 30px !important;
+//   bottom: 10px;
+//   left: 5px;
+// }
+
+// .arrow-right-img {
+//   position: absolute;
+//   width: 30px !important;
+//   bottom: 10px;
+//   right: 5px;
+// }
+
+.arrow-img {
+  $position-px: 5px;
+  position: absolute;
+  width: 25px !important;
+  bottom: 10px;
+  &.left {
+    left: $position-px
+  }
+  &.right {
+    right: $position-px
+  }
+}
+
+ul.osx-dock li {
+  display: block;
+  position: relative;
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin: 60px 0 4px 0;
+  transition: 0.15s linear;
+  transition-property: transform margin;
+  text-align: center;
+}
+
+.osx-dock * {
+  user-select :none;
+}
+
+ul.osx-dock li a {
+  display: block;
+  height: 50px;
+  padding: 0 1px;
+  transition: 0.15s linear;
+  transition-property: transform margin;
+  margin: 0;
+
+}
+ul.osx-dock li a img {
+  width: 48px;
+  border-radius: 50%;
+}
+
+ul.osx-dock li:hover.animation-icon {
+  margin-left: 9px;
+  margin-right: 9px;
+  z-index: 200;
+}
+ul.osx-dock li:hover a.animation-icon {
+  transform-origin: center bottom;
+  transform: scale(2);
+}
+ul.osx-dock li.nearby {
+  margin-left: 6px;
+  margin-right: 6px;
+  z-index: 100;
+}
+ul.osx-dock li.nearby a {
+  transform-origin: center bottom;
+  transform: scale(2);
+}
+
+ul.osx-dock li span {
+  background: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 auto;
+  display: none;
+  width: auto;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  color: #fff;
+  line-height: initial;
+  white-space: nowrap;
+}
+ul.osx-dock li:hover span {
+  display: block;
+}
+
+div#dockContainer {
+  text-align: center;
+  border-radius: 6px;
+  width: 100%;
+  line-height: 1;
+}
+div#dockWrapper {
+  width: auto;
+  display: inline-block;
+  position: relative;
+  border-bottom: solid 2px rgba(255, 255, 255, 0.35);
+  line-height: 0;
+}
+#dockContainer,
+#dockContainer * {
+  box-sizing: content-box;
+  box-sizing: content-box;
+}

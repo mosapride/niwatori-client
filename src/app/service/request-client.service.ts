@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ResponseFindGenre } from '../dto/genre.dto';
-import { RequestProfile, RequestUser, RequestUserList, ResponseYoutubeInfo, User } from '../dto/user.dto';
+import { RequestProfile, RequestProfileUsers, RequestUser, RequestUserList, ResponseYoutubeInfo, User } from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
 import { Video } from '../dto/video.dto';
 import { UserInfoService } from './user-info.service';
@@ -142,5 +142,13 @@ export class RequestClientService {
    */
   public getVideosByUser(youtubeChannelId: string): Observable<Video[]> {
     return this.httpClient.get<Video[]>(`${environment.apiUrl}video/${youtubeChannelId}`, headerGetJsonOption());
+  }
+
+  /**
+   * 配信者詳細ページ - 配信者詳細ページのためのリンクデータ
+   * @param page ページ番号
+   */
+  public getProfileSelectUsers(page = 0): Observable<RequestProfileUsers> {
+    return this.httpClient.get<RequestProfileUsers>(`${environment.apiUrl}user/page/${page}`, headerGetJsonOption());
   }
 }

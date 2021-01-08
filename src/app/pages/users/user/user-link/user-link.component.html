@@ -1,0 +1,30 @@
+<div id="dockContainer" *ngIf="requestProfileUsers">
+  <div id="dockWrapper">
+    <div class="cap left"></div>
+    <ul class="osx-dock">
+      <li class="" *ngIf="requestProfileUsers.page !== 0">
+        <a  (click)="getSelectUsersByLeft()" [title]=""
+        ><img
+        [alt]=""
+        src="/assets/arrow-left.png"
+        class="arrow-img left"
+        /></a>
+      </li>
+      <li class="animation-icon" *ngFor="let u of requestProfileUsers.users">
+        <a class="animation-icon" [routerLink]="['/u/' + u.youtubeChannelId]" (click)="select(u.youtubeChannelId)"
+        ><img
+        [src]="u.youtubeThumbnailsUrl"
+        /></a>
+        <span>{{u.youtubeChannelName}}</span>
+      </li>
+      <li class="" *ngIf="requestProfileUsers.next">
+        <a  (click)="getSelectUsersByRight()" [title]=""
+        ><img
+        [alt]=""
+        src="/assets/arrow-right.png"
+        class="arrow-img right"
+        /></a>
+      </li>
+    </ul>
+  </div>
+</div>

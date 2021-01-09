@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ResponseFindGenre } from 'src/app/dto/genre.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
 
@@ -9,12 +9,38 @@ import { RequestClientService } from 'src/app/service/request-client.service';
 })
 export class SearchComponent implements OnInit {
   targetYoutubeChannelIds: string[] = [];
-  responseFindGenre: ResponseFindGenre[] = [];
+  responseFindGenres: ResponseFindGenre[] = [];
+  @Output() targetSearch = new EventEmitter<string[]>();
   constructor(private readonly requestClientService: RequestClientService) {}
 
-  ngOnInit(): void {
-    this.requestClientService.genre().subscribe((data) => (this.responseFindGenre = data));
+  ngOnInit() {
+    this.requestClientService.genre().subscribe((data) => {
+      this.responseFindGenres = data;
+    });
   }
 
-  search(): void {}
+  search(): void {
+    const ids = this.responseFindGenres.map((v) => {
+      v.items.map((i) => i.has ?? i.id, '');
+    });
+
+    const genreIds: number[] = [];
+
+    for (const v of this.responseFindGenres) {
+      for (const i of v.items) {
+        if (i.has) {
+          genreIds.push(i.id);
+        }
+      }
+    }
+
+    this.requestClientService.matchGenre(genreIds).subscribe((userIds) => {
+      console.log(userIds);
+      this.targetSearch.emit(userIds);
+    });
+  }
+
+  debug(): void {
+    console.log(this.responseFindGenres);
+  }
 }

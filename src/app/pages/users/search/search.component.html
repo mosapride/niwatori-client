@@ -7,5 +7,9 @@
 </section>
 
 <div class="container">
-  <app-select-genre></app-select-genre>
+  <app-select-genre [(genres)]="responseFindGenres"></app-select-genre>
 </div>
+
+
+<button type="button" (click)="search()">search</button>
+<button type="button" (click)="debug()">debug</button>

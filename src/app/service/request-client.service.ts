@@ -161,6 +161,6 @@ export class RequestClientService {
    * @return 該当するyoutubeChannelIdの配列
    */
   public matchGenre(ids: number[]): Observable<string[]> {
-    return this.httpClient.get<string[]>(`${environment}user/match-genre/${ids.join()}`, headerGetJsonOption());
+    return this.httpClient.get<string[]>(`${environment.apiUrl}user/match-genre/${ids.join()}`, headerGetJsonOption());
   }
 }

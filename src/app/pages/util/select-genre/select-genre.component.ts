@@ -11,10 +11,7 @@ export class SelectGenreComponent {
   @Input() genres: ResponseFindGenre[] = [];
   @Output() genresChange = new EventEmitter<ResponseFindGenre[]>();
   @Output() initialized = new EventEmitter<void>();
-  constructor(private readonly requestClientService: RequestClientService) {
-    this.requestClientService.genre().subscribe((data) => {
-      this.genres = data;
-      this.initialized.emit();
-    });
+  constructor() {
+
   }
 }

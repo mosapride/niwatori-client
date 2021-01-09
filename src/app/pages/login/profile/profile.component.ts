@@ -27,6 +27,9 @@ export class ProfileComponent implements OnInit {
     await this.requestClientService.genre().subscribe((data) => {
       this.responseFindGenres = data;
     });
+  }
+
+  checkGenre(): void {
     this.requestClientService.getHasGenre().subscribe((data) => {
       this.responseFindGenres.forEach((v) => {
         v.items.forEach((j) => {

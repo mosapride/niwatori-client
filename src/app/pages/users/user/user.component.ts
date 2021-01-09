@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { RequestUser } from 'src/app/dto/user.dto';
 import { ELiveBroadcastContent, Video } from 'src/app/dto/video.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
@@ -13,11 +13,21 @@ export class UserComponent implements OnInit {
   youtubeChannelId = '';
   videos: Video[] = [];
   user: RequestUser | undefined;
-  constructor(private readonly route: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
+  constructor(
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly requestClientService: RequestClientService
+  ) {}
 
   ngOnInit(): void {
-    this.youtubeChannelId = this.route.snapshot.paramMap.get('youtubeChannelId') + '';
+    this.youtubeChannelId = this.activatedRoute.snapshot.paramMap.get('youtubeChannelId') + '';
     this.getYoutubeData(this.youtubeChannelId);
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.youtubeChannelId = this.activatedRoute.snapshot.paramMap.get('youtubeChannelId') + '';
+        this.getYoutubeData(this.youtubeChannelId);
+      }
+    });
   }
 
   changeUser(youtubeChannelId: string): void {

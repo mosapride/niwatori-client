@@ -178,18 +178,7 @@
   <div class="field-body">
     <div class="field">
       <div class="has-icons-left">
-        <ng-container *ngFor="let genre of responseFindGenres">
-          <div class="mt-1">{{ genre.environment }}</div>
-          <div class="buttons">
-            <a class="button is-small is-outlined" [ngClass]="{ 'is-info': t.has }" *ngFor="let t of genre.items" (click)="t.has = !t.has">
-              <span class="icon is-small">
-                <i class="far fa-check-circle" *ngIf="t.has"></i>
-                <i class="far fa-circle" *ngIf="!t.has"></i>
-              </span>
-              <span>{{ t.name }}</span>
-            </a>
-          </div>
-        </ng-container>
+        <app-select-genre [(genres)]="responseFindGenres" (initialized)="checkGenre()"></app-select-genre>
       </div>
     </div>
   </div>
@@ -208,3 +197,6 @@
     </div>
   </div>
 </div>
+
+
+

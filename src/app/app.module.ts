@@ -17,6 +17,8 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { UsersComponent } from './pages/users/users.component';
 import { UserComponent } from './pages/users/user/user.component';
 import { UserLinkComponent } from './pages/users/user/user-link/user-link.component';
+import { SearchComponent } from './pages/users/search/search.component';
+import { SelectGenreComponent } from './pages/util/select-genre/select-genre.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { UserLinkComponent } from './pages/users/user/user-link/user-link.compon
     UsersComponent,
     UserComponent,
     UserLinkComponent,
+    SearchComponent,
+    SelectGenreComponent,
   ],
   imports: [
     BrowserModule,

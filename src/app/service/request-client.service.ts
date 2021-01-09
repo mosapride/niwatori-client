@@ -151,4 +151,16 @@ export class RequestClientService {
   public getProfileSelectUsers(page = 0): Observable<RequestProfileUsers> {
     return this.httpClient.get<RequestProfileUsers>(`${environment.apiUrl}user/page/${page}`, headerGetJsonOption());
   }
+
+  /**
+   * ユーザーの絞り込みリクエスト(ジャンル)
+   *
+   * コラボ希望ジャンルと一致するyoutubeChannelIdを返す.
+   *
+   * @param ids ジャンルIDの配列
+   * @return 該当するyoutubeChannelIdの配列
+   */
+  public matchGenre(ids: number[]): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${environment}user/match-genre/${ids.join()}`, headerGetJsonOption());
+  }
 }

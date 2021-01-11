@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
     });
     await this.requestClientService.genre().subscribe((data) => {
       this.responseFindGenres = data;
+      this.checkGenre();
     });
   }
 

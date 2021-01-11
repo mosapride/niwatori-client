@@ -24,20 +24,18 @@
 
 .card-image {
   text-align: center;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
   &.has-hover:hover {
     cursor: pointer;
     transform: scale(1.08);
   }
 }
 
-
 .container-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   grid-gap: 0.5em;
   .card {
-    // height: max-content;
     height: 100%;
     margin-bottom: 44px;
     .card-footer {
@@ -47,4 +45,9 @@
       right: 0;
     }
   }
+}
+
+.channelName {
+  line-height: 2rem;
+  font-weight: bold;
 }

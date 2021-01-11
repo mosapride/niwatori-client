@@ -10,6 +10,7 @@ import { RequestClientService } from 'src/app/service/request-client.service';
 })
 export class UsersComponent implements OnInit {
   users: RequestUserList[] = [];
+  usersOrg: RequestUserList[] = [];
   readonly viewerCount = 12;
   activePage = 0;
   constructor(private readonly router: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
@@ -24,6 +25,7 @@ export class UsersComponent implements OnInit {
     });
     this.requestClientService.getUsers().subscribe((data) => {
       this.users = data;
+      this.usersOrg = data;
     });
   }
 
@@ -44,5 +46,22 @@ export class UsersComponent implements OnInit {
       pager.push(i);
     }
     return pager;
+  }
+
+  search(targetYoutubeChannelIds: string[]): void {
+    console.log(targetYoutubeChannelIds);
+    if (targetYoutubeChannelIds.length === 0) {
+      this.users = this.usersOrg;
+      return;
+    }
+    this.activePage = 0;
+    this.users = this.usersOrg.filter((u) => {
+      for (const id of targetYoutubeChannelIds) {
+        if (u.youtubeChannelId === id) {
+          return true;
+        }
+      }
+      return false;
+    });
   }
 }

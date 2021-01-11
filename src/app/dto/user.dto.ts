@@ -39,6 +39,8 @@ export type User = {
   videoCount?: number;
 
   authUpdatedAt: Date;
+  // 最新投稿日付
+  latestPostVideoAt: Date;
 } & createDate &
   GoogleOAuth;
 
@@ -67,6 +69,7 @@ export type RequestUserList = Pick<
   | 'subscriberCount'
   | 'videoCount'
   | 'twitter'
+  | 'latestPostVideoAt'
 >;
 
 /**
@@ -146,3 +149,8 @@ export type RequestCreateUserByYoutubeDataApi = Pick<
 export type RequestProfileUser = Pick<User, 'youtubeChannelId' | 'youtubeChannelName' | 'youtubeThumbnailsUrl'>;
 
 export type RequestProfileUsers = { users: RequestProfileUser[]; page: number; next: boolean };
+
+/**
+ * 最新動画日時を書き込みするための型
+ */
+export type StreamAtPatch = Pick<User, 'youtubeChannelId' | 'latestPostVideoAt'>;

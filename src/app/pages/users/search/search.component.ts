@@ -13,8 +13,14 @@ export class SearchComponent implements OnInit {
   @Output() targetSearch = new EventEmitter<string[]>();
   constructor(private readonly requestClientService: RequestClientService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.requestClientService.genre().subscribe((data) => {
+
+      for (const d of data) {
+        d.items = d.items.filter(i => {
+          return (i.count !== 0);
+        });
+      }
       this.responseFindGenres = data;
     });
   }
@@ -23,7 +29,6 @@ export class SearchComponent implements OnInit {
     const ids = this.responseFindGenres.map((v) => {
       v.items.map((i) => i.has ?? i.id, '');
     });
-
     const genreIds: number[] = [];
 
     for (const v of this.responseFindGenres) {
@@ -33,9 +38,12 @@ export class SearchComponent implements OnInit {
         }
       }
     }
+    if (genreIds.length === 0) {
+      this.targetSearch.emit([]);
+      return;
+    }
 
     this.requestClientService.matchGenre(genreIds).subscribe((userIds) => {
-      console.log(userIds);
       this.targetSearch.emit(userIds);
     });
   }

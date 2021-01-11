@@ -19,7 +19,7 @@ export enum GenreEnvironment {
   OTHER = 'その他',
 }
 
-export type ResponseFindGenreItem = { items: { id: number; name: string; has?: boolean }[] };
+export type ResponseFindGenreItem = { items: { id: number; name: string; count?: number; has?: boolean }[] };
 
 /**
  * 画面表示用にすべてのジャンルを返す。

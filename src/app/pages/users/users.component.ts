@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { RequestUserList } from 'src/app/dto/user.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
+import { OrderBy, TGenreIdsEmitterVal, TOrderByEmitterVal } from './search/search.component';
 
 @Component({
   selector: 'app-users',
@@ -11,26 +12,67 @@ import { RequestClientService } from 'src/app/service/request-client.service';
 export class UsersComponent implements OnInit {
   users: RequestUserList[] = [];
   usersOrg: RequestUserList[] = [];
-  readonly viewerCount = 12;
-  activePage = 0;
-  constructor(private readonly router: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
+  readonly viewerCount = 6;
+  selectActivePage = 0;
+  selectTargetGenre: number[] = [];
+  selectOrderBy: OrderBy = OrderBy.createdAtDESC;
+  constructor(private readonly activatedRoute: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
 
   ngOnInit(): void {
-    this.router.queryParams.subscribe((params) => {
-      // tslint:disable-next-line: no-string-literal
-      const page = params['p'];
+    this.activatedRoute.queryParams.subscribe((params) => {
+      // tslint:disable-next-line: one-variable-per-declaration
+      const page = params.p,
+        targetGenres = params.g,
+        orderBy = params.order;
       if (Number.isInteger(+page)) {
-        this.activePage = +page;
+        this.selectActivePage = +page;
+      }
+
+      const wkTargetGenre: number[] = [];
+      if (targetGenres) {
+        const targetGenreList = (targetGenres + '').split(',');
+        for (const t of targetGenreList) {
+          if (Number.isInteger(+t)) {
+            wkTargetGenre.push(+t);
+          }
+        }
+      }
+
+      this.genreFilter(wkTargetGenre, false);
+
+      if (orderBy) {
+        this.orderBy(orderBy, false);
       }
     });
     this.requestClientService.getUsers().subscribe((data) => {
+      data = data.filter((v) => {
+        if (!v.videoCount) {
+          return false;
+        }
+        if (v.videoCount === 0) {
+          return false;
+        }
+        return true;
+      });
       this.users = data;
       this.usersOrg = data;
     });
   }
 
-  replaceUrlState(p: number): void {
-    history.replaceState('', '', `u?p=${p}`);
+  /**
+   * ブラウザURLを変更する。
+   *
+   * 戻る(browser back)をした場合に元のページに自然に遷移元に戻るために実装
+   *
+   * @param p ページナンバー
+   */
+  replaceUrlState(): void {
+    let parameter = `u?p=${this.selectActivePage}&order=${this.selectOrderBy}`;
+    if (this.selectTargetGenre.length !== 0) {
+      parameter += `&g=${this.selectTargetGenre.join()}`;
+    }
+
+    history.replaceState('', '', parameter);
   }
 
   /**
@@ -48,20 +90,84 @@ export class UsersComponent implements OnInit {
     return pager;
   }
 
-  search(targetYoutubeChannelIds: string[]): void {
-    console.log(targetYoutubeChannelIds);
-    if (targetYoutubeChannelIds.length === 0) {
+  genreListener(val: TGenreIdsEmitterVal): void {
+    this.genreFilter(val.ids, val.refresh);
+  }
+
+  genreFilter(genreIds?: number[], pageReset = true): void {
+    if (!genreIds) {
       this.users = this.usersOrg;
+      this.selectTargetGenre = [];
+      this.replaceUrlState();
       return;
     }
-    this.activePage = 0;
-    this.users = this.usersOrg.filter((u) => {
-      for (const id of targetYoutubeChannelIds) {
-        if (u.youtubeChannelId === id) {
-          return true;
+    this.selectTargetGenre = genreIds;
+    this.replaceUrlState();
+    this.requestClientService.matchGenre(genreIds).subscribe((userIds) => {
+      this.users = this.usersOrg.filter((u) => {
+        for (const id of userIds) {
+          if (u.youtubeChannelId === id) {
+            return true;
+          }
         }
-      }
-      return false;
+        return false;
+      });
     });
+    if (pageReset) {
+      this.selectActivePage = 0;
+    }
+  }
+
+  orderByListener(val: TOrderByEmitterVal): void {
+    this.orderBy(val.order , val.refresh);
+  }
+  orderBy(order: OrderBy, pageReset = true): void {
+    this.selectOrderBy = order;
+    this.replaceUrlState();
+    this.users = this.users.sort((a, b) => {
+      switch (order) {
+        case OrderBy.createdAtDESC:
+          if (a.createdAt > b.createdAt) {
+            return -1;
+          }
+          if (a.createdAt < b.createdAt) {
+            return 1;
+          }
+          break;
+        case OrderBy.latestPostVideoAtDESC:
+          if (a.latestPostVideoAt > b.latestPostVideoAt) {
+            return -1;
+          }
+          if (b.latestPostVideoAt < b.latestPostVideoAt) {
+            return 1;
+          }
+          break;
+        case OrderBy.viewCountDESC:
+          if (!a.viewCount || !b.viewCount) {
+            return 0;
+          }
+          if (a.viewCount > b?.viewCount) {
+            return -1;
+          }
+          if (a.viewCount < b.viewCount) {
+            return 1;
+          }
+          break;
+        case OrderBy.subscriberCountDESC:
+          if (!a.subscriberCount || !b.subscriberCount) {
+            return 0;
+          }
+          if (a.subscriberCount > b.subscriberCount) {
+            return -1;
+          }
+          if (a.subscriberCount < b.subscriberCount) {
+            return 1;
+          }
+      }
+      return 0;
+    });
+    if (pageReset) {
+      this.selectActivePage = 0;
+    }
   }
 }

@@ -7,7 +7,64 @@
 </section>
 
 <div class="container">
-  <app-select-genre [(genres)]="responseFindGenres"></app-select-genre>
+  <app-select-genre [(genres)]="responseFindGenres" (valueChange)="search()"></app-select-genre>
 </div>
 
-<button class="button is-info is-pulled-right mr-5" (click)="search()">絞り込み</button>
+<!-- <div class="container has-text-right mr-5">
+  <button class="button is-info" (click)="search()">絞り込み</button>
+</div> -->
+
+<div class="container has-text-right mr-5 mt-5">
+  <div class="field has-addons has-text-right sort">
+    <span class="" style="line-height: 30px; font-size: 13px"> 並び替え:&nbsp; </span>
+
+    <p class="control">
+      <button
+        class="button"
+        (click)="emitActiveOrderBy(orderBy.createdAtDESC)"
+        [ngClass]="{ 'is-dark': activeOrderby === orderBy.createdAtDESC }"
+      >
+        <span class="icon is-small">
+          <i class="fas fa-sort"></i>
+        </span>
+        <span>作成日</span>
+      </button>
+    </p>
+    <p class="control">
+      <button
+        class="button"
+        (click)="emitActiveOrderBy(orderBy.latestPostVideoAtDESC)"
+        [ngClass]="{ 'is-dark': activeOrderby === orderBy.latestPostVideoAtDESC }"
+      >
+        <span class="icon is-small">
+          <i class="fas fa-clock"></i>
+        </span>
+        <span>投稿日</span>
+      </button>
+    </p>
+    <p class="control">
+      <button
+        class="button"
+        (click)="emitActiveOrderBy(orderBy.viewCountDESC)"
+        [ngClass]="{ 'is-dark': activeOrderby === orderBy.viewCountDESC }"
+      >
+        <span class="icon is-small">
+          <i class="fas fa-video"></i>
+        </span>
+        <span>総視聴数</span>
+      </button>
+    </p>
+    <p class="control">
+      <button
+        class="button"
+        (click)="emitActiveOrderBy(orderBy.subscriberCountDESC)"
+        [ngClass]="{ 'is-dark': activeOrderby === orderBy.subscriberCountDESC }"
+      >
+        <span class="icon is-small">
+          <i class="fas fa-user-alt"></i>
+        </span>
+        <span>登録者数</span>
+      </button>
+    </p>
+  </div>
+</div>

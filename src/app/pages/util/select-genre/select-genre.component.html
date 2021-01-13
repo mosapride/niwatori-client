@@ -1,12 +1,17 @@
 <ng-container *ngFor="let genre of genres">
   <div class="mt-1 platform">{{ genre.environment }}</div>
   <div class="buttons mb-2">
-    <a class="button is-small is-outlined " [ngClass]="{ 'is-info': t.has }" *ngFor="let t of genre.items" (click)="t.has = !t.has">
+    <a
+      class="button is-small is-outlined"
+      [ngClass]="{ 'is-info': t.has }"
+      *ngFor="let t of genre.items"
+      (click)="t.has = !t.has; valChangeEmitter()"
+    >
       <span class="icon is-small">
         <i class="far fa-check-circle" *ngIf="t.has"></i>
         <i class="far fa-circle" *ngIf="!t.has"></i>
       </span>
-      <span>{{ t.name }} ({{t.count}})</span>
+      <span>{{ t.name }} ({{ t.count }})</span>
     </a>
   </div>
 </ng-container>

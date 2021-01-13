@@ -18,7 +18,6 @@ export class UserLinkComponent implements OnInit {
   getProfileSelectUsers(page: number): void {
     this.requestClientService.getProfileSelectUsers(page).subscribe((data) => {
       this.requestProfileUsers = data;
-      console.log(data);
     });
   }
 

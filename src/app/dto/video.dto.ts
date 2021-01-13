@@ -35,7 +35,13 @@ export type Video = {
   description: string;
 
   /**
-   * 配信時間(PTxxHxxMxxS)
+   * 配信時間(PTxxHxxMxxS).
+   *
+   * ## フォーマット
+   *
+   * ISO 8601フォーマット
+   * https://en.wikipedia.org/wiki/ISO_8601
+   *
    * ex : PT39M3S = 39分3秒
    *      PT3M12S = 3分12秒
    *      PT10H14M32S = 10時間14分32秒

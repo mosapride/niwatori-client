@@ -34,13 +34,17 @@ export class UserComponent implements OnInit {
     this.getYoutubeData(youtubeChannelId);
   }
 
+  /**
+   * APIから`youtubeChannelId`を元にユーザー情報を取得を行う。
+   * @param youtubeChannelId youtubeChannelId
+   */
   getYoutubeData(youtubeChannelId: string): void {
     this.requestClientService.getUser(youtubeChannelId).subscribe((data) => {
       this.user = data;
     });
     this.requestClientService.getVideosByUser(youtubeChannelId).subscribe((data) => {
       this.videos = data.map((v) => {
-        if (v.description.length >= 49) {
+        if (v.description.length >= 100) {
           v.description = v.description.substring(0, 100) + '...';
         }
         return v;
@@ -48,6 +52,12 @@ export class UserComponent implements OnInit {
     });
   }
 
+  /**
+   * Videoの配信状況または配信時間を返す。
+   *
+   * @param liveBroadcastContent 配信状態
+   * @param duration 配信時間
+   */
   htmlFormatDuration(liveBroadcastContent: ELiveBroadcastContent, duration: string | undefined): string {
     if (liveBroadcastContent === ELiveBroadcastContent.live) {
       return 'LIVE';

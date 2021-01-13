@@ -1,4 +1,4 @@
-<app-search (targetSearch)="search($event)"></app-search>
+<app-search (genreEmit)="genreListener($event)" (orderByEmit)="orderByListener($event)"></app-search>
 
 <nav class="pt-5 pagination is-centered" role="navigation" aria-label="pagination" #top style="scroll-margin-top: 50px;">
   <ul class="pagination-list">
@@ -6,9 +6,9 @@
       <a
         class="pagination-link"
         *ngFor="let p of getPager(); let index = index"
-        [ngClass]="{ 'is-current': activePage === p }"
+        [ngClass]="{ 'is-current': selectActivePage === p }"
         [attr.aria-label]="'Goto page ' + (p + 1)"
-        (click)="replaceUrlState(p);activePage = p"
+        (click)="selectActivePage = p; replaceUrlState(); "
         >{{ p + 1 }}</a
       >
     </li>
@@ -17,7 +17,7 @@
 
 <div class="container py-3 px-5 container-grid">
   <ng-container *ngFor="let user of users; let i = index">
-    <div class="card" *ngIf="activePage * viewerCount <= i && i < (activePage + 1) * viewerCount">
+    <div class="card" *ngIf="selectActivePage * viewerCount <= i && i < (selectActivePage + 1) * viewerCount">
       <div class="card-image has-hover" [routerLink]="user.youtubeChannelId">
         <img [src]="user.youtubeThumbnailsUrl" />
       </div>
@@ -53,9 +53,9 @@
       <a
         class="pagination-link"
         *ngFor="let p of getPager(); let index = index"
-        [ngClass]="{ 'is-current': activePage === p }"
+        [ngClass]="{ 'is-current': selectActivePage === p }"
         [attr.aria-label]="'Goto page ' + (p + 1)"
-        (click)="replaceUrlState(p);activePage = p ; top.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })"
+        (click)="selectActivePage = p; replaceUrlState();  top.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })"
         >{{ p + 1 }}</a
       >
     </li>

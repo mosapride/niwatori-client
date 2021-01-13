@@ -1,6 +1,26 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ResponseFindGenre } from 'src/app/dto/genre.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
+
+// ASC = 昇順
+// DESC = 降順
+export enum OrderBy {
+  'createdAtDESC',
+  'latestPostVideoAtDESC',
+  'viewCountDESC',
+  'subscriberCountDESC',
+}
+
+export type TGenreIdsEmitterVal = {
+  ids: number[];
+  refresh: boolean;
+};
+
+export type TOrderByEmitterVal = {
+  order: OrderBy;
+  refresh: boolean;
+};
 
 @Component({
   selector: 'app-search',
@@ -8,24 +28,62 @@ import { RequestClientService } from 'src/app/service/request-client.service';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  targetYoutubeChannelIds: string[] = [];
   responseFindGenres: ResponseFindGenre[] = [];
-  @Output() targetSearch = new EventEmitter<string[]>();
-  constructor(private readonly requestClientService: RequestClientService) {}
+  activeOrderby: OrderBy = OrderBy.createdAtDESC;
+  orderBy = OrderBy;
+  @Output() genreEmit = new EventEmitter<TGenreIdsEmitterVal>();
+  @Output() orderByEmit = new EventEmitter<TOrderByEmitterVal>();
+  constructor(private readonly activatedRoute: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
 
-  ngOnInit(): void {
-    this.requestClientService.genre().subscribe((data) => {
+  async ngOnInit(): Promise<void> {
+    await this.requestClientService
+      .genre()
+      .toPromise()
+      .then((data) => {
+        for (const d of data) {
+          d.items = d.items.filter((i) => {
+            return i.count !== 0;
+          });
+        }
+        this.responseFindGenres = data;
+      });
 
-      for (const d of data) {
-        d.items = d.items.filter(i => {
-          return (i.count !== 0);
-        });
+    this.activatedRoute.queryParams.subscribe((params) => {
+      // tslint:disable-next-line: one-variable-per-declaration
+      const targetGenres = params.g,
+        orderBy = params.order;
+      const wkTargetGenre: number[] = [];
+      if (targetGenres) {
+        const targetGenreList = (targetGenres + '').split(',');
+        for (const t of targetGenreList) {
+          if (Number.isInteger(+t)) {
+            wkTargetGenre.push(+t);
+          }
+        }
       }
-      this.responseFindGenres = data;
+      if (wkTargetGenre.length !== 0) {
+        this.responseFindGenres = this.responseFindGenres.map((rfg) => {
+          rfg.items.map((item) => {
+            for (const tg of wkTargetGenre) {
+              if (item.id === tg) {
+                item.has = true;
+                break;
+              }
+            }
+          });
+          return rfg;
+        });
+        this.search(false);
+      }
+      if (orderBy) {
+        if (Number.isInteger(+orderBy)) {
+          this.emitActiveOrderBy(+orderBy , false);
+        }
+      }
     });
   }
 
-  search(): void {
+  search(refresh = true): void {
     const ids = this.responseFindGenres.map((v) => {
       v.items.map((i) => i.has ?? i.id, '');
     });
@@ -39,16 +97,15 @@ export class SearchComponent implements OnInit {
       }
     }
     if (genreIds.length === 0) {
-      this.targetSearch.emit([]);
+      this.genreEmit.emit();
       return;
     }
 
-    this.requestClientService.matchGenre(genreIds).subscribe((userIds) => {
-      this.targetSearch.emit(userIds);
-    });
+    this.genreEmit.emit({ ids: genreIds, refresh });
   }
 
-  debug(): void {
-    console.log(this.responseFindGenres);
+  emitActiveOrderBy(order: OrderBy, refresh = true): void {
+    this.activeOrderby = order;
+    this.orderByEmit.emit({ order: this.activeOrderby, refresh });
   }
 }

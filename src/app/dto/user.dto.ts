@@ -70,6 +70,7 @@ export type RequestUserList = Pick<
   | 'videoCount'
   | 'twitter'
   | 'latestPostVideoAt'
+  | 'createdAt'
 >;
 
 /**

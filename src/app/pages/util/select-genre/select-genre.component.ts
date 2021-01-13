@@ -10,5 +10,10 @@ export class SelectGenreComponent {
   @Input() genres: ResponseFindGenre[] = [];
   @Output() genresChange = new EventEmitter<ResponseFindGenre[]>();
   @Output() initialized = new EventEmitter<void>();
+  @Output() valueChange = new EventEmitter<void>();
   constructor() {}
+
+  valChangeEmitter(): void {
+    this.valueChange.emit();
+  }
 }

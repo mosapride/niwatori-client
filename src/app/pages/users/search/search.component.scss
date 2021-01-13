@@ -5,3 +5,16 @@
     font-family: 'Font Awesome 5 Brands', 'Roboto';
   }
 }
+
+.sort-title {
+  font-weight: bold;
+  font-size: 1.15em;
+}
+
+.sort {
+  justify-content: flex-end;
+  button {
+    font-size: 12px;
+  }
+}
+

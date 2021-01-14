@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RequestUserList } from 'src/app/dto/user.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
+import { environment } from 'src/environments/environment';
 import { OrderBy, TGenreIdsEmitterVal, TOrderByEmitterVal } from './search/search.component';
 
 @Component({
@@ -91,14 +92,14 @@ export class UsersComponent implements OnInit {
   }
 
   genreListener(val: TGenreIdsEmitterVal): void {
-    this.genreFilter(val.ids, val.refresh);
+    this.genreFilter(val?.ids, val?.refresh);
   }
 
   genreFilter(genreIds?: number[], pageReset = true): void {
-    if (!genreIds) {
+    if (!genreIds || genreIds.length === 0) {
       this.users = this.usersOrg;
       this.selectTargetGenre = [];
-      this.replaceUrlState();
+      // this.replaceUrlState();
       return;
     }
     this.selectTargetGenre = genreIds;
@@ -119,7 +120,7 @@ export class UsersComponent implements OnInit {
   }
 
   orderByListener(val: TOrderByEmitterVal): void {
-    this.orderBy(val.order , val.refresh);
+    this.orderBy(val.order, val.refresh);
   }
   orderBy(order: OrderBy, pageReset = true): void {
     this.selectOrderBy = order;
@@ -169,5 +170,12 @@ export class UsersComponent implements OnInit {
     if (pageReset) {
       this.selectActivePage = 0;
     }
+  }
+
+  openWindowsByUser(e: MouseEvent, youtubeChannelId: string): void {
+    if (e.buttons === 4) {
+      window.open(`${environment.host}/u/${youtubeChannelId}`, undefined)?.blur();
+    }
+    e.preventDefault();
   }
 }

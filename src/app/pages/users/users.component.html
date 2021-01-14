@@ -1,6 +1,7 @@
+
 <app-search (genreEmit)="genreListener($event)" (orderByEmit)="orderByListener($event)"></app-search>
 
-<nav class="pt-5 pagination is-centered" role="navigation" aria-label="pagination" #top style="scroll-margin-top: 50px;">
+<nav class="pt-5 pagination is-centered" role="navigation" aria-label="pagination" #top style="scroll-margin-top: 50px">
   <ul class="pagination-list">
     <li>
       <a
@@ -8,7 +9,7 @@
         *ngFor="let p of getPager(); let index = index"
         [ngClass]="{ 'is-current': selectActivePage === p }"
         [attr.aria-label]="'Goto page ' + (p + 1)"
-        (click)="selectActivePage = p; replaceUrlState(); "
+        (click)="selectActivePage = p; replaceUrlState()"
         >{{ p + 1 }}</a
       >
     </li>
@@ -19,29 +20,32 @@
   <ng-container *ngFor="let user of users; let i = index">
     <div class="card" *ngIf="selectActivePage * viewerCount <= i && i < (selectActivePage + 1) * viewerCount">
       <div class="card-image has-hover" [routerLink]="user.youtubeChannelId">
-        <img [src]="user.youtubeThumbnailsUrl" />
+        <img [src]="user.youtubeThumbnailsUrl" (mousedown)="openWindowsByUser($event,user.youtubeChannelId)" />
       </div>
       <header>
         <div class="pt-3 pb-1 px-5">
           <div class="channelName">{{ user.youtubeChannelName }}</div>
-          <div *ngIf="user.latestPostVideoAt">最新投稿日：{{user.latestPostVideoAt | date:'yyyy/MM/dd HH:mm'}}</div>
-          <i class="fas fa-user"></i> {{user.subscriberCount | number}} 人<br>
-          <i class="fas fa-play-circle"></i> {{user.viewCount | number}} 回視聴<br>
-          <i class="fas fa-video"></i> {{user.videoCount | number}} 本<br>
-
+          <div *ngIf="user.latestPostVideoAt">最新投稿日：{{ user.latestPostVideoAt | date: 'yyyy/MM/dd HH:mm' }}</div>
+          <i class="fas fa-user"></i> {{ user.subscriberCount | number }} 人<br />
+          <i class="fas fa-play-circle"></i> {{ user.viewCount | number }} 回視聴<br />
+          <i class="fas fa-video"></i> {{ user.videoCount | number }} 本<br />
         </div>
       </header>
       <div class="card-content">
-        <div class="content">
-        </div>
+        <div class="content"></div>
       </div>
       <footer class="card-footer">
         <a [href]="'https://www.youtube.com/channel/' + user.youtubeChannelId" target="_blank" rel="noopener" class="card-footer-item"
           ><span class="icon"><i class="fab fa-2x fa-youtube"></i></span
         ></a>
-        <a *ngIf="user.twitter" [href]="'https://twitter.com/' + user.twitter.replace('@','')" target="_blank" rel="noopener" class="card-footer-item"
-        ><span class="icon"><i class="fab fa-2x fa-twitter"></i></span
-      ></a>
+        <a
+          *ngIf="user.twitter"
+          [href]="'https://twitter.com/' + user.twitter.replace('@', '')"
+          target="_blank"
+          rel="noopener"
+          class="card-footer-item"
+          ><span class="icon"><i class="fab fa-2x fa-twitter"></i></span
+        ></a>
       </footer>
     </div>
   </ng-container>
@@ -55,7 +59,7 @@
         *ngFor="let p of getPager(); let index = index"
         [ngClass]="{ 'is-current': selectActivePage === p }"
         [attr.aria-label]="'Goto page ' + (p + 1)"
-        (click)="selectActivePage = p; replaceUrlState();  top.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })"
+        (click)="selectActivePage = p; replaceUrlState(); top.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })"
         >{{ p + 1 }}</a
       >
     </li>

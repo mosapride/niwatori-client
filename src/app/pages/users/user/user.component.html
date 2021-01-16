@@ -18,7 +18,8 @@
   </div>
   <div class="column is-8">
     <div class="mb-2">
-      <strong class="channel">{{ user.youtubeChannelName }}</strong>
+      <strong class="channel">{{ user.youtubeChannelName }}</strong><br>
+      <strong class="name">{{user.name}} <ng-container *ngIf="user.nameKatakana && user.name !== user.nameKatakana">/ {{user.nameKatakana}}</ng-container></strong>
     </div>
     <nav class="level mb-0">
       <div class="level-left">
@@ -30,10 +31,10 @@
         </a>
       </div>
     </nav>
+    <app-show-genre [genres]="responseFindGenres"></app-show-genre>
     <pre>{{ user.youtubeDescription }}</pre>
   </div>
 </div>
-
 
 
 <section class="hero is-light is-info is-bold mt-5">

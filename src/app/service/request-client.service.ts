@@ -96,6 +96,7 @@ export class RequestClientService {
    * Youtube DATA API からログアウト、Auth Cookie情報を削除しトップページに遷移する。
    */
   public logout(): void {
+    this.userInfoService.logout();
     this.httpClient.post(`${environment.apiUrl}google/logout`, '', headerOptionGoogleLogout()).subscribe(() => {
       window.location.assign(environment.host);
     });
@@ -113,6 +114,10 @@ export class RequestClientService {
    */
   public getHasGenre(): Observable<HasGenreIds> {
     return this.httpClient.get<HasGenreIds>(`${environment.apiUrl}user/genre`, headerGetJsonOption());
+  }
+
+  public getHasGenreByYoutubeChannelId(youtubeChannelId: string): Observable<HasGenreIds> {
+    return this.httpClient.get<HasGenreIds>(`${environment.apiUrl}user/genre/${youtubeChannelId}`, headerGetJsonOption());
   }
 
   /**

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { RequestUser } from 'src/app/dto/user.dto';
+import { ResponseFindGenre } from '../../../dto/genre.dto';
+import { RequestUser } from '../../../dto/user.dto';
 import { ELiveBroadcastContent, Video } from 'src/app/dto/video.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
 
@@ -11,6 +12,7 @@ import { RequestClientService } from 'src/app/service/request-client.service';
 })
 export class UserComponent implements OnInit {
   youtubeChannelId = '';
+  responseFindGenres: ResponseFindGenre[] = [];
   videos: Video[] = [];
   user: RequestUser | undefined;
   constructor(
@@ -19,14 +21,50 @@ export class UserComponent implements OnInit {
     private readonly requestClientService: RequestClientService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.youtubeChannelId = this.activatedRoute.snapshot.paramMap.get('youtubeChannelId') + '';
     this.getYoutubeData(this.youtubeChannelId);
+    this.getResponseFindGenres();
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.youtubeChannelId = this.activatedRoute.snapshot.paramMap.get('youtubeChannelId') + '';
         this.getYoutubeData(this.youtubeChannelId);
+        // genre設定
+        this.getResponseFindGenres();
       }
+    });
+  }
+
+  /**
+   * 所持しているgenreを設定する
+   */
+  async getResponseFindGenres(): Promise<void> {
+    await this.requestClientService
+      .genre()
+      .toPromise()
+      .then((data) => {
+        this.responseFindGenres = data;
+      });
+    this.requestClientService.getHasGenreByYoutubeChannelId(this.youtubeChannelId).subscribe((genreIds) => {
+      for (const rfg of this.responseFindGenres) {
+        for (const r of rfg.items) {
+          for (const genreId of genreIds) {
+            if (r.id === genreId) {
+              r.has = true;
+              break;
+            }
+          }
+        }
+      }
+
+      for (const rfg of this.responseFindGenres) {
+        rfg.items = rfg.items.filter((r) => {
+          return r.has;
+        });
+      }
+      this.responseFindGenres = this.responseFindGenres.filter((v) => {
+        return v.items.length !== 0;
+      });
     });
   }
 

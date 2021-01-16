@@ -5,6 +5,7 @@ import { RequestProfile } from 'src/app/dto/user.dto';
 import { HasGenreIds } from 'src/app/dto/user.genre.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
 import { UserInfoService } from 'src/app/service/user-info.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -88,4 +89,8 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleHasGenre(id: number): void {}
+
+  openWindowsByUser(): void {
+    window.open(`${environment.host}/u/${this.profile.youtubeChannelId}`);
+  }
 }

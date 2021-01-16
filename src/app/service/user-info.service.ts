@@ -13,7 +13,6 @@ export class UserInfoService {
   constructor() {}
 
   setUserInfo(youtubeChannelName: string): void {
-    console.log('setUserInfo');
     this.userInfo = { isLogin: true, youtubeChannelName };
   }
 
@@ -23,5 +22,9 @@ export class UserInfoService {
 
   isAuth(): boolean {
     return this.userInfo.isLogin;
+  }
+
+  logout(): void {
+    this.userInfo = { isLogin: false, youtubeChannelName: '' };
   }
 }

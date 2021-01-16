@@ -1,0 +1,12 @@
+
+<ng-container *ngFor="let genre of genres">
+  <div class="mt-1 platform">{{ genre.environment }}</div>
+  <div class="buttons mb-2">
+    <span
+      class="tag is-link is-light mr-2 mb-1"
+      *ngFor="let t of genre.items"
+    >
+      {{ t.name }}
+    </span>
+  </div>
+</ng-container>

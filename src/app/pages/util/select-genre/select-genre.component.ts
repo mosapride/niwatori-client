@@ -8,6 +8,7 @@ import { ResponseFindGenre } from 'src/app/dto/genre.dto';
 })
 export class SelectGenreComponent {
   @Input() genres: ResponseFindGenre[] = [];
+  @Input() countHiddenFlg = false;
   @Output() genresChange = new EventEmitter<ResponseFindGenre[]>();
   @Output() initialized = new EventEmitter<void>();
   @Output() valueChange = new EventEmitter<void>();

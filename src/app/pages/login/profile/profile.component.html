@@ -159,14 +159,31 @@
   </div>
 </div>
 
+<!-- 立ち絵 -->
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label">立ち絵</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control has-icons-left">
+        <div class="upload-file" [ngClass]="imageDropActiveFlg ? 'active' : 'none-active'" (dragover)="handleDragOver($event)" (drop)="fileView($event)" (dragenter)="imageDropActiveFlg = true" (dragleave)="imageDropActiveFlg = false">
+          画像(png,jpg,jpeg)をドロップで追加
+          </div>
+      </div>
+      <img *ngFor="let i of uploadProfileLocalUrl" [src]="i" [alt]="i" />
+    </div>
+  </div>
+</div>
+
 <hr />
 
 <!-- 配信者のみ閲覧可能 -->
 
 <section class="section">
   <div class="container">
-    <h1 class="title">配信者(登録ユーザー)のみ閲覧可能情報</h1>
-    <p>コラボを行いたいジャンルを選択してください。</p>
+    <h1 class="title">コラボ希望ジャンル</h1>
+    <p>コラボを行いたいジャンルのみを選択してください。主に検索に使用します。</p>
   </div>
 </section>
 
@@ -198,8 +215,7 @@
   </div>
 </div>
 
-
-<hr>
+<hr />
 
 <div class="field is-horizontal">
   <div class="field-label is-normal"></div>

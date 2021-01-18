@@ -29,7 +29,7 @@ export type TOrderByEmitterVal = {
 })
 export class SearchComponent implements OnInit {
   responseFindGenres: ResponseFindGenre[] = [];
-  activeOrderby: OrderBy = OrderBy.createdAtDESC;
+  activeOrderby: OrderBy = OrderBy.latestPostVideoAtDESC;
   orderBy = OrderBy;
   @Output() genreEmit = new EventEmitter<TGenreIdsEmitterVal>();
   @Output() orderByEmit = new EventEmitter<TOrderByEmitterVal>();

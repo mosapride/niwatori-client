@@ -13,7 +13,7 @@ import { OrderBy, TGenreIdsEmitterVal, TOrderByEmitterVal } from './search/searc
 export class UsersComponent implements OnInit {
   users: RequestUserList[] = [];
   usersOrg: RequestUserList[] = [];
-  readonly viewerCount = 6;
+  readonly viewerCount = 24;
   selectActivePage = 0;
   selectTargetGenre: number[] = [];
   selectOrderBy: OrderBy = OrderBy.createdAtDESC;

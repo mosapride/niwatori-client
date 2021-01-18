@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ResponseFindGenre } from 'src/app/dto/genre.dto';
 import { RequestProfile } from 'src/app/dto/user.dto';
 import { HasGenreIds } from 'src/app/dto/user.genre.dto';
@@ -14,10 +15,14 @@ import { environment } from 'src/environments/environment';
 })
 export class ProfileComponent implements OnInit {
   profile: RequestProfile = {};
+  // アップロードする画像のローカルURL
+  uploadProfileLocalUrl: SafeUrl[] = [];
+  imageDropActiveFlg = false;
   responseFindGenres: ResponseFindGenre[] = [];
   constructor(
+    private readonly domSanitizer: DomSanitizer,
     private readonly requestClientService: RequestClientService,
-    public readonly userInfoService: UserInfoService,
+    private readonly userInfoService: UserInfoService,
     private matSnackBar: MatSnackBar
   ) {}
 
@@ -93,4 +98,31 @@ export class ProfileComponent implements OnInit {
   openWindowsByUser(): void {
     window.open(`${environment.host}/u/${this.profile.youtubeChannelId}`);
   }
+
+  fileView(event: any): void {
+    event.stopPropagation();
+    event.preventDefault();
+    let files: any;
+    try {
+      // divでのfilesの箇所
+      files = event.dataTransfer.files;
+    } catch (e) {
+      // inputでのfilesの箇所
+      files = event.target.files;
+    }
+
+    for (const f of files) {
+      if (f.type === 'image/png' || f.type === 'image/jpeg') {
+        this.uploadProfileLocalUrl.push(this.domSanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(f)));
+      }
+    }
+    this.imageDropActiveFlg = false;
+  }
+
+  handleDragOver(event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+
 }

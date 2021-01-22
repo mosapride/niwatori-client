@@ -204,12 +204,14 @@ export class ProfileComponent implements OnInit {
   }
 
   isDisabledUpload(): boolean {
+    console.log('isDisabledUpload :' + this.uploading);
     if (this.uploading) {
-      return false;
+      return true;
     }
     if (this.uploadProfileLocalUrl.length >= 1 && this.uploadProfileLocalUrl.length + this.profileImages.length <= 10) {
       return false;
     }
+
     return true;
   }
 }

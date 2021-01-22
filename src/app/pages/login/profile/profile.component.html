@@ -195,17 +195,13 @@
           <i class="fa-2x fas fa-trash-alt profile-remove-icon" (click)="spliceUploadProfile(ix)"></i>
         </div>
       </div>
-      <div class="has-text-danger" *ngIf="uploadProfileLocalUrl.length + profileImages.length > 10"
-        >画像ファイルが多すぎます。既存の画像ファイルまたはアップロードする画像ファイルを削除してください。</div
-      >
-      <button
-        class="button is-info is-outlined mt-3"
-        (click)="imageUpload()"
-        [disabled]="isDisabledUpload()"
-      >
-        アップロード
-      </button>
-
+      <div class="has-text-danger" *ngIf="uploadProfileLocalUrl.length + profileImages.length > 10">
+        画像ファイルが多すぎます。既存の画像ファイルまたはアップロードする画像ファイルを削除してください。
+      </div>
+      <div class="mt-3 v-item-center">
+        <button class="button is-info is-outlined" (click)="imageUpload()" [disabled]="isDisabledUpload()">アップロード</button>
+        <span class="ml-5" *ngIf="uploading">アップロード中.....</span>
+      </div>
     </div>
   </div>
 </div>

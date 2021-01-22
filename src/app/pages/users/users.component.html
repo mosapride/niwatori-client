@@ -19,7 +19,7 @@
   <ng-container *ngFor="let user of users; let i = index">
     <div class="card" *ngIf="selectActivePage * viewerCount <= i && i < (selectActivePage + 1) * viewerCount">
       <div class="card-image has-hover" [routerLink]="user.youtubeChannelId">
-        <img [src]="user.youtubeThumbnailsUrl" (mousedown)="openWindowsByUser($event, user.youtubeChannelId)" />
+        <img class="profile-img" [src]="user.youtubeThumbnailsUrl" (mousedown)="openWindowsByUser($event, user.youtubeChannelId)" />
       </div>
       <header>
         <div class="pt-3 pb-1 px-5">

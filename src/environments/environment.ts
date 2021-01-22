@@ -5,7 +5,8 @@
 export const environment = {
   host : 'http://localhost:4200',
   production: false,
-  apiUrl : 'http://localhost:8080/api/v1/'
+  apiUrl : 'http://localhost:8080/api/v1/',
+  imageUrl : 'http://localhost:8080/assets/'
 };
 
 /*

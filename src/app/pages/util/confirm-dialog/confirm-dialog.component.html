@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+
+</div>
+<div class="mt-5">
+  <button class="button mr-5" cdkFocusInitial (click)="chancel()">Chancel</button>
+  <button class="button" (click)="ok()">OK</button>
+</div>

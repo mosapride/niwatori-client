@@ -167,11 +167,45 @@
   <div class="field-body">
     <div class="field">
       <div class="control has-icons-left">
-        <div class="upload-file" [ngClass]="imageDropActiveFlg ? 'active' : 'none-active'" (dragover)="handleDragOver($event)" (drop)="fileView($event)" (dragenter)="imageDropActiveFlg = true" (dragleave)="imageDropActiveFlg = false">
-          画像(png,jpg,jpeg)をドロップで追加
-          </div>
+        <div class="label">アップロード済み</div>
+        <app-lightbox-img-grid [images]="profileImages" [doDelete]="true" (deleteImageEmitter)="deleteImg($event)"></app-lightbox-img-grid>
+        <div class="description">
+          コラボ等で使用する立ち絵画像をアップロードすることができます。
+          <ol type="a" class="remarks">
+            <li>png,jpg,jpeg形式のみ</li>
+            <li>1ファイル当たり最大2MBまで</li>
+            <li>最大10ファイル(アップロード済み含む)</li>
+          </ol>
+        </div>
+        <div><input type="file" class="my-1" multiple accept=".png,.jpg,.jpeg" (change)="fileView($event)" /></div>
+        <div
+          class="upload-file"
+          [ngClass]="imageDropActiveFlg ? 'active' : 'none-active'"
+          (dragover)="handleDragOver($event)"
+          (drop)="fileView($event)"
+          (dragenter)="imageDropActiveFlg = true"
+          (dragleave)="imageDropActiveFlg = false"
+        >
+          <i class="far fa-images mr-1"></i>画像(png,jpg,jpeg)をドロップで追加
+        </div>
       </div>
-      <img *ngFor="let i of uploadProfileLocalUrl" [src]="i" [alt]="i" />
+      <div class="profile-grid mt-3" *ngIf="uploadProfileLocalUrl.length !== 0">
+        <div *ngFor="let i of uploadProfileLocalUrl; let ix = index" class="grid-column no-hover">
+          <img [src]="i" class="profile-img" />
+          <i class="fa-2x fas fa-trash-alt profile-remove-icon" (click)="spliceUploadProfile(ix)"></i>
+        </div>
+      </div>
+      <div class="has-text-danger" *ngIf="uploadProfileLocalUrl.length + profileImages.length > 10"
+        >画像ファイルが多すぎます。既存の画像ファイルまたはアップロードする画像ファイルを削除してください。</div
+      >
+      <button
+        class="button is-info is-outlined mt-3"
+        (click)="imageUpload()"
+        [disabled]="isDisabledUpload()"
+      >
+        アップロード
+      </button>
+
     </div>
   </div>
 </div>
@@ -183,7 +217,7 @@
 <section class="section">
   <div class="container">
     <h1 class="title">コラボ希望ジャンル</h1>
-    <p>コラボを行いたいジャンルのみを選択してください。主に検索に使用します。</p>
+    <p class="description">コラボを行いたいジャンルのみを選択してください。主に検索に使用します。</p>
   </div>
 </section>
 
@@ -227,3 +261,5 @@
     </div>
   </div>
 </div>
+
+<button (click)="postTest()">postTest</button>

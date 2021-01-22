@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -19,6 +19,18 @@ const headerPatchJsonOption = (): { responseType: 'text'; withCredentials: true;
     responseType: 'text',
     withCredentials: true,
     observe: 'body',
+  };
+};
+
+const headerUploadFileOption = (): { withCredentials: true } => {
+  return {
+    withCredentials: true,
+  };
+};
+
+const headerDeleteFileOption = (): { withCredentials: true } => {
+  return {
+    withCredentials: true,
   };
 };
 
@@ -167,5 +179,29 @@ export class RequestClientService {
    */
   public matchGenre(ids: number[]): Observable<string[]> {
     return this.httpClient.get<string[]>(`${environment.apiUrl}user/match-genre/${ids.join()}`, headerGetJsonOption());
+  }
+
+  /**
+   * プロフィール画像ファイルのアップロードを行う
+   * @param files プロフィール画像ファイル
+   */
+  public uploadProfileFile(files: File[]): Observable<void> {
+    const formData = new FormData();
+    for (const f of files) {
+      formData.append('file', f);
+    }
+    return this.httpClient.post<void>(`${environment.apiUrl}user/upload`, formData, headerUploadFileOption());
+  }
+
+  /**
+   * プロフィール画像名を取得する
+   * @param youtubeChannelId youtubeChannelId
+   */
+  public getProfileFile(youtubeChannelId: string): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${environment.apiUrl}user/image/${youtubeChannelId}`, headerGetJsonOption());
+  }
+
+  public deleteProfileFile(imageFileName: string): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.apiUrl}user/image/${imageFileName}`, headerDeleteFileOption());
   }
 }

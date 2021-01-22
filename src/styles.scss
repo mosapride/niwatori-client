@@ -55,3 +55,9 @@ body {
 .mat-typography p{
   margin: 0 ;
 }
+
+// モバイル版の画像表示時にスクロールがトップに行く不具合対応
+// https://github.com/biati-digital/glightbox/issues/22
+.glightbox-open {
+  height: auto;
+}

@@ -24,7 +24,7 @@ export class AppService {
     // this.httpClient
     //   .get(`${environment.apiUrl}cookie-test2`, { withCredentials: true, headers, responseType: 'text' })
     //   .subscribe((data) => console.log(data));
-    this.httpClient.get(`${environment.apiUrl}cookie-test2` , jsonOption()).subscribe(data => console.log(data));
+    // this.httpClient.get(`${environment.apiUrl}cookie-test2` , jsonOption()).subscribe(data => console.log(data));
   }
 
   public getUserInfo(): void {

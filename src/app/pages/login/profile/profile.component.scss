@@ -7,25 +7,61 @@
   padding: 1rem 1.5rem;
 }
 
-input[type='file'].upload-file {
-  display: none;
-}
 .upload-file {
   border-radius: 5px;
   text-align: center;
   color: #444;
   padding-top: 0px;
   line-height: 74px;
-  padding: 24px 48px;
+  padding: 12px 48px;
 
   &.active {
     border: 2px dashed #3298dc;
     color: #3298dc;
-    font-size : 1.25em;
+    font-size: 1.25em;
   }
 
   &.none-active {
-    border: 2px dotted #EEE;
+    border: 2px dotted #ccc;
   }
 }
 
+
+.profile-view {
+  width: 45%;
+  min-width: 280px;
+  max-height: 280px;;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  .profile-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  .channel {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    cursor: pointer;
+    color: darkgray;
+    &:hover {
+      color: currentcolor;
+    }
+  }
+}
+
+.description {
+  font-size: 0.9em;
+  color: gray;
+}
+
+.remarks {
+  padding-left: 30px;
+}

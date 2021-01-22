@@ -1,0 +1,51 @@
+.lightbox-image-box {
+  height : 250px;
+  position: relative;
+}
+
+.grid-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit , minmax(200px , 1fr));
+  grid-gap: 0.5em;
+  .grid-column {
+    position: relative;
+    text-align: center;
+    margin: 2px;
+    &:hover {
+      border: 2px double rgba(50, 152, 220, .4);
+      cursor: pointer;
+      margin: 0px;
+    }
+  }
+  .profile-img {
+    max-height: 300px;
+  }
+  .profile-remove-icon {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    cursor: pointer;
+    color: darkgray;
+    &:hover {
+      color: currentcolor;
+    }
+  }
+}
+
+.no-hover {
+  &:hover {
+    cursor: auto !important;
+  }
+}

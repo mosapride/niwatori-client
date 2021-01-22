@@ -20,6 +20,9 @@ import { UserLinkComponent } from './pages/users/user/user-link/user-link.compon
 import { SearchComponent } from './pages/users/search/search.component';
 import { SelectGenreComponent } from './pages/util/select-genre/select-genre.component';
 import { ShowGenreComponent } from './pages/util/show-genre/show-genre.component';
+import { LightboxImgGridComponent } from './pages/util/lightbox-img-grid/lightbox-img-grid.component';
+import { ConfirmDialogComponent } from './pages/util/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { ShowGenreComponent } from './pages/util/show-genre/show-genre.component
     SearchComponent,
     SelectGenreComponent,
     ShowGenreComponent,
+    LightboxImgGridComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +51,7 @@ import { ShowGenreComponent } from './pages/util/show-genre/show-genre.component
     ReactiveFormsModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent],

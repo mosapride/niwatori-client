@@ -1,0 +1,8 @@
+<div class="profile-grid mt-3" *ngIf="imageFiles.length !== 0">
+  <div *ngFor="let p of imageFiles; let ix = index" class="grid-column" (click)="view(ix)">
+    <img class="profile-img" [src]="imgBaseUrl + p" />
+    <ng-container *ngIf="doDelete">
+      <i class="fa-2x fas fa-trash-alt profile-remove-icon" (click)="$event.stopPropagation(); delete(p)"></i>
+    </ng-container>
+  </div>
+</div>

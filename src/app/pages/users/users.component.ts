@@ -13,10 +13,10 @@ import { OrderBy, TGenreIdsEmitterVal, TOrderByEmitterVal } from './search/searc
 export class UsersComponent implements OnInit {
   users: RequestUserList[] = [];
   usersOrg: RequestUserList[] = [];
-  readonly viewerCount = 24;
+  readonly viewerCount = 12;
   selectActivePage = 0;
   selectTargetGenre: number[] = [];
-  selectOrderBy: OrderBy = OrderBy.createdAtDESC;
+  selectOrderBy: OrderBy = OrderBy.latestPostVideoAtDESC;
   constructor(private readonly activatedRoute: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
 
   ngOnInit(): void {
@@ -27,6 +27,7 @@ export class UsersComponent implements OnInit {
         orderBy = params.order;
       if (Number.isInteger(+page)) {
         this.selectActivePage = +page;
+        console.log(this.selectActivePage);
       }
 
       const wkTargetGenre: number[] = [];
@@ -42,9 +43,12 @@ export class UsersComponent implements OnInit {
       this.genreFilter(wkTargetGenre, false);
 
       if (orderBy) {
+        console.log(orderBy);
         this.orderBy(orderBy, false);
       }
     });
+
+
     this.requestClientService.getUsers().subscribe((data) => {
       data = data.filter((v) => {
         if (!v.videoCount) {
@@ -56,6 +60,7 @@ export class UsersComponent implements OnInit {
         return true;
       });
       this.users = data;
+      this.orderBy(this.selectOrderBy , false);
       this.usersOrg = data;
     });
   }
@@ -99,7 +104,7 @@ export class UsersComponent implements OnInit {
     if (!genreIds || genreIds.length === 0) {
       this.users = this.usersOrg;
       this.selectTargetGenre = [];
-      // this.replaceUrlState();
+      this.replaceUrlState();
       return;
     }
     this.selectTargetGenre = genreIds;
@@ -121,6 +126,7 @@ export class UsersComponent implements OnInit {
 
   orderByListener(val: TOrderByEmitterVal): void {
     this.orderBy(val.order, val.refresh);
+    this.replaceUrlState();
   }
   orderBy(order: OrderBy, pageReset = true): void {
     this.selectOrderBy = order;

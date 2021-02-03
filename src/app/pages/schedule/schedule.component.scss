@@ -1,0 +1,92 @@
+.channelName {
+  line-height: 2rem;
+  font-weight: bold;
+}
+
+.hero-body {
+  padding: 0rem 1.5rem;
+  .title {
+    margin: 2px;
+    font-family: 'Font Awesome 5 Brands', 'Roboto';
+  }
+}
+
+.stream {
+  font-size: 1.25em;
+}
+
+
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 0.5em;
+  .card {
+    // height: max-content;
+    height: 100%;
+    .card-image {
+      text-align: center;
+    }
+    .title {
+      font-size: 1em;
+    }
+    .card-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+}
+
+.card-image {
+  text-align: center;
+}
+
+.has-animation {
+  transition: all 0.3s ease-out;
+  &.has-hover:hover {
+    cursor: pointer;
+    transform: scale(1.08);
+  }
+}
+
+.card-content {
+  padding: 0 1rem 1rem 1rem;
+  hr{
+    margin: 0.5rem 0;
+  }
+}
+
+p.duration {
+  position: absolute;
+  bottom: 10px;
+  right: calc(100% / 2 - 160px);
+  background-color: black;
+  color: white;
+  padding: 0 5px;
+}
+
+div.title a {
+  color: black;
+}
+
+.upcoming {
+  color: gray;
+}
+
+.hero-body {
+  padding: 0rem 1.5rem;
+  .title {
+    margin: 2px;
+    font-family: 'Font Awesome 5 Brands' ,'Roboto';
+  }
+}
+
+.schedule-time {
+  font-size: 1.25em;
+
+  &.upcoming {
+    color : red;
+  }
+}
+

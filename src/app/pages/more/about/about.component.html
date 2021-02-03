@@ -15,3 +15,16 @@
 <p>配信者が自身で登録する情報は公開情報のみに絞っています。間違っても個人を特定される情報(本名、住所、電話番号等)の<strong>入力は行わないよう</strong>にしてください。</p>
 <p>当サイトの配信者用ログインにはGoogle <a href="https://developers.google.com/youtube/v3/getting-started?hl=ja" target="_blank" rel="noopener">Youtube Data API</a>を利用しているためGoogleアカウントが必要です。</p>
 <p>当サイトで利用する<a href="https://developers.google.com/youtube/v3/getting-started?hl=ja" target="_blank" rel="noopener">Youtube Data API</a>で取得できる情報はYoutubeで公開されている情報のみで個人情報は含まれません。</p>
+
+<h2 class="mt-5">本音</h2>
+
+<p>もともとNestJS、TypeORMを使ったREST APIを作ってみたかった。そんな中で配信者(Vtuber)がコラボについてきっかけが無いような事を言ってたのでマッチングアプリとは言わないが、それに似た機能のサービスが無いので作ってみたのがきっかけ。</p>
+<p>コラボにあたり、希望するコラボや条件などを公開しておけば、自分に合うパートナーが見つかる可能性も上がるのではないかと。ついでに立ち絵等も最初から用意しておいた方が楽じゃないかな？など考えて実装してみた。</p>
+<p class="mt-3">こういうサイトって需要が限られてるから儲かりはしない。趣味全振りだからこそ開発コストは考えなくても良いが、正直レンタルサーバー代ぐらいは稼ぎたいね。黒字の方がモチベーションが保てるしね。仮にたくさん稼げたらもっと上位のサーバーを借りたいと思ってる。</p>
+<p class="mt-3">ログインを外部API(Youtube Data API)で私が取得できる情報はyoutubeに上がっているデータのみでメールアドレスも知ることができない。つまりバグやハッキング等によってデータが流出しても、その中は元々youtubeで上がっている公開情報なので気楽に運用できる。
+サイト内チャットなども実装可能だが、このサイトを毎回チェックするような手間は利用者にとってはデメリットの方が大きい。twitterのDMなどの方が利便性が高いため作るつもりはない。</p>
+<p>コラボ相手が見つかって、このサイトの利用をする必要が無くなるのがサービスとしてのゴールなので卒業(退会)して欲しい。入会、退会に制約なんてないからね。</p>
+
+<p class="mt-3">
+  <a href="https://zipide.com/" target="_blank" rel="noopener noreferrer">Amazon商品で見積もる自作PCデータベース。じぴで</a>とかも作ってたりする。これはexpress、Typegoose、Angularで作ってたりする。Mongodbを使ってみたかったからTypegooseを選択したけどNoSQL-JSONは扱いやすい反面、管理をきちんとしないと行けないからRDBMSの方が好みかな。
+</p>

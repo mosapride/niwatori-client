@@ -23,6 +23,7 @@ import { ShowGenreComponent } from './pages/util/show-genre/show-genre.component
 import { LightboxImgGridComponent } from './pages/util/lightbox-img-grid/lightbox-img-grid.component';
 import { ConfirmDialogComponent } from './pages/util/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ShowGenreComponent,
     LightboxImgGridComponent,
     ConfirmDialogComponent,
+    ScheduleComponent,
   ],
   imports: [
     BrowserModule,

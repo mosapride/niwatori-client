@@ -10,6 +10,7 @@ import { AuthGuardService } from './service/auth-guard.service';
 import { UserInfoService } from './service/user-info.service';
 import { UsersComponent } from './pages/users/users.component';
 import { UserComponent } from './pages/users/user/user.component';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
         component: PrivacyComponent,
       },
     ],
+  },
+  {
+    path : 'schedule',
+    component : ScheduleComponent
   },
   {
     path: 'u',

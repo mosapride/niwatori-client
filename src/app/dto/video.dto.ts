@@ -35,13 +35,7 @@ export type Video = {
   description: string;
 
   /**
-   * 配信時間(PTxxHxxMxxS).
-   *
-   * ## フォーマット
-   *
-   * ISO 8601フォーマット
-   * https://en.wikipedia.org/wiki/ISO_8601
-   *
+   * 配信時間(PTxxHxxMxxS)
    * ex : PT39M3S = 39分3秒
    *      PT3M12S = 3分12秒
    *      PT10H14M32S = 10時間14分32秒
@@ -56,3 +50,9 @@ export enum ELiveBroadcastContent {
   live = 'live',
   none = 'none',
 }
+
+/**
+ * `/schedule`画面に表示するvideoデータ
+ */
+export type Schedule = Pick<Video, 'channelTitle' | 'title' | 'thumbnailUrl' | 'liveBroadcastContent' | 'streamAt' | 'videoId'>;
+

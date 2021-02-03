@@ -21,7 +21,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu" [ngClass]="{ 'is-active': navbarActive }">
     <div class="navbar-start">
-      <a class="navbar-item" (click)="navbarActive = false"> スケジュール </a>
+      <a class="navbar-item" routerLink="schedule" (click)="navbarActive = false"> スケジュール </a>
 
       <a class="navbar-item" (click)="navbarActive = false" routerLink="profile" routerLink="u"> 配信者 </a>
       <div class="navbar-item has-dropdown is-hoverable">
@@ -64,8 +64,13 @@
 <footer class="footer mt-6">
   <div class="content has-text-centered">
     <p>
-      <strong>YUBUNE</strong> by <a href="https://twitter.com/v_kurore" target="_blank" rel="noopener"><i class="fab fa-twitter"></i>Kurore</a>(<a href="https://github.com/mosapride" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i>mosapride</a>). The website content is licensed
-      CC BY Yubune.
+      <strong>YUBUNE</strong> by
+      <a href="https://twitter.com/v_kurore" target="_blank" rel="noopener"><i class="fab fa-twitter"></i>Kurore</a>(<a
+        href="https://github.com/mosapride"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><i class="fab fa-github"></i>mosapride</a
+      >). The website content is licensed CC BY Yubune.
     </p>
   </div>
 </footer>

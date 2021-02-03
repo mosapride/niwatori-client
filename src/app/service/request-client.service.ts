@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ResponseFindGenre } from '../dto/genre.dto';
 import { RequestProfile, RequestProfileUsers, RequestUser, RequestUserList, ResponseYoutubeInfo, User } from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
-import { Video } from '../dto/video.dto';
+import { Schedule, Video } from '../dto/video.dto';
 import { UserInfoService } from './user-info.service';
 
 /**
@@ -203,5 +203,9 @@ export class RequestClientService {
 
   public deleteProfileFile(imageFileName: string): Observable<void> {
     return this.httpClient.delete<void>(`${environment.apiUrl}user/image/${imageFileName}`, headerDeleteFileOption());
+  }
+
+  public getSchedules(): Observable<Schedule[]> {
+    return this.httpClient.get<Schedule[]>(`${environment.apiUrl}video/schedule`, headerGetJsonOption());
   }
 }

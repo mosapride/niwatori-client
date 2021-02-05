@@ -1,6 +1,6 @@
 export const environment = {
-  host: 'http://yubune.v-kurore.com',
+  host: 'http://hako.v-kurore.com',
   production: true,
-  apiUrl: 'http://yubune.v-kurore.com/api/v1/',
-  imageUrl : 'http://yubune.v-kurore.com/assets/'
+  apiUrl: 'http://api.v-kurore.com/api/v1/',
+  imageUrl : 'http://api.v-kurore.com/assets/'
 };

@@ -11,6 +11,7 @@ import { UserInfoService } from './service/user-info.service';
 import { UsersComponent } from './pages/users/users.component';
 import { UserComponent } from './pages/users/user/user.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
+import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
         path: 'privacy',
         component: PrivacyComponent,
       },
+      {
+        path : 'useAsset',
+        component :UseAssetComponent,
+      }
     ],
   },
   {

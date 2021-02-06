@@ -24,6 +24,7 @@ import { LightboxImgGridComponent } from './pages/util/lightbox-img-grid/lightbo
 import { ConfirmDialogComponent } from './pages/util/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
+import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ScheduleComponent } from './pages/schedule/schedule.component';
     LightboxImgGridComponent,
     ConfirmDialogComponent,
     ScheduleComponent,
+    UseAssetComponent,
   ],
   imports: [
     BrowserModule,

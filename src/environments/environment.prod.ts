@@ -1,6 +1,6 @@
 export const environment = {
-  host: 'http://hako.v-kurore.com',
+  host: 'https://hako.v-kurore.com',
   production: true,
-  apiUrl: 'http://api.v-kurore.com/api/v1/',
-  imageUrl : 'http://api.v-kurore.com/assets/'
+  apiUrl: 'https://api.v-kurore.com/api/v1/',
+  imageUrl : 'https://api.v-kurore.com/assets/'
 };

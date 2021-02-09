@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ResponseFindGenre } from '../dto/genre.dto';
-import { RequestProfile, RequestProfileUsers, RequestUser, RequestUserList, ResponseYoutubeInfo, User } from '../dto/user.dto';
+import { RequestProfile, RequestProfileUsers, RequestUser, RequestUserList, ResponseYoutubeInfo, User, UserRole } from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
 import { Schedule, Video } from '../dto/video.dto';
 import { UserInfoService } from './user-info.service';
@@ -114,6 +114,10 @@ export class RequestClientService {
     });
   }
 
+  public updateVideos(): Observable<void> {
+    return this.httpClient.get<void>(`${environment.apiUrl}google/update-video`, headerGetJsonOption());
+  }
+
   /**
    * ジャンル一覧を取得する
    */
@@ -207,5 +211,9 @@ export class RequestClientService {
 
   public getSchedules(): Observable<Schedule[]> {
     return this.httpClient.get<Schedule[]>(`${environment.apiUrl}video/schedule`, headerGetJsonOption());
+  }
+
+  public updateRole(role: UserRole): Observable<string> {
+    return this.httpClient.patch(`${environment.apiUrl}user/role`, role, headerPatchJsonOption());
   }
 }

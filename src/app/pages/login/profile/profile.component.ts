@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ResponseFindGenre } from 'src/app/dto/genre.dto';
-import { RequestProfile } from 'src/app/dto/user.dto';
+import { RequestProfile, UserRole } from 'src/app/dto/user.dto';
 import { HasGenreIds } from 'src/app/dto/user.genre.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
 import { UserInfoService } from 'src/app/service/user-info.service';
@@ -39,6 +39,11 @@ export class ProfileComponent implements OnInit {
       this.profile = data;
       if (this.profile.youtubeChannelId) {
         this.getProfileImage(this.profile.youtubeChannelId);
+      }
+      if (data.role === UserRole.IN_ACTIVE) {
+        this.requestClientService.updateVideos().subscribe(() => {
+          this.requestClientService.updateRole(UserRole.ACTIVE).subscribe();
+        });
       }
     });
     await this.requestClientService.genre().subscribe((data) => {
@@ -204,7 +209,6 @@ export class ProfileComponent implements OnInit {
   }
 
   isDisabledUpload(): boolean {
-    console.log('isDisabledUpload :' + this.uploading);
     if (this.uploading) {
       return true;
     }

@@ -34,14 +34,14 @@ const routes: Routes = [
         component: PrivacyComponent,
       },
       {
-        path : 'useAsset',
-        component :UseAssetComponent,
-      }
+        path: 'useAsset',
+        component: UseAssetComponent,
+      },
     ],
   },
   {
-    path : 'schedule',
-    component : ScheduleComponent
+    path: 'schedule',
+    component: ScheduleComponent,
   },
   {
     path: 'u',

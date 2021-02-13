@@ -4,7 +4,16 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ResponseFindGenre } from '../dto/genre.dto';
-import { RequestProfile, RequestProfileUsers, RequestUser, RequestUserList, ResponseYoutubeInfo, User, UserRole } from '../dto/user.dto';
+import {
+  PatchRole,
+  RequestProfile,
+  RequestProfileUsers,
+  RequestUser,
+  RequestUserList,
+  ResponseYoutubeInfo,
+  User,
+  UserRole,
+} from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
 import { Schedule, Video } from '../dto/video.dto';
 import { UserInfoService } from './user-info.service';
@@ -114,6 +123,16 @@ export class RequestClientService {
     });
   }
 
+  /**
+   * 退会の実行
+   */
+  public withDrawal(): void {
+    this.userInfoService.logout();
+    this.httpClient.delete(`${environment.apiUrl}google`, headerOptionGoogleLogout()).subscribe(() => {
+      window.location.assign(environment.host);
+    });
+  }
+
   public updateVideos(): Observable<void> {
     return this.httpClient.get<void>(`${environment.apiUrl}google/update-video`, headerGetJsonOption());
   }
@@ -214,6 +233,8 @@ export class RequestClientService {
   }
 
   public updateRole(role: UserRole): Observable<string> {
-    return this.httpClient.patch(`${environment.apiUrl}user/role`, role, headerPatchJsonOption());
+    console.log(role);
+    const patchRole: PatchRole = { role };
+    return this.httpClient.patch(`${environment.apiUrl}user/role`, patchRole, headerPatchJsonOption());
   }
 }

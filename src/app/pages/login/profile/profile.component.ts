@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ResponseFindGenre } from 'src/app/dto/genre.dto';
@@ -7,6 +8,7 @@ import { HasGenreIds } from 'src/app/dto/user.genre.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
 import { UserInfoService } from 'src/app/service/user-info.service';
 import { environment } from 'src/environments/environment';
+import { ConfirmDialogComponent, DialogData } from '../../util/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +31,8 @@ export class ProfileComponent implements OnInit {
     private readonly domSanitizer: DomSanitizer,
     private readonly requestClientService: RequestClientService,
     private readonly userInfoService: UserInfoService,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private readonly dialog: MatDialog
   ) {
     this.imgBaseUrl = environment.imageUrl;
   }
@@ -217,5 +220,17 @@ export class ProfileComponent implements OnInit {
     }
 
     return true;
+  }
+
+  withDrawal(): void {
+    const confirmDialog = this.dialog.open<ConfirmDialogComponent, DialogData, boolean | undefined>(ConfirmDialogComponent, {
+      data: { title: '確認', message: 'すべてのデータを削除し退会します。' },
+    });
+
+    confirmDialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.requestClientService.withDrawal();
+      }
+    });
   }
 }

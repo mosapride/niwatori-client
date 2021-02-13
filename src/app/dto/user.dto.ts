@@ -155,3 +155,5 @@ export type RequestProfileUsers = { users: RequestProfileUser[]; page: number; n
  * 最新動画日時を書き込みするための型
  */
 export type StreamAtPatch = Pick<User, 'youtubeChannelId' | 'latestPostVideoAt'>;
+
+export type PatchRole = Pick<User, 'role'>;

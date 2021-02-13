@@ -54,5 +54,8 @@ export enum ELiveBroadcastContent {
 /**
  * `/schedule`画面に表示するvideoデータ
  */
-export type Schedule = Pick<Video, 'channelTitle' | 'title' | 'thumbnailUrl' | 'liveBroadcastContent' | 'streamAt' | 'videoId'>;
+export type Schedule = Pick<
+  Video,
+  'channelId' | 'channelTitle' | 'title' | 'thumbnailUrl' | 'liveBroadcastContent' | 'streamAt' | 'videoId'
+>;
 

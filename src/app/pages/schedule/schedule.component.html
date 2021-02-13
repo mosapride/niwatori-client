@@ -6,11 +6,9 @@
   </div>
 </section>
 
-
 <div class="container py-3 px-5 container-grid">
   <ng-container *ngFor="let schedule of schedules; let i = index">
     <div class="card">
-
       <div *ngIf="schedule.liveBroadcastContent !== 'upcoming'" class="my-1 schedule-time">
         <i class="far fa-clock mr-2"></i>{{ schedule.streamAt | date: 'MM/dd HH:mm' }}
       </div>
@@ -21,19 +19,23 @@
       <a class="card-image" target="_blank" rel="noopener" [href]="'https://www.youtube.com/watch?v=' + schedule.videoId">
         <img class="has-animation has-hover" [src]="schedule.thumbnailUrl" />
       </a>
-      <header>
-        <div class="">
+      <!-- <header>
+        <div class="mb-1">
           <a [href]="'https://www.youtube.com/watch?v=' + schedule.videoId" target="_blank" rel="noopener noreferrer">{{
             schedule.title
           }}</a>
         </div>
-      </header>
+      </header> -->
       <div class="card-content">
         <div class="content">
-
+          <div class="mb-1">
+            <a [href]="'https://www.youtube.com/watch?v=' + schedule.videoId" target="_blank" rel="noopener noreferrer">{{
+              schedule.title
+            }}</a>
+          </div>
         </div>
       </div>
-      <footer class="card-footer"></footer>
+      <footer [routerLink]="'/u/' + schedule.channelId"  class="card-footer">{{ schedule.channelTitle }}</footer>
     </div>
   </ng-container>
 </div>

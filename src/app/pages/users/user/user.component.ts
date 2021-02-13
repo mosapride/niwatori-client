@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   responseFindGenres: ResponseFindGenre[] = [];
   videos: Video[] = [];
   user: RequestUser | undefined;
+  profileImages: string[] = [];
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
@@ -32,6 +33,17 @@ export class UserComponent implements OnInit {
         // genre設定
         this.getResponseFindGenres();
       }
+    });
+    this.getProfileImage(this.youtubeChannelId);
+  }
+
+  /**
+   * アップロード済みのプロフィール画像を取得する
+   * @param youtubeChannelId youtubeChannelId
+   */
+  getProfileImage(youtubeChannelId: string): void {
+    this.requestClientService.getProfileFile(youtubeChannelId).subscribe((images) => {
+      this.profileImages = images;
     });
   }
 
@@ -69,6 +81,7 @@ export class UserComponent implements OnInit {
   }
 
   changeUser(youtubeChannelId: string): void {
+    this.getProfileImage(youtubeChannelId);
     this.getYoutubeData(youtubeChannelId);
   }
 
@@ -77,6 +90,7 @@ export class UserComponent implements OnInit {
    * @param youtubeChannelId youtubeChannelId
    */
   getYoutubeData(youtubeChannelId: string): void {
+    this.profileImages = [];
     this.requestClientService.getUser(youtubeChannelId).subscribe((data) => {
       this.user = data;
     });

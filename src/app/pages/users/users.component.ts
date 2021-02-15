@@ -27,7 +27,6 @@ export class UsersComponent implements OnInit {
         orderBy = params.order;
       if (Number.isInteger(+page)) {
         this.selectActivePage = +page;
-        console.log(this.selectActivePage);
       }
 
       const wkTargetGenre: number[] = [];
@@ -43,7 +42,6 @@ export class UsersComponent implements OnInit {
       this.genreFilter(wkTargetGenre, false);
 
       if (orderBy) {
-        console.log(orderBy);
         this.orderBy(orderBy, false);
       }
     });

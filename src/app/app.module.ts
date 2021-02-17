@@ -25,6 +25,7 @@ import { ConfirmDialogComponent } from './pages/util/confirm-dialog/confirm-dial
 import { MatDialogModule } from '@angular/material/dialog';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
     ConfirmDialogComponent,
     ScheduleComponent,
     UseAssetComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

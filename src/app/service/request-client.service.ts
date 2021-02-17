@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ResponseFindGenre } from '../dto/genre.dto';
+import { Genre, RequestGenres, ResponseFindGenre } from '../dto/genre.dto';
 import {
   PatchRole,
   RequestProfile,
@@ -30,6 +30,13 @@ const headerPatchJsonOption = (): { responseType: 'text'; withCredentials: true;
     observe: 'body',
   };
 };
+
+const headerPostJsonOption = (): { withCredentials: true } => {
+  return {
+    withCredentials: true,
+  };
+};
+
 
 const headerUploadFileOption = (): { withCredentials: true } => {
   return {
@@ -142,6 +149,21 @@ export class RequestClientService {
    */
   public genre(): Observable<ResponseFindGenre[]> {
     return this.httpClient.get<ResponseFindGenre[]>(`${environment.apiUrl}genre`, headerGetJsonOption());
+  }
+
+  /**
+   * ジャンル一覧を取得する(管理用)
+   */
+  public genreOriginal(): Observable<Genre[]> {
+    return this.httpClient.get<Genre[]>(`${environment.apiUrl}genre/original`, headerGetJsonOption());
+  }
+
+  public deleteGenre(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.apiUrl}genre/${id}`, headerDeleteFileOption());
+  }
+
+  public postGenre(data: RequestGenres): Observable<Genre[]> {
+    return this.httpClient.post<Genre[]>(`${environment.apiUrl}genre/all`, data, headerPostJsonOption());
   }
 
   /**

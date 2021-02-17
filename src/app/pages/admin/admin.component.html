@@ -1,0 +1,43 @@
+<h1 class="mt-5">管理者画面んんん</h1>
+
+canActivateをログインユーザーにしてるから閲覧できるけど、ServerSideで更新拒否しているから問題なし！！！
+
+<h2>ジャンル</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>environment</th>
+      <th>name</th>
+      <td>DEL</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <ng-container *ngFor="let g of genre">
+      <tr>
+        <td>{{g.id}}</td>
+        <td>{{ g.environment }}</td>
+        <td>{{ g.name }}</td>
+        <td><button class="button" (click)="del(g.id)">DEL</button></td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+
+<div class="select">
+  <select #env>
+    <option value="PC">PC</option>
+    <option value="PS4">PS4</option>
+    <option value="PS5">PS5</option>
+    <option value="Switch">Switch</option>
+    <option value="その他">その他</option>
+  </select>
+</div>
+
+<input type="text" #name class="input is-success">
+
+<button class="button" (click)="add(env.value , name.value)">ADD</button>
+
+<button class="button" (click)="syncGenre()">Sync</button>

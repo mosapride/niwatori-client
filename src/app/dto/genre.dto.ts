@@ -33,12 +33,16 @@ export type ResponseFindGenre = Pick<Genre, 'environment'> & ResponseFindGenreIt
  */
 export type activeGenres = { id: number[] };
 
-/**
- * 登録用DTO
- */
-export type RequestGenre = Pick<Genre, 'environment' | 'name' | 'updateUser'>;
+export type RequestGenreInDb = Pick<Genre, 'environment' | 'name' | 'updateUser'>;
+
+export type RequestGenresInDb = RequestGenreInDb[];
 
 /**
  * 登録用DTO
+ */
+export type RequestGenre = Pick<Genre, 'environment' | 'name'>;
+
+/**
+ * 登録用DTOの配列
  */
 export type RequestGenres = RequestGenre[];

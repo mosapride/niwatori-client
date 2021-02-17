@@ -45,6 +45,11 @@ export class SearchComponent implements OnInit {
             return i.count !== 0;
           });
         }
+
+        data = data.filter((i) => {
+          return i.items.length !== 0;
+        });
+        console.log(data);
         this.responseFindGenres = data;
       });
 
@@ -77,7 +82,7 @@ export class SearchComponent implements OnInit {
       }
       if (orderBy) {
         if (Number.isInteger(+orderBy)) {
-          this.emitActiveOrderBy(+orderBy , false);
+          this.emitActiveOrderBy(+orderBy, false);
         }
       }
     });

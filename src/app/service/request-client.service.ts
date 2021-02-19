@@ -141,7 +141,7 @@ export class RequestClientService {
   }
 
   public updateVideos(): Observable<void> {
-    return this.httpClient.get<void>(`${environment.apiUrl}google/update-video`, headerGetJsonOption());
+    return this.httpClient.get<void>(`${environment.apiUrl}google/update`, headerGetJsonOption());
   }
 
   /**

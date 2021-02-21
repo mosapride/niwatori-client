@@ -49,7 +49,6 @@ export class SearchComponent implements OnInit {
         data = data.filter((i) => {
           return i.items.length !== 0;
         });
-        console.log(data);
         this.responseFindGenres = data;
       });
 

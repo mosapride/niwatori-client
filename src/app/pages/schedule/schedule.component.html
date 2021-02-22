@@ -1,7 +1,7 @@
-<section class="hero is-light is-info is-bold my-5">
+<!-- <section class="hero is-light is-info is-bold my-5">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title">スケジュール</h1>
+      <h1 class="title">スケジュール(±4日)</h1>
     </div>
   </div>
 </section>
@@ -19,13 +19,6 @@
       <a class="card-image" target="_blank" rel="noopener" [href]="'https://www.youtube.com/watch?v=' + schedule.videoId">
         <img class="has-animation has-hover" [src]="schedule.thumbnailUrl" />
       </a>
-      <!-- <header>
-        <div class="mb-1">
-          <a [href]="'https://www.youtube.com/watch?v=' + schedule.videoId" target="_blank" rel="noopener noreferrer">{{
-            schedule.title
-          }}</a>
-        </div>
-      </header> -->
       <div class="card-content">
         <div class="content">
           <div class="mb-1">
@@ -35,7 +28,44 @@
           </div>
         </div>
       </div>
-      <footer [routerLink]="'/u/' + schedule.channelId"  class="card-footer">{{ schedule.channelTitle }}</footer>
+      <footer [routerLink]="'/u/' + schedule.channelId" class="card-footer">{{ schedule.channelTitle }}</footer>
     </div>
   </ng-container>
-</div>
+</div> -->
+
+<ng-container *ngFor="let s of viewSchedules">
+  <section class="hero is-light is-info is-bold my-5">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">{{ s.groupDate | date: 'MM/dd' }}</h1>
+      </div>
+    </div>
+  </section>
+  <div class="container py-3 px-5 container-grid">
+    <ng-container *ngFor="let schedule of s.schedule; let i = index">
+      <div class="card">
+        <div *ngIf="schedule.liveBroadcastContent !== 'upcoming'" class="my-1 schedule-time">
+          <i class="far fa-clock mr-2"></i>{{ schedule.streamAt | date: 'HH:mm' }}
+        </div>
+        <div *ngIf="schedule.liveBroadcastContent === 'upcoming'" class="my-1 schedule-time upcoming">
+          <i class="far fa-clock mr-2"></i>{{ schedule.streamAt | date: 'HH:mm' }} に公開予定
+        </div>
+
+        <a class="card-image" target="_blank" rel="noopener" [href]="'https://www.youtube.com/watch?v=' + schedule.videoId">
+          <img class="has-animation has-hover" [src]="schedule.thumbnailUrl" />
+        </a>
+
+        <div class="card-content">
+          <div class="content">
+            <div class="mb-1">
+              <a [href]="'https://www.youtube.com/watch?v=' + schedule.videoId" target="_blank" rel="noopener noreferrer">{{
+                schedule.title
+              }}</a>
+            </div>
+          </div>
+        </div>
+        <footer [routerLink]="'/u/' + schedule.channelId" class="card-footer">{{ schedule.channelTitle }}</footer>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

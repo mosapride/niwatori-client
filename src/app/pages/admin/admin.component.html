@@ -17,7 +17,7 @@ canActivateをログインユーザーにしてるから閲覧できるけど、
   <tbody>
     <ng-container *ngFor="let g of genre">
       <tr>
-        <td>{{g.id}}</td>
+        <td>{{ g.id }}</td>
         <td>{{ g.environment }}</td>
         <td>{{ g.name }}</td>
         <td><button class="button" (click)="del(g.id)">DEL</button></td>
@@ -36,8 +36,18 @@ canActivateをログインユーザーにしてるから閲覧できるけど、
   </select>
 </div>
 
-<input type="text" #name class="input is-success">
+<input type="text" #name class="input is-success" placeholder="マイクラ" />
 
-<button class="button" (click)="add(env.value , name.value)">ADD</button>
+<button class="button" (click)="add(env.value, name.value)">ADD</button>
 
 <button class="button" (click)="syncGenre()">Sync</button>
+
+<h1 class="mt-5">ユーザーを強制的に追加する</h1>
+
+<p>
+  Googleさんの検証で開発段階と判断された。たぶんユーザーがいないから、そのためユーザーを強制的に追加するようにする。申請が通ったら追加したユーザーは消す予定
+</p>
+
+<input type="text" #channelId class="input is-success" placeholder="youtube channel id(ex:xxxxxxxxxxxxxxxxxx)" />
+<button class="button" (click)="addChannel(channelId.value)">ADD</button>
+<button class="button" (click)="delChannel(channelId.value)">DEL</button>

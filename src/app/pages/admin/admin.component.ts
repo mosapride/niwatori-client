@@ -50,4 +50,29 @@ export class AdminComponent implements OnInit {
       this.reloadGenre();
     });
   }
+
+
+  addChannel(youtubeChannelId: string): void {
+    this.requestClientService.addUser(youtubeChannelId).subscribe(
+      () => {},
+      (error: any) => {
+        console.log(error);
+      },
+      () => {
+        console.log(`add user = ${youtubeChannelId}`);
+      }
+    );
+  }
+
+  delChannel(youtubeChannelId: string): void {
+    this.requestClientService.delUser(youtubeChannelId).subscribe(
+      () => {},
+      (error: any) => {
+        console.log(error);
+      },
+      () => {
+        console.log(`del user = ${youtubeChannelId}`);
+      }
+    );
+  }
 }

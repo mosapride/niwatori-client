@@ -37,7 +37,6 @@ const headerPostJsonOption = (): { withCredentials: true } => {
   };
 };
 
-
 const headerUploadFileOption = (): { withCredentials: true } => {
   return {
     withCredentials: true,
@@ -255,8 +254,23 @@ export class RequestClientService {
   }
 
   public updateRole(role: UserRole): Observable<string> {
-    console.log(role);
     const patchRole: PatchRole = { role };
     return this.httpClient.patch(`${environment.apiUrl}user/role`, patchRole, headerPatchJsonOption());
+  }
+
+  /**
+   * 強制的にユーザーの追加を行う
+   * @param youtubeChannelId チャンネルid
+   */
+  public addUser(youtubeChannelId: string): Observable<void> {
+    return this.httpClient.post<void>(`${environment.apiUrl}google/user`, { youtubeChannelId }, headerPostJsonOption());
+  }
+
+  /**
+   * 強制的にユーザーの削除を行う
+   * @param youtubeChannelId チャンネルid
+   */
+  public delUser(youtubeChannelId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.apiUrl}google/user/${youtubeChannelId}`, headerDeleteFileOption());
   }
 }

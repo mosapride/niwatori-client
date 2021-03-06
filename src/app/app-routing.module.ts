@@ -24,7 +24,7 @@ const routes: Routes = [
     children: [
       {
         path: 'about',
-        component: AboutComponent,
+        component: AboutComponent
       },
       {
         path: 'terms',

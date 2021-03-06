@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { ResponseFindGenre } from 'src/app/dto/genre.dto';
 import { RequestProfile, UserRole } from 'src/app/dto/user.dto';
 import { HasGenreIds } from 'src/app/dto/user.genre.dto';
@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   uploading = false;
   responseFindGenres: ResponseFindGenre[] = [];
   constructor(
+    private readonly titleService: Title,
     private readonly domSanitizer: DomSanitizer,
     private readonly requestClientService: RequestClientService,
     private readonly userInfoService: UserInfoService,
@@ -38,6 +39,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.titleService.setTitle('プロフィール編集 - 箱庭');
     await this.requestClientService.profile().subscribe((data) => {
       this.profile = data;
       if (this.profile.youtubeChannelId) {

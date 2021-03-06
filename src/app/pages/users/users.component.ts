@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RequestUserList } from 'src/app/dto/user.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
+import { SeoService } from 'src/app/service/seo.service';
 import { environment } from 'src/environments/environment';
 import { OrderBy, TGenreIdsEmitterVal, TOrderByEmitterVal } from './search/search.component';
 
@@ -17,9 +18,14 @@ export class UsersComponent implements OnInit {
   selectActivePage = 0;
   selectTargetGenre: number[] = [];
   selectOrderBy: OrderBy = OrderBy.latestPostVideoAtDESC;
-  constructor(private readonly activatedRoute: ActivatedRoute, private readonly requestClientService: RequestClientService) {}
+  constructor(
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly requestClientService: RequestClientService,
+    private readonly seoService: SeoService
+  ) {}
 
   ngOnInit(): void {
+
     this.activatedRoute.queryParams.subscribe((params) => {
       // tslint:disable-next-line: one-variable-per-declaration
       const page = params.p,
@@ -46,7 +52,6 @@ export class UsersComponent implements OnInit {
       }
     });
 
-
     this.requestClientService.getUsers().subscribe((data) => {
       data = data.filter((v) => {
         if (!v.videoCount) {
@@ -58,8 +63,9 @@ export class UsersComponent implements OnInit {
         return true;
       });
       this.users = data;
-      this.orderBy(this.selectOrderBy , false);
+      this.orderBy(this.selectOrderBy, false);
       this.usersOrg = data;
+      this.seoService.setDefault('配信者検索 - 箱庭');
     });
   }
 

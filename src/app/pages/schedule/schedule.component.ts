@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Schedule } from 'src/app/dto/video.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
+import { SeoService } from 'src/app/service/seo.service';
 
 type ViewSchedules = { groupDate: Date; schedule: Schedule[] };
 @Component({
@@ -11,10 +13,15 @@ type ViewSchedules = { groupDate: Date; schedule: Schedule[] };
 export class ScheduleComponent implements OnInit {
   schedules: Schedule[] = [];
   viewSchedules: ViewSchedules[] = [];
-  constructor(private readonly requestClientService: RequestClientService) {}
+  constructor(
+    private readonly requestClientService: RequestClientService,
+    private readonly seoService: SeoService
+  ) {}
 
   ngOnInit(): void {
+
     this.requestClientService.getSchedules().subscribe((data) => {
+      this.seoService.setDefault('配信スケジュール - 箱庭');
       this.schedules = data;
 
       let groupDate: Date | undefined;

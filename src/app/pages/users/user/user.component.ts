@@ -4,6 +4,7 @@ import { ResponseFindGenre } from '../../../dto/genre.dto';
 import { RequestUser } from '../../../dto/user.dto';
 import { ELiveBroadcastContent, Video } from 'src/app/dto/video.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
+import { SeoService } from 'src/app/service/seo.service';
 
 @Component({
   selector: 'app-user',
@@ -19,22 +20,39 @@ export class UserComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly requestClientService: RequestClientService
+    private readonly requestClientService: RequestClientService,
+    private readonly seoService: SeoService
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.youtubeChannelId = this.activatedRoute.snapshot.paramMap.get('youtubeChannelId') + '';
     this.getYoutubeData(this.youtubeChannelId);
     this.getResponseFindGenres();
-    this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.youtubeChannelId = this.activatedRoute.snapshot.paramMap.get('youtubeChannelId') + '';
-        this.getYoutubeData(this.youtubeChannelId);
-        // genre設定
-        this.getResponseFindGenres();
+    this.router.events.subscribe(
+      (val) => {
+        if (val instanceof NavigationEnd) {
+          this.youtubeChannelId = this.activatedRoute.snapshot.paramMap.get('youtubeChannelId') + '';
+          this.getYoutubeData(this.youtubeChannelId);
+          // genre設定
+          this.getResponseFindGenres();
+        }
+      },
+      () => {
       }
-    });
+    );
     this.getProfileImage(this.youtubeChannelId);
+
+  }
+
+  private setSeo(): void {
+    if (this.user) {
+      this.seoService.setUserInfo(
+        this.user.youtubeChannelName,
+        this.user.youtubeChannelId,
+        this.user.youtubeDescription,
+        this.user.youtubeThumbnailsUrl
+      );
+    }
   }
 
   /**
@@ -91,9 +109,14 @@ export class UserComponent implements OnInit {
    */
   getYoutubeData(youtubeChannelId: string): void {
     this.profileImages = [];
-    this.requestClientService.getUser(youtubeChannelId).subscribe((data) => {
-      this.user = data;
-    });
+    this.requestClientService.getUser(youtubeChannelId).subscribe(
+      (data) => {
+        this.user = data;
+        // this.titleService.setTitle(`${this.user.youtubeChannelName} - 箱庭`);
+        this.setSeo();
+      },
+      () => {}
+    );
     this.requestClientService.getVideosByUser(youtubeChannelId).subscribe((data) => {
       this.videos = data.map((v) => {
         if (v.description.length >= 100) {

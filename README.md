@@ -26,12 +26,10 @@ npm run build -- --aot=true --prod=true --sourceMap=false --outputPath=/usr/shar
 
 ## 利用素材
 
-- https://www.flaticon.com/free-icon/chicken_3272990?related_id=3272990
-- https://sozai-good.com/illust/free-background/cute/29847
-- https://www.irasutoya.com/2013/09/blog-post_9127.html
-
+- [https://www.flaticon.com/free-icon/chicken_3272990?related_id=3272990](https://www.flaticon.com/free-icon/chicken_3272990?related_id=3272990)
+- [https://sozai-good.com/illust/free-background/cute/29847](https://sozai-good.com/illust/free-background/cute/29847)
+- [https://www.irasutoya.com/2013/09/blog-post_9127.html](https://www.irasutoya.com/2013/09/blog-post_9127.html)
 
 ## License
 
 MIT
-

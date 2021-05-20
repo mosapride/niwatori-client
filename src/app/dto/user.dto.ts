@@ -23,6 +23,24 @@ export type User = {
   youtubeDescription: string;
   // youtube サムネイル
   youtubeThumbnailsUrl: string;
+
+  // ニックネーム
+  nickname: string;
+  // 性別
+  sex: string;
+  // 身長
+  stature: string;
+  // 誕生日
+  birthday: string;
+  // 活動内容
+  contents: string;
+  // 好き
+  favorite: string;
+  // きらい
+  hate: string;
+  // 活動時間メッセージ
+  liveTimeMessage: string;
+
   // twitter
   twitter: string;
   // アクティブフラグ

@@ -1,6 +1,6 @@
 import { HttpClient, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Genre, RequestGenres, ResponseFindGenre } from '../dto/genre.dto';
@@ -15,6 +15,8 @@ import {
   UserRole,
 } from '../dto/user.dto';
 import { HasGenreIds } from '../dto/user.genre.dto';
+import { RequestUserLinks, ResponseUserLinks } from '../dto/user.link.dto';
+import { RequestUserTimeSchedules, ResponseUserTimeSchedules } from '../dto/user.time.schedule.dto';
 import { Schedule, Video } from '../dto/video.dto';
 import { UserInfoService } from './user-info.service';
 
@@ -272,5 +274,42 @@ export class RequestClientService {
    */
   public delUser(youtubeChannelId: string): Observable<void> {
     return this.httpClient.delete<void>(`${environment.apiUrl}google/user/${youtubeChannelId}`, headerDeleteFileOption());
+  }
+
+  /**
+   * @param data ユーザーのリンク情報
+   * @returns ResponseUserLinks
+   */
+  public postLinks(data: RequestUserLinks): Observable<ResponseUserLinks> {
+    return this.httpClient.post<ResponseUserLinks>(`${environment.apiUrl}user/link`, data, headerPostJsonOption());
+  }
+
+  /**
+   * ユーザーのリンク情報を取得する
+   * @param youtubeChannelId チャンネルID
+   * @returns ResponseUserLinksの配列(ソート済み)
+   */
+  public getLinks(youtubeChannelId: string): Observable<ResponseUserLinks> {
+    return this.httpClient.get<ResponseUserLinks>(`${environment.apiUrl}user/link/${youtubeChannelId}`, headerGetJsonOption());
+  }
+
+  /**
+   * @param data ユーザーの配信時間情報
+   * @returns ResponseUserTimeSchedules
+   */
+  public postTimeSchedule(data: RequestUserTimeSchedules): Observable<ResponseUserTimeSchedules> {
+    return this.httpClient.post<ResponseUserTimeSchedules>(`${environment.apiUrl}user/time-schedule`, data, headerPostJsonOption());
+  }
+
+  /**
+   * ユーザーの配信時間情報を取得する
+   * @param youtubeChannelId チャンネルID
+   * @returns ResponseUserTimeSchedules
+   */
+  public getTimeSchedule(youtubeChannelId: string): Observable<ResponseUserTimeSchedules> {
+    return this.httpClient.get<ResponseUserTimeSchedules>(
+      `${environment.apiUrl}user/time-schedule/${youtubeChannelId}`,
+      headerGetJsonOption()
+    );
   }
 }

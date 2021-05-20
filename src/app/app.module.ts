@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AdminComponent } from './pages/admin/admin.component';
     ScheduleComponent,
     UseAssetComponent,
     AdminComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

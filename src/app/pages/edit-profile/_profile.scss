@@ -1,0 +1,238 @@
+$point: 3px;
+// $primary-color : #35DB92;
+$primary-color: #35db92;
+$back-color: #dcf9ec;
+$size-len: 30;
+$position-len: 10;
+
+// 枠内レイアウト
+%contents-border {
+  position: relative;
+  padding: 0.5em 1em;
+  border: solid 3px #345180;
+  border-radius: 8px;
+  background: #fff;
+}
+
+%box-title {
+  position: absolute;
+  display: inline-block;
+  top: 3px;
+  left: 3px;
+  padding: 0 9px;
+  line-height: 1;
+  font-size: 13px;
+  color: #758299;
+  font-weight: bold;
+  font-family: "Kosugi Maru", cursive;
+  + section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    > div {
+      white-space: nowrap;
+      font-family: "Hachi Maru Pop", cursive;
+      color: #486189;
+      font-weight: bold;
+    }
+  }
+}
+
+%count-format {
+  font-size : 13px;
+
+  & section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end !important;
+    height: 100%;
+    > div {
+      white-space: nowrap;
+      font-family: sans-serif !important;
+      color: #486189;
+      font-weight: bold;
+    }
+  }
+}
+
+// -------------------------------------------->>
+
+// 履歴書 プロフィール
+
+.profile-body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  // background-image: radial-gradient(
+  //     currentColor #{$point},
+  //     transparent #{$point}
+  //   ),
+  //   radial-gradient(currentColor #{$point}, transparent #{$point});
+  // background-size: calc(#{$size-len} * #{$point}) calc(#{$size-len} * #{$point});
+  // background-position: 0 0,
+  //   calc(#{$position-len} * #{$point}) calc(#{$position-len} * #{$point});
+  // background-color: $back-color !important;
+  color: $primary-color !important;
+  padding-top: 100px;
+}
+
+h2 {
+  font-size : 200%;
+  text-align: center;
+  color: gray;
+}
+
+.profile-are {
+  width: 880px;
+  //   background-color: white;
+  margin: 0 auto;
+}
+
+.profile-contents {
+  border-color: black;
+  color: black;
+}
+
+$ROW_LEN_PTN1: 80px;
+
+html,
+body,
+.grid-container1,
+.grid-container2 {
+  height: 100%;
+  margin: 0;
+}
+
+.grid-container1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 240px;
+  grid-template-rows: 30px 90px 50px 40px;
+  gap: 10px 10px;
+  grid-template-areas:
+    "katakana katakana nickname picture"
+    "name name nickname  picture"
+    "sex birthday stature picture"
+    "view-count subscriber-count video-count picture";
+  & > div {
+    @extend %contents-border;
+    span.box-title {
+      @extend %box-title;
+    }
+  }
+}
+
+.name {
+  grid-area: name;
+}
+
+.katakana {
+  grid-area: katakana;
+  font-size: 14px;
+}
+
+.birthday {
+  grid-area: birthday;
+}
+
+.stature {
+  grid-area: stature;
+}
+
+.sex {
+  grid-area: sex;
+}
+
+.view-count {
+  grid-area: view-count;
+  @extend %count-format;
+}
+
+.subscriber-count {
+  grid-area: subscriber-count;
+  @extend %count-format;
+}
+.video-count {
+  grid-area: video-count;
+  @extend %count-format;
+}
+
+.picture {
+  grid-area: picture;
+  padding: 0 !important;
+  border: unset !important;
+  background-color: white !important;
+}
+
+.nickname {
+  grid-area: nickname;
+  & section > div {
+    line-height: 180%;
+  }
+}
+
+.contents {
+  grid-area: contents;
+}
+
+.live-time {
+  grid-area: live-time;
+  .live-time-font {
+    padding-top: 20px;
+    white-space: nowrap;
+    font-family: "Hachi Maru Pop", cursive;
+    color: #486189;
+    font-weight: bold;
+  }
+}
+
+.name-font {
+  font-family: "Yusei Magic", cursive !important;
+  font-size: 250%;
+}
+
+.grid-container2 {
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 80px 80px 240px 160px;
+  gap: 10px 10px;
+  // 好きな食べ物 / 嫌いな食べ物
+  grid-template-areas:
+    "site site"
+    "favorite hate"
+    "contents contents"
+    "live-time live-time"
+    "free-space free-space";
+  & > div {
+    @extend %contents-border;
+    span.box-title {
+      @extend %box-title;
+    }
+  }
+}
+
+.favorite {
+  grid-area: favorite;
+}
+
+.hate {
+  grid-area: hate;
+}
+
+.free-space {
+  grid-area: free-space;
+}
+
+.site {
+  grid-area: site;
+  .site-font a {
+    font-family: serif !important;
+    color: #008db7 !important;
+    font-size: 110%;
+    transition: 0.3s;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}

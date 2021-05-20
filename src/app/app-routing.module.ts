@@ -13,6 +13,7 @@ import { UserComponent } from './pages/users/user/user.component';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,11 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuardService],
     // https://stackblitz.com/angular/vromeokjvrx?file=src%2Fapp%2Fapp-routing.module.ts
+  },
+  {
+    path : 'edit',
+    component : EditProfileComponent,
+    canActivate : [AuthGuardService]
   },
   {
     path: 'admin',

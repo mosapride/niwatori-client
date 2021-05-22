@@ -40,6 +40,8 @@ export type User = {
   hate: string;
   // 活動時間メッセージ
   liveTimeMessage: string;
+  // フリースペース
+  freeSpace: string;
 
   // twitter
   twitter: string;
@@ -125,20 +127,29 @@ export type RequestProfile = Partial<
     | 'nameKatakana'
     | 'twitter'
     | 'selfIntroduction'
+    | 'nickname'
+    | 'sex'
+    | 'stature'
+    | 'birthday'
+    | 'contents'
+    | 'favorite'
+    | 'hate'
+    | 'liveTimeMessage'
+    | 'freeSpace'
   >
 >;
 
-export type ResponseProfilePick = Pick<
-  User,
-  | 'youtubeChannelId'
-  | 'youtubeThumbnailsUrl'
-  | 'youtubeChannelName'
-  | 'youtubeDescription'
-  | 'name'
-  | 'nameKatakana'
-  | 'twitter'
-  | 'selfIntroduction'
->;
+// export type ResponseProfilePick = Pick<
+//   User,
+//   | 'youtubeChannelId'
+//   | 'youtubeThumbnailsUrl'
+//   | 'youtubeChannelName'
+//   | 'youtubeDescription'
+//   | 'name'
+//   | 'nameKatakana'
+//   | 'twitter'
+//   | 'selfIntroduction'
+// >;
 
 /**
  * YOUTUBE DATA APIから取得するデータ

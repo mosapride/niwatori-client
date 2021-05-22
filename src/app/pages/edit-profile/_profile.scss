@@ -24,7 +24,7 @@ $position-len: 10;
   font-size: 13px;
   color: #758299;
   font-weight: bold;
-  font-family: "Kosugi Maru", cursive;
+  font-family: 'Kosugi Maru', cursive;
   + section {
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@ $position-len: 10;
     height: 100%;
     > div {
       white-space: nowrap;
-      font-family: "Hachi Maru Pop", cursive;
+      font-family: 'Hachi Maru Pop', cursive;
       color: #486189;
       font-weight: bold;
     }
@@ -40,7 +40,7 @@ $position-len: 10;
 }
 
 %count-format {
-  font-size : 13px;
+  font-size: 13px;
 
   & section {
     display: flex;
@@ -64,21 +64,12 @@ $position-len: 10;
   position: relative;
   width: 100%;
   min-height: 100vh;
-  // background-image: radial-gradient(
-  //     currentColor #{$point},
-  //     transparent #{$point}
-  //   ),
-  //   radial-gradient(currentColor #{$point}, transparent #{$point});
-  // background-size: calc(#{$size-len} * #{$point}) calc(#{$size-len} * #{$point});
-  // background-position: 0 0,
-  //   calc(#{$position-len} * #{$point}) calc(#{$position-len} * #{$point});
-  // background-color: $back-color !important;
   color: $primary-color !important;
   padding-top: 100px;
 }
 
 h2 {
-  font-size : 200%;
+  font-size: 200%;
   text-align: center;
   color: gray;
 }
@@ -110,10 +101,10 @@ body,
   grid-template-rows: 30px 90px 50px 40px;
   gap: 10px 10px;
   grid-template-areas:
-    "katakana katakana nickname picture"
-    "name name nickname  picture"
-    "sex birthday stature picture"
-    "view-count subscriber-count video-count picture";
+    'katakana katakana nickname picture'
+    'name name nickname  picture'
+    'sex birthday stature picture'
+    'view-count subscriber-count video-count picture';
   & > div {
     @extend %contents-border;
     span.box-title {
@@ -124,23 +115,39 @@ body,
 
 .name {
   grid-area: name;
+
+  input[type='text'] {
+    width: 250px;
+  }
 }
 
 .katakana {
   grid-area: katakana;
   font-size: 14px;
+  input[type='text'] {
+    width: 250px;
+  }
 }
 
 .birthday {
   grid-area: birthday;
+  input[type='text'] {
+    width: 150px;
+  }
 }
 
 .stature {
   grid-area: stature;
+  input[type='text'] {
+    width: 150px;
+  }
 }
 
 .sex {
   grid-area: sex;
+  input[type='text'] {
+    width: 150px;
+  }
 }
 
 .view-count {
@@ -180,14 +187,14 @@ body,
   .live-time-font {
     padding-top: 20px;
     white-space: nowrap;
-    font-family: "Hachi Maru Pop", cursive;
+    font-family: 'Hachi Maru Pop', cursive;
     color: #486189;
     font-weight: bold;
   }
 }
 
 .name-font {
-  font-family: "Yusei Magic", cursive !important;
+  font-family: 'Yusei Magic', cursive !important;
   font-size: 250%;
 }
 
@@ -196,20 +203,41 @@ body,
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 50px 80px 80px 240px 160px;
+  &.edit-mode {
+    grid-template-rows: 200px 80px 80px 330px 160px;
+  }
   gap: 10px 10px;
   // 好きな食べ物 / 嫌いな食べ物
   grid-template-areas:
-    "site site"
-    "favorite hate"
-    "contents contents"
-    "live-time live-time"
-    "free-space free-space";
+    'site site'
+    'favorite hate'
+    'contents contents'
+    'live-time live-time'
+    'free-space free-space';
   & > div {
     @extend %contents-border;
     span.box-title {
       @extend %box-title;
     }
   }
+}
+
+.link-edit {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows : repeat(5 , 1fr);
+  width : 100%;
+  color: gray !important;
+  .edit-title {
+    font-family: sans-serif;
+    color: black !important;
+    font-weight: bold;
+  }
+  input {
+    width: 100%;
+    margin-bottom: 2px;
+  }
+  font-family: sans-serif !important;
 }
 
 .favorite {
@@ -234,5 +262,28 @@ body,
     &:hover {
       opacity: 0.6;
     }
+  }
+}
+
+textarea {
+  padding-left: 3px !important;
+  width :100%;
+  padding-bottom: 5px;
+  resize: none;
+}
+
+.div-textarea {
+  width :100%;
+}
+
+.edit-gantt {
+  display: grid;
+  grid-template-columns: 80px 100px 100px;
+  gap: 5px;
+  border: solid 1px #345180;
+  color :gray;
+  padding : 5px;
+  input {
+    width :45px;
   }
 }

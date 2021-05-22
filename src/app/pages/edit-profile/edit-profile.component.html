@@ -5,93 +5,125 @@
       <div class="name">
         <span class="box-title"> おなまえ </span>
         <section>
-          <div class="name-font">くろ[れ]</div>
+          <div class="name-font">
+            <input type="text" [(ngModel)]="profile.name" />
+          </div>
         </section>
       </div>
       <div class="katakana">
         <span class="box-title"> ふりがな </span>
         <section>
-          <div>くろ</div>
+          <div>
+            <input type="text" [(ngModel)]="profile.nameKatakana" />
+          </div>
         </section>
       </div>
       <div class="nickname">
         <span class="box-title"> ニックネーム </span>
         <section>
-          <div>くろ<br />くろん<br>くっっっっっくろこん<br></div>
+          <div class="div-textarea">
+            <textarea rows="4" [(ngModel)]="profile.nickname"></textarea>
+          </div>
         </section>
       </div>
       <div class="stature">
         <span class="box-title"> 身長 </span>
         <section>
-          <div>14.3 MB</div>
+          <div>
+            <input type="text" [(ngModel)]="profile.stature" />
+          </div>
         </section>
       </div>
       <div class="birthday">
         <span class="box-title"> 誕生日 </span>
         <section>
-          <div>そのうち決める</div>
+          <div>
+            <input type="text" [(ngModel)]="profile.birthday" />
+          </div>
         </section>
       </div>
       <div class="sex">
         <span class="box-title"> 性別 </span>
         <section>
-          <div>おっさん</div>
+          <div>
+            <input type="text" [(ngModel)]="profile.sex" />
+          </div>
         </section>
       </div>
       <div class="view-count">
         <span class="box-title"> 総再生数 </span>
         <section>
-          <div>999999999999</div>
+          <div>{{ profile.viewCount }}</div>
         </section>
       </div>
       <div class="subscriber-count">
         <span class="box-title"> 登録者数 </span>
         <section>
-          <div>99999999999</div>
+          <div>{{ profile.subscriberCount }}</div>
         </section>
       </div>
       <div class="video-count">
         <span class="box-title"> 投稿動画 </span>
         <section>
-          <div>99999999999</div>
+          <div>{{ profile.videoCount }}</div>
         </section>
       </div>
       <div class="picture">
-        <img
-          src="https://yt3.ggpht.com/ytc/AAUvwng8d1P3CGzBEjFzefYDgxFdCXLJXUQ8Sc7Hkjfdkg=s240-c-k-c0x00ffffff-no-rj"
-          width="240px"
-          height="240px"
-        />
+        <img [src]="profile.youtubeThumbnailsUrl" width="240px" height="240px" />
       </div>
     </div>
-    <div class="grid-container2">
+    <div class="grid-container2 edit-mode">
       <div class="site">
         <span class="box-title"> リンク </span>
         <section>
-          <div class="site-font"><a href="http://www.htmq.com/style/border.shtml">ゆーちゅーぶ</a></div>
+          <div class="site-font link-edit">
+            <div class="edit-title">タイトル</div>
+            <div class="edit-title">URL</div>
+            <div>Youtube</div>
+            <div>https://www.youtube.com/channel/{{ profile.youtubeChannelId }}</div>
+            <ng-container *ngFor="let l of requestUserLinks; let i = index">
+              <div><input type="text" [(ngModel)]="requestUserLinks[i].name" /></div>
+              <div><input type="text" [(ngModel)]="requestUserLinks[i].url" /></div>
+            </ng-container>
+          </div>
         </section>
       </div>
       <div class="favorite">
         <span class="box-title"> 好き </span>
         <section>
-          <div>くろくろくろれ<br />１２３４５６７８９０１２３４５６７８９０１２３４５６７８９</div>
+          <div class="div-textarea">
+            <textarea rows="2" [(ngModel)]="profile.favorite"></textarea>
+          </div>
         </section>
       </div>
       <div class="hate">
         <span class="box-title"> きらい </span>
         <section>
-          <div>くろくろくろれ<br>大文字３０文字までっぽいね</div>
+          <div class="div-textarea">
+            <textarea rows="2" [(ngModel)]="profile.hate"></textarea>
+          </div>
         </section>
       </div>
       <div class="contents">
         <span class="box-title"> 活動内容 </span>
         <section>
-          <div>活動内容です。<br />活動内容活動内容活動内容活動内容活動内容活動</div>
+          <div class="div-textarea">
+            <textarea rows="2" [(ngModel)]="profile.contents"></textarea>
+          </div>
         </section>
       </div>
       <div class="live-time">
         <span class="box-title"> 配信時間 </span>
-        <div class="live-time-font">あああああああああああああああああ<br />いいいいいいいいいいいいいいいいいいい</div>
+        <div class="div-textarea" style="padding-top: 10px">
+          <textarea rows="2" [(ngModel)]="profile.liveTimeMessage"></textarea>
+        </div>
+        <div class="edit-gantt">
+          <ng-container *ngFor="let rts of requestUserTimeSchedules">
+            <span>{{ showDay(rts.dayType) }}</span>
+            <span><input type="number" [(ngModel)]="rts.startTime" />:00～</span>
+            <span><input type="number" [(ngModel)]="rts.endTime" />:59</span>
+          </ng-container>
+        </div>
         <div class="gantt">
           <div class="gantt__row gantt__row--times">
             <div class="gantt__row-first"></div>
@@ -107,16 +139,26 @@
           <div class="gantt__row">
             <div class="gantt__row-first">平日</div>
             <ul class="gantt__row-bars">
-              <li style="grid-column: 1/5"></li>
-              <li [style.grid-column]="'10/15'"></li>
+              <ng-container *ngFor="let week of requestUserTimeSchedules">
+                <ng-container
+                  *ngIf="checkTimeByTimeSchedule(week, 'weekdays') && week.startTime !== undefined && week.endTime !== undefined"
+                >
+                  <li [style.grid-column]="week.startTime + 1 + '/' + (week.endTime + 2)"></li>
+                </ng-container>
+              </ng-container>
             </ul>
           </div>
 
           <div class="gantt__row">
             <div class="gantt__row-first">休日</div>
             <ul class="gantt__row-bars">
-              <li style="grid-column: 1/4"></li>
-              <li style="grid-column: 22/25"></li>
+              <ng-container *ngFor="let week of requestUserTimeSchedules">
+                <ng-container
+                  *ngIf="checkTimeByTimeSchedule(week, 'holidays') && week.startTime !== undefined && week.endTime !== undefined"
+                >
+                  <li [style.grid-column]="week.startTime + 1 + '/' + (week.endTime + 2)"></li>
+                </ng-container>
+              </ng-container>
             </ul>
           </div>
         </div>
@@ -124,8 +166,24 @@
       <div class="free-space">
         <span class="box-title"> フリースペース </span>
         <section>
-          <div>活動内容です。<br />活動内容活動内容活動内容活動内容活動内容活動内容活動内容活動内容活動内容活動内容活動内容</div>
+          <div class="div-textarea">
+            <textarea rows="6" [(ngModel)]="profile.freeSpace"></textarea>
+          </div>
         </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 保存ボタン -->
+
+<hr />
+<div class="field is-horizontal">
+  <div class="field-label is-normal"></div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control">
+        <button class="button is-info" (click)="setProfile()">保存</button>
       </div>
     </div>
   </div>

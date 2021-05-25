@@ -118,7 +118,30 @@ export class RequestClientService {
    * @param requestProfile プロフィール情報
    */
   public patchProfile(requestProfile: RequestProfile): Observable<string> {
+    requestProfile.name = this._sliceProfileDataString(requestProfile.name);
+    requestProfile.nameKatakana = this._sliceProfileDataString(requestProfile.nameKatakana);
+    requestProfile.nickname = this._sliceProfileDataString(requestProfile.nickname);
+    requestProfile.stature = this._sliceProfileDataString(requestProfile.stature);
+    requestProfile.birthday = this._sliceProfileDataString(requestProfile.birthday);
+    requestProfile.sex = this._sliceProfileDataString(requestProfile.sex);
+    requestProfile.contents = this._sliceProfileDataText(requestProfile.contents);
+    requestProfile.liveTimeMessage = this._sliceProfileDataText(requestProfile.liveTimeMessage);
+    requestProfile.freeSpace = this._sliceProfileDataText(requestProfile.freeSpace);
     return this.httpClient.patch(`${environment.apiUrl}user/profile`, requestProfile, headerPatchJsonOption());
+  }
+
+  _sliceProfileDataString(str?: string): string {
+    if (typeof str === 'undefined') {
+      return '';
+    }
+    return str.slice(0, 200);
+  }
+
+  _sliceProfileDataText(str?: string): string {
+    if (typeof str === 'undefined') {
+      return '';
+    }
+    return str.slice(0, 300);
   }
 
   /**

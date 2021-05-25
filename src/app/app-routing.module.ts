@@ -25,7 +25,7 @@ const routes: Routes = [
     children: [
       {
         path: 'about',
-        component: AboutComponent
+        component: AboutComponent,
       },
       {
         path: 'terms',
@@ -60,14 +60,15 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent,
+    // component: ProfileComponent,
+    component: EditProfileComponent,
     canActivate: [AuthGuardService],
     // https://stackblitz.com/angular/vromeokjvrx?file=src%2Fapp%2Fapp-routing.module.ts
   },
   {
-    path : 'edit',
-    component : EditProfileComponent,
-    canActivate : [AuthGuardService]
+    path: 'edit',
+    component: EditProfileComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'admin',

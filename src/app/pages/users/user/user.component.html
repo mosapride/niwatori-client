@@ -8,7 +8,183 @@
   </div>
 </section>
 
-<div class="columns is-gapless" *ngIf="user">
+
+<div class="profile-body" style="padding-top : 0" *ngIf="user">
+  <div class="profile-are">
+    <div class="grid-container1">
+      <div class="name">
+        <span class="box-title"> おなまえ </span>
+        <section>
+          <div class="name-font">
+            {{user.name}}
+          </div>
+        </section>
+      </div>
+      <div class="katakana">
+        <span class="box-title"> ふりがな </span>
+        <section>
+          <div>
+            {{user.nameKatakana}}
+          </div>
+        </section>
+      </div>
+      <div class="nickname">
+        <span class="box-title"> ニックネーム </span>
+        <section>
+          <div class="div-textarea">
+            <pre>{{user.nickname}}</pre>
+          </div>
+        </section>
+      </div>
+      <div class="stature">
+        <span class="box-title"> 身長 </span>
+        <section>
+          <div>
+            {{user.stature}}
+          </div>
+        </section>
+      </div>
+      <div class="birthday">
+        <span class="box-title"> 誕生日 </span>
+        <section>
+          <div>
+            {{user.birthday}}
+          </div>
+        </section>
+      </div>
+      <div class="sex">
+        <span class="box-title"> 性別 </span>
+        <section>
+          <div>
+            {{user.sex}}
+          </div>
+        </section>
+      </div>
+      <div class="view-count">
+        <span class="box-title"> 総再生数 </span>
+        <section>
+          <div>{{ user.viewCount }}</div>
+        </section>
+      </div>
+      <div class="subscriber-count">
+        <span class="box-title"> 登録者数 </span>
+        <section>
+          <div>{{ user.subscriberCount }}</div>
+        </section>
+      </div>
+      <div class="video-count">
+        <span class="box-title"> 投稿動画 </span>
+        <section>
+          <div>{{ user.videoCount }}</div>
+        </section>
+      </div>
+      <div class="picture">
+        <img [src]="user.youtubeThumbnailsUrl" width="240px" height="240px" />
+      </div>
+    </div>
+    <div class="grid-container2">
+      <div class="site">
+        <span class="box-title"> リンク </span>
+        <section>
+          <div class="site-font">
+            <a [href]="'https://www.youtube.com/channel/'+ user.youtubeChannelId" target="_blank" rel="noopener">Youtube</a>&nbsp;
+            <ng-container *ngFor="let l of requestUserLinks">
+              <a [href]="l.url" target="_blank" rel="noopener">{{l.name}}</a>&nbsp;
+            </ng-container>
+          </div>
+        </section>
+      </div>
+      <div class="favorite">
+        <span class="box-title"> 好き </span>
+        <section>
+          <div class="div-textarea">
+            <pre>{{user.favorite}}</pre>
+          </div>
+        </section>
+      </div>
+      <div class="hate">
+        <span class="box-title"> きらい </span>
+        <section>
+          <div class="div-textarea">
+            <pre>{{user.hate}}</pre>
+          </div>
+        </section>
+      </div>
+      <div class="contents">
+        <span class="box-title"> 活動内容 </span>
+        <section>
+          <div class="div-textarea">
+            <pre>{{user.contents}}</pre>
+          </div>
+        </section>
+      </div>
+      <div class="live-time">
+        <span class="box-title"> 配信時間 </span>
+        <div class="div-textarea">
+          <pre class="live-time-message">{{user.liveTimeMessage}}</pre>
+        </div>
+        <!-- <div class="edit-gantt"> -->
+          <!-- <ng-container *ngFor="let rts of requestUserTimeSchedules">
+            <span>{{ showDay(rts.dayType) }}</span>
+            <span><input type="number" [(ngModel)]="rts.startTime" />:00～</span>
+            <span><input type="number" [(ngModel)]="rts.endTime" />:59</span>
+          </ng-container> -->
+        <!-- </div> -->
+        <div class="gantt">
+          <div class="gantt__row gantt__row--times">
+            <div class="gantt__row-first"></div>
+            <span>0</span><span></span><span></span> <span>3</span><span></span><span></span> <span>6</span><span></span><span></span>
+            <span>9</span><span></span><span></span> <span>12</span><span></span><span></span> <span>15</span><span></span><span></span>
+            <span>18</span><span></span><span></span> <span>21</span><span></span><span></span>
+          </div>
+          <div class="gantt__row gantt__row--lines" data-month="5">
+            <span></span><span></span><span></span> <span></span><span></span><span></span> <span></span><span></span><span></span>
+            <span></span><span></span><span></span> <span></span><span></span><span></span> <span></span><span></span><span></span>
+            <span></span><span></span><span></span> <span></span><span></span><span></span>
+          </div>
+          <div class="gantt__row">
+            <div class="gantt__row-first">平日</div>
+            <ul class="gantt__row-bars">
+              <ng-container *ngFor="let week of requestUserTimeSchedules">
+                <ng-container
+                  *ngIf="checkTimeByTimeSchedule(week, 'weekdays') && week.startTime !== undefined && week.endTime !== undefined"
+                >
+                  <li [style.grid-column]="week.startTime + 1 + '/' + (week.endTime + 2)"></li>
+                </ng-container>
+              </ng-container>
+            </ul>
+          </div>
+
+          <div class="gantt__row">
+            <div class="gantt__row-first">休日</div>
+            <ul class="gantt__row-bars">
+              <ng-container *ngFor="let week of requestUserTimeSchedules">
+                <ng-container
+                  *ngIf="checkTimeByTimeSchedule(week, 'holidays') && week.startTime !== undefined && week.endTime !== undefined"
+                >
+                  <li [style.grid-column]="week.startTime + 1 + '/' + (week.endTime + 2)"></li>
+                </ng-container>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="free-space">
+        <span class="box-title"> フリースペース </span>
+        <section>
+          <div class="div-textarea">
+            <pre>{{user.freeSpace}}</pre>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <div class="columns is-gapless" *ngIf="user">
   <div class="column is-4">
     <p class="profile-image">
       <img [src]="user.youtubeThumbnailsUrl" style="max-width: 240px" />
@@ -36,13 +212,13 @@
     <app-show-genre [genres]="responseFindGenres"></app-show-genre>
     <pre>{{ user.selfIntroduction }}</pre>
   </div>
-</div>
+</div> -->
 
 <ng-container *ngIf="profileImages.length !== 0">
   <section class="hero is-light is-info is-bold my-5">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">立ち絵</h1>
+        <h1 class="title">Photo</h1>
       </div>
     </div>
   </section>

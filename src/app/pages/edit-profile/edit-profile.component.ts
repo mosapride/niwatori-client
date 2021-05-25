@@ -15,7 +15,7 @@ import { RequestUserLinks, ResponseUserLinks, UserLink } from 'src/app/dto/user.
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss'],
+  styleUrls: ['./edit-profile.component.scss', '../util/lightbox-img-grid/lightbox-img-grid.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
   profile: Partial<User> = {};
@@ -87,9 +87,9 @@ export class EditProfileComponent implements OnInit {
           this.requestUserLinks = link;
           const linksLen = this.requestUserLinks.length;
           for (let i = linksLen; i < 5; i++) {
-            this.requestUserLinks.push({sort : i});
+            this.requestUserLinks.push({ sort: i });
           }
-          console.log(this.requestUserLinks)
+          console.log(this.requestUserLinks);
         });
       }
     });
@@ -173,10 +173,18 @@ export class EditProfileComponent implements OnInit {
     // 配信時間
     const rts: RequestUserTimeSchedules = [];
     for (const ruts of this.requestUserTimeSchedules) {
-      if (ruts.dayType && ruts.endTime && ruts.startTime) {
+      if (
+        typeof ruts.dayType !== 'undefined' &&
+        typeof ruts.endTime !== 'undefined' &&
+        typeof ruts.startTime !== 'undefined' &&
+        ruts.dayType &&
+        Number.isInteger(ruts.endTime) &&
+        Number.isInteger(ruts.startTime)
+      ) {
         rts.push({ dayType: ruts.dayType, endTime: ruts.endTime, startTime: ruts.startTime });
       }
     }
+
     await this.requestClientService.postTimeSchedule(rts).toPromise().then();
 
     this.requestClientService.profile().subscribe(

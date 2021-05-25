@@ -1,3 +1,8 @@
+<div class="with-drawl">
+  <button class="button is-danger" (click)="withDrawal()">退会する</button>
+  <p>すべてのデータを削除します。</p>
+</div>
+
 <div class="profile-body">
   <h2>プロフィール　編集画面</h2>
   <div class="profile-are">
@@ -172,19 +177,48 @@
         </section>
       </div>
     </div>
+    <div class="save-button">
+      <button class="button is-info" (click)="setProfile()">保存</button>
+    </div>
   </div>
 </div>
 
 <!-- 保存ボタン -->
 
 <hr />
-<div class="field is-horizontal">
-  <div class="field-label is-normal"></div>
-  <div class="field-body">
-    <div class="field">
-      <div class="control">
-        <button class="button is-info" (click)="setProfile()">保存</button>
-      </div>
-    </div>
+<h2>Photo</h2>
+<div class="label">アップロード済み</div>
+<app-lightbox-img-grid [images]="profileImages" [doDelete]="true" (deleteImageEmitter)="deleteImg($event)"></app-lightbox-img-grid>
+<div class="description">
+  コラボ等で使用する立ち絵画像をアップロードすることができます。
+  <ol type="a" class="remarks">
+    <li>png,jpg,jpeg形式のみ</li>
+    <li>1ファイル当たり最大2MBまで</li>
+    <li>最大10ファイル(アップロード済み含む)</li>
+  </ol>
+</div>
+<div><input type="file" class="my-1" multiple accept=".png,.jpg,.jpeg" (change)="fileView($event)" /></div>
+<div
+  class="upload-file"
+  [ngClass]="imageDropActiveFlg ? 'active' : 'none-active'"
+  (dragover)="handleDragOver($event)"
+  (drop)="fileView($event)"
+  (dragenter)="imageDropActiveFlg = true"
+  (dragleave)="imageDropActiveFlg = false"
+>
+  <i class="far fa-images mr-1"></i>画像(png,jpg,jpeg)をドロップで追加
+</div>
+
+<div class="profile-grid mt-3" *ngIf="uploadProfileLocalUrl.length !== 0">
+  <div *ngFor="let i of uploadProfileLocalUrl; let ix = index" class="grid-column no-hover">
+    <img [src]="i" class="profile-img" />
+    <i class="fa-2x fas fa-trash-alt profile-remove-icon" (click)="spliceUploadProfile(ix)"></i>
   </div>
+</div>
+<div class="has-text-danger" *ngIf="uploadProfileLocalUrl.length + profileImages.length > 10">
+  画像ファイルが多すぎます。既存の画像ファイルまたはアップロードする画像ファイルを削除してください。
+</div>
+<div class="mt-3 v-item-center">
+  <button class="button is-info is-outlined" (click)="imageUpload()" [disabled]="isDisabledUpload()">アップロード</button>
+  <span class="ml-5" *ngIf="uploading">アップロード中.....</span>
 </div>

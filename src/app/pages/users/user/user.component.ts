@@ -5,15 +5,24 @@ import { RequestUser } from '../../../dto/user.dto';
 import { ELiveBroadcastContent, Video } from 'src/app/dto/video.dto';
 import { RequestClientService } from 'src/app/service/request-client.service';
 import { SeoService } from 'src/app/service/seo.service';
+import { DateType, RequestUserTimeSchedules, UserTimeSchedule } from 'src/app/dto/user.time.schedule.dto';
+import { RequestUserLinks, ResponseUserLinks } from 'src/app/dto/user.link.dto';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
+  styleUrls: [
+    './user.component.scss',
+    '../../edit-profile/_font.scss',
+    '../../edit-profile/_gantt.scss',
+    '../../edit-profile/_profile.scss',
+  ],
 })
 export class UserComponent implements OnInit {
   youtubeChannelId = '';
   responseFindGenres: ResponseFindGenre[] = [];
+  requestUserTimeSchedules: RequestUserTimeSchedules = [];
+  requestUserLinks: RequestUserLinks = [];
   videos: Video[] = [];
   user: RequestUser | undefined;
   profileImages: string[] = [];
@@ -37,11 +46,9 @@ export class UserComponent implements OnInit {
           this.getResponseFindGenres();
         }
       },
-      () => {
-      }
+      () => {}
     );
     this.getProfileImage(this.youtubeChannelId);
-
   }
 
   private setSeo(): void {
@@ -112,7 +119,12 @@ export class UserComponent implements OnInit {
     this.requestClientService.getUser(youtubeChannelId).subscribe(
       (data) => {
         this.user = data;
-        // this.titleService.setTitle(`${this.user.youtubeChannelName} - 箱庭`);
+        this.requestClientService.getLinks(this.user.youtubeChannelId).subscribe((links) => {
+          this.requestUserLinks = links;
+        });
+        this.requestClientService.getTimeSchedule(this.user.youtubeChannelId).subscribe((time) => {
+          this.requestUserTimeSchedules = time;
+        });
         this.setSeo();
       },
       () => {}
@@ -190,5 +202,23 @@ export class UserComponent implements OnInit {
     }
 
     return rtnStr;
+  }
+
+  /**
+   * 配信時間が正常に設定されているか判断を行う。
+   * @param st 配信予定オブジェクト
+   * @returns true:正常時間、false:異常時間
+   */
+  checkTimeByTimeSchedule(req: Omit<UserTimeSchedule, 'id'>, dateType: DateType): boolean {
+    if (!req.dayType) {
+      return false;
+    }
+    if (req.dayType !== dateType) {
+      return false;
+    }
+    if (Number.isInteger(req.startTime) && Number.isInteger(req.endTime)) {
+      return true;
+    }
+    return false;
   }
 }

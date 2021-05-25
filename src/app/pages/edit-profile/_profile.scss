@@ -6,7 +6,7 @@ $size-len: 30;
 $position-len: 10;
 
 // 枠内レイアウト
-%contents-border {
+@mixin contents-border {
   position: relative;
   padding: 0.5em 1em;
   border: solid 3px #345180;
@@ -14,7 +14,7 @@ $position-len: 10;
   background: #fff;
 }
 
-%box-title {
+@mixin box-title {
   position: absolute;
   display: inline-block;
   top: 3px;
@@ -36,7 +36,21 @@ $position-len: 10;
       color: #486189;
       font-weight: bold;
     }
+    > div pre {
+      font-family: 'Hachi Maru Pop', cursive;
+      color: #486189;
+      font-weight: bold;
+      padding: 0px 15px;
+      margin-top: 5px;
+    }
   }
+}
+
+.live-time-message {
+  font-family: 'Hachi Maru Pop', cursive;
+  color: #486189;
+  font-weight: bold;
+  padding: 20px 15px 0px 15px;
 }
 
 %count-format {
@@ -65,7 +79,7 @@ $position-len: 10;
   width: 100%;
   min-height: 100vh;
   color: $primary-color !important;
-  padding-top: 100px;
+  // padding-top: 100px;
 }
 
 h2 {
@@ -75,9 +89,14 @@ h2 {
 }
 
 .profile-are {
-  width: 880px;
   //   background-color: white;
   margin: 0 auto;
+  @media screen and (min-width: 880px) {
+    width: 880px;
+  }
+  @media screen and (min-width: 0px) and (max-width: 879px) {
+    width: 100%;
+  }
 }
 
 .profile-contents {
@@ -97,18 +116,48 @@ body,
 
 .grid-container1 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 240px;
-  grid-template-rows: 30px 90px 50px 40px;
+
+  @media screen and (min-width: 880px) {
+    grid-template-columns: 1fr 1fr 1fr 240px;
+    grid-template-rows: 30px 90px 50px 40px;
+    // grid-template-rows: auto;
+  }
+  @media screen and (min-width: 0px) and (max-width: 879px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
   gap: 10px 10px;
-  grid-template-areas:
-    'katakana katakana nickname picture'
-    'name name nickname  picture'
-    'sex birthday stature picture'
-    'view-count subscriber-count video-count picture';
-  & > div {
-    @extend %contents-border;
-    span.box-title {
-      @extend %box-title;
+  @media screen and (min-width: 880px) {
+    grid-template-areas:
+      'katakana katakana nickname picture'
+      'name name nickname  picture'
+      'sex birthday stature picture'
+      'view-count subscriber-count video-count picture';
+    & > div {
+      @include contents-border;
+      span.box-title {
+        @include box-title;
+      }
+    }
+  }
+  @media screen and (min-width: 0px) and (max-width: 879px) {
+    grid-template-areas:
+      'picture'
+      'katakana '
+      'name'
+      'nickname'
+      'sex'
+      'birthday'
+      'stature'
+      'view-count'
+      'subscriber-count'
+      'video-count'
+      ;
+    & > div {
+      @include contents-border;
+      span.box-title {
+        @include box-title;
+      }
     }
   }
 }
@@ -169,6 +218,7 @@ body,
   padding: 0 !important;
   border: unset !important;
   background-color: white !important;
+  text-align: center;
 }
 
 .nickname {
@@ -215,9 +265,9 @@ body,
     'live-time live-time'
     'free-space free-space';
   & > div {
-    @extend %contents-border;
+    @include contents-border;
     span.box-title {
-      @extend %box-title;
+      @include box-title;
     }
   }
 }
@@ -225,8 +275,8 @@ body,
 .link-edit {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows : repeat(5 , 1fr);
-  width : 100%;
+  grid-template-rows: repeat(5, 1fr);
+  width: 100%;
   color: gray !important;
   .edit-title {
     font-family: sans-serif;
@@ -267,13 +317,13 @@ body,
 
 textarea {
   padding-left: 3px !important;
-  width :100%;
+  width: 100%;
   padding-bottom: 5px;
   resize: none;
 }
 
 .div-textarea {
-  width :100%;
+  width: 100%;
 }
 
 .edit-gantt {
@@ -281,9 +331,9 @@ textarea {
   grid-template-columns: 80px 100px 100px;
   gap: 5px;
   border: solid 1px #345180;
-  color :gray;
-  padding : 5px;
+  color: gray;
+  padding: 5px;
   input {
-    width :45px;
+    width: 45px;
   }
 }

@@ -46,7 +46,8 @@
             ><span class="login-profile">{{ userInfoService.getUserInfo().youtubeChannelName }}<br />アカウント＆設定</span></a
           >
           <mat-menu #menu="matMenu" xPosition="before">
-            <a class="navbar-item" (click)="navbarActive = false" routerLink="profile"> Profile </a>
+            <a class="navbar-item" (click)="navbarActive = false" [routerLink]="'/u/' + youtubeChannelId"> プロフィール画面 </a>
+            <a class="navbar-item" (click)="navbarActive = false" routerLink="profile"> プロフィール編集 </a>
             <a *ngIf="role === admin" class="navbar-item" (click)="navbarActive = false" routerLink="admin"> 管理画面 </a>
             <a class="navbar-item" (click)="logout()">ログアウト </a>
           </mat-menu>

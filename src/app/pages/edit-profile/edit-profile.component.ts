@@ -89,7 +89,6 @@ export class EditProfileComponent implements OnInit {
           for (let i = linksLen; i < 5; i++) {
             this.requestUserLinks.push({ sort: i });
           }
-          console.log(this.requestUserLinks);
         });
       }
     });
@@ -158,7 +157,6 @@ export class EditProfileComponent implements OnInit {
     );
     await this.requestClientService.patchHasGenre(hasGenres).toPromise().then();
 
-    console.log(this.requestUserLinks);
     // カスタムリンク
     const rul: RequestUserLinks = [];
     let index = 0;
@@ -167,7 +165,6 @@ export class EditProfileComponent implements OnInit {
         rul.push({ name: ul.name, sort: index++, url: ul.url });
       }
     }
-    console.log(rul);
     await this.requestClientService.postLinks(rul).toPromise().then();
 
     // 配信時間

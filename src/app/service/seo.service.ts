@@ -27,7 +27,6 @@ export class SeoService {
       title = '箱庭 - Hakoniwa';
     }
     this.titleService.setTitle(title);
-    console.log(url);
 
     this.setPropertyTag({ property: 'og:title', content: title });
     this.setPropertyTag({ property: 'og:description', content: description });

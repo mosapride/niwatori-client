@@ -131,14 +131,14 @@ export class RequestClientService {
   }
 
   _sliceProfileDataString(str?: string): string {
-    if (typeof str === 'undefined') {
+    if (!str) {
       return '';
     }
     return str.slice(0, 200);
   }
 
   _sliceProfileDataText(str?: string): string {
-    if (typeof str === 'undefined') {
+    if (!str) {
       return '';
     }
     return str.slice(0, 300);

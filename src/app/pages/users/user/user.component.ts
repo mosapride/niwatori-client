@@ -54,7 +54,7 @@ export class UserComponent implements OnInit {
   private setSeo(): void {
     if (this.user) {
       this.seoService.setUserInfo(
-        this.user.youtubeChannelName,
+        this.user.youtubeChannelName + ' プロフィール帳',
         this.user.youtubeChannelId,
         this.user.youtubeDescription,
         this.user.youtubeThumbnailsUrl

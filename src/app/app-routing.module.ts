@@ -14,6 +14,7 @@ import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { ToolsComponent } from './pages/tools/tools.component';
 
 const routes: Routes = [
   {
@@ -76,7 +77,10 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     // https://stackblitz.com/angular/vromeokjvrx?file=src%2Fapp%2Fapp-routing.module.ts
   },
-
+  {
+    path : 'tools',
+    component : ToolsComponent
+  },
   {
     path: 'login',
     component: LoginComponent,

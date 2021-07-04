@@ -28,6 +28,8 @@
         <a class="navbar-link"> More </a>
 
         <div class="navbar-dropdown">
+          <a (click)="navbarActive = false" routerLink="/tools" class="navbar-item">Tools</a>
+          <hr class="navbar-divider" />
           <a (click)="navbarActive = false" routerLink="more/about" class="navbar-item">About</a>
           <hr class="navbar-divider" />
           <a (click)="navbarActive = false" routerLink="more/terms" class="navbar-item">利用規約</a>

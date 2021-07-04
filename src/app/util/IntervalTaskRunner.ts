@@ -79,7 +79,7 @@ export class IntervalTaskRunner {
    * タスクの実行を行う。
    * 定期実行しているタスクは多重起動しない。
    */
-  run(): void {
+  run(): number | undefined {
     if (this.intervalId !== undefined) {
       return;
     }
@@ -92,6 +92,7 @@ export class IntervalTaskRunner {
         this.destroy();
       }
     }, this.checkIntervalMS);
+    return this.intervalId;
   }
 
   /**

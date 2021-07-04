@@ -27,6 +27,7 @@ import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { ToolsComponent } from './pages/tools/tools.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
     UseAssetComponent,
     AdminComponent,
     EditProfileComponent,
+    ToolsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 # 庭箱
 
-[箱庭](https://hako.v-kurore.com)のclientサイドプロジェクト。
+[箱庭](https://freeboll.com)のclientサイドプロジェクト。
 
 clientサイトなのでOSSでもいいと公開。
 

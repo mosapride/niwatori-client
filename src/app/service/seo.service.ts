@@ -19,7 +19,7 @@ export class SeoService {
 
   setDefault(title?: string, url?: string): void {
     const description = '箱庭はYoutube配信者のコミュニティーサービスを提供します。自由に登録、自由に脱退が本望。';
-    const img = 'https://hako.v-kurore.com/assets/og-image1200x630.png';
+    const img = 'https://freeboll.com/assets/og-image1200x630.png';
     if (!url) {
       url = location.href;
     }
@@ -47,7 +47,7 @@ export class SeoService {
       .replace(/\r?\n|/g, '')
       .replace(/\x20+|\u3000+/g, ' ')
       .slice(0, 100);
-    const url = `https://hako.v-kurore.com/u/${youtubeChannelId}`;
+    const url = `https://freeboll.com/u/${youtubeChannelId}`;
     this.titleService.setTitle(title);
     this.setPropertyTag({ property: 'og:title', content: title });
     this.setPropertyTag({ property: 'og:description', content: description });

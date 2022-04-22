@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "kuro-yubune"
+  "defaultProject": "kuro-yubune",
+  "cli": {
+    "analytics": "da75ca21-d37c-4790-bdad-1c20a481f80a"
+  }
 }

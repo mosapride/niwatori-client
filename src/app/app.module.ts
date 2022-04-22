@@ -28,6 +28,8 @@ import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { ToolsComponent } from './pages/tools/tools.component';
+import { GroupComponent } from './pages/group/group.component';
+import { EditGroupComponent } from './pages/edit-group/edit-group.component';
 
 @NgModule({
   declarations: [
@@ -47,10 +49,12 @@ import { ToolsComponent } from './pages/tools/tools.component';
     LightboxImgGridComponent,
     ConfirmDialogComponent,
     ScheduleComponent,
+    GroupComponent,
     UseAssetComponent,
     AdminComponent,
     EditProfileComponent,
     ToolsComponent,
+    EditGroupComponent,
   ],
   imports: [
     BrowserModule,

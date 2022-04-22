@@ -21,6 +21,8 @@
 
   <div id="navbarBasicExample" class="navbar-menu" [ngClass]="{ 'is-active': navbarActive }">
     <div class="navbar-start">
+      <a class="navbar-item" routerLink="group" (click)="navbarActive = false"> グループ </a>
+      <a class="navbar-item" routerLink="editGroup" (click)="navbarActive = false"> 暫定のグループ作成 </a>
       <a class="navbar-item" routerLink="schedule" (click)="navbarActive = false"> スケジュール </a>
 
       <a class="navbar-item" (click)="navbarActive = false" routerLink="profile" routerLink="u"> 配信者 </a>

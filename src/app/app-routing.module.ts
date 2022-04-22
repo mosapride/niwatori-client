@@ -15,6 +15,8 @@ import { UseAssetComponent } from './pages/more/use-asset/use-asset.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { ToolsComponent } from './pages/tools/tools.component';
+import { GroupComponent } from './pages/group/group.component';
+import { EditGroupComponent } from './pages/edit-group/edit-group.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,14 @@ const routes: Routes = [
         component: UseAssetComponent,
       },
     ],
+  },
+  {
+    path: 'editGroup',
+    component: EditGroupComponent,
+  },
+  {
+    path: 'group',
+    component: GroupComponent,
   },
   {
     path: 'schedule',
@@ -78,8 +88,8 @@ const routes: Routes = [
     // https://stackblitz.com/angular/vromeokjvrx?file=src%2Fapp%2Fapp-routing.module.ts
   },
   {
-    path : 'tools',
-    component : ToolsComponent
+    path: 'tools',
+    component: ToolsComponent,
   },
   {
     path: 'login',
